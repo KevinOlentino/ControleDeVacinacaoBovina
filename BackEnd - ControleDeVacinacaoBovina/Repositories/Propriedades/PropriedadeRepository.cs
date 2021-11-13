@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Data;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeVacinacaoBovina.Repositories.Propriedades
 {
@@ -12,24 +14,28 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
         public PropriedadeRepository(Contexto novoContexto) : base(novoContexto)
         {
         }
-        public async Task<Propriedade> Editar(Propriedade propridade)
+        public async Task Editar(Propriedade propriedade)
         {
-            throw new NotImplementedException();
+            _contexto.Propriedades.Update(propriedade);
+             await _contexto.SaveChangesAsync();
         }
 
         public async Task<Propriedade> GetByIncricao(string inscricaoEstadual)
         {
-            throw new NotImplementedException();
+            return await _contexto.Propriedades.FirstOrDefaultAsync(propriedade => propriedade.IncricaoEstadual == inscricaoEstadual);
         }
 
         public async Task<Propriedade> GetByProdutor(Produtor produtor)
         {
-            throw new NotImplementedException();
+            return await _contexto.Propriedades.FirstOrDefaultAsync(propriedade => propriedade.Produtor == produtor);
         }
 
-        public async void Incluir(Propriedade propridade)
+        public async Task<Propriedade> Incluir(Propriedade propriedade)
         {
-            throw new NotImplementedException();
+            await _contexto.Propriedades.AddAsync(propriedade);
+            await _contexto.SaveChangesAsync();
+
+            return propriedade;
         }
     }
 }

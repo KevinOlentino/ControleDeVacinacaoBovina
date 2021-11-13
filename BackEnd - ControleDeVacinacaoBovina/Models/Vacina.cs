@@ -12,5 +12,7 @@ namespace ControleDeVacinacaoBovina.Models
         public string Doenca { get; set; }
         public string Tipo { get; set; }
         public string Marca { get; set; }
+
+        public List<Vacina> Vacinas;
     }
 }

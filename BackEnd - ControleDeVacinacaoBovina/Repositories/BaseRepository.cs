@@ -8,7 +8,7 @@ namespace ControleDeVacinacaoBovina.Repository
 {
     public class BaseRepository
     {
-        private readonly Contexto _contexto;
+        protected readonly Contexto _contexto;
 
         public BaseRepository(Contexto novoContexto)
         {

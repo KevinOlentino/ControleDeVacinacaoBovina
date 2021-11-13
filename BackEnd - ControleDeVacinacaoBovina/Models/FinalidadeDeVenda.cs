@@ -9,5 +9,7 @@ namespace ControleDeVacinacaoBovina.Models
     {
         public int IdFinalidadeDeVenda { get; set; }
         public string Nome { get; set; }
+
+        public List<Venda> Vendas;
     }
 }

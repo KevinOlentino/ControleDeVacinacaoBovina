@@ -9,7 +9,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Vacinas
     interface IVacinaRepository
     {
         Task<Vacina> GetById(int id);
-        void Incluir(Vacina vacina);
-        Task<Vacina> Editar(Vacina vacina);
+        Task<Vacina> Incluir(Vacina vacina);
+        void Editar(Vacina vacina);
     }
 }

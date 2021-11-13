@@ -7,9 +7,19 @@ namespace ControleDeVacinacaoBovina.Models
 {
     public class Endereco
     {
-        public int IdEndereco { get; set; }
+        public int? IdEndereco { get; set; }
         public string Rua { get; set; }
         public string Numero { get;set; }
-        public Municipio Municipio { get; set; }
+        public int IdMunicipio { private get; set; }
+        public Municipio Municipio { get; }
+
+        public List<Produtor> Produtores;
+        public List<Propriedade> Propriedades;
+
+        public int getMunicipio()
+        {
+            return IdMunicipio;
+        }
+
     }
 }

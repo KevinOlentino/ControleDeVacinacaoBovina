@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Repositories.Propriedades
 {
-    interface IPropriedadeRepository
+    public interface IPropriedadeRepository
     {
-        void Incluir(Propriedade propriedade);
-        Task<Propriedade> Editar(Propriedade propriedade);
+        Task<Propriedade> Incluir(Propriedade propriedade);
+        Task Editar(Propriedade propriedade);
         Task<Propriedade> GetByProdutor(Produtor produtor);
         Task<Propriedade> GetByIncricao(string inscricaoEstadual);
     }

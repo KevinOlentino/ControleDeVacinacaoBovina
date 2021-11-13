@@ -9,8 +9,8 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
 {
     public interface IPropriedadeService
     {
-        Task<IActionResult> AddAsync(Propriedade propriedade);
-        Task<Propriedade> Editar(Propriedade propriedade);
+        Task<Propriedade> Incluir(Propriedade propriedade);
+        void Editar(Propriedade propriedade);
         Task<Propriedade> GetByInscricao(string InscricaoEstadual);
         Task<Propriedade> GetByProdutor(Produtor produtor);
     }
