@@ -16,14 +16,14 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
             _propriedadeRepository = propriedadeRepository;
         }
 
-        public async Task<Propriedade> Incluir(Propriedade propriedade)
-        {
-            return await _propriedadeRepository.Incluir(propriedade);
+        public Propriedade Incluir(Propriedade propriedade)
+        {              
+            return _propriedadeRepository.Incluir(propriedade);
         }
 
-        public async void Editar(Propriedade propriedade)
+        public void Editar(Propriedade propriedade)
         {            
-            await _propriedadeRepository.Editar(propriedade);                       
+            _propriedadeRepository.Editar(propriedade);                       
         }
 
         public async Task<Propriedade> GetByInscricao(string InscricaoEstadual)

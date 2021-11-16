@@ -1,10 +1,12 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
+namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
 {
-    public interface IRegistroVacinaRepository
+    interface IRegistroVacinaService
     {
         void Incluir(RegistroVacinacao registroVacina);
         void Cancelar(int id);

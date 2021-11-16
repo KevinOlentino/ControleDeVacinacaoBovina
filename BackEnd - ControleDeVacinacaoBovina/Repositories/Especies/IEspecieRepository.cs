@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Repositories.Especies
 {
-    interface IEspecieRepository
+    public interface IEspecieRepository
     {
         Task<Especie> GetById(int id);        
     }

@@ -1,4 +1,5 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +10,24 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
     public class VendaRepository : BaseRepository, IVendaRepository
     {
         public VendaRepository(Contexto novoContexto) : base(novoContexto){ }
-        public async void Cancelar(int id)
+        public void Cancelar(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Produtor> GetByDestino(string produtor)
+        public IEnumerable<Venda> GetByDestino(int idProdutor)
         {
-            throw new NotImplementedException();
+            return _contexto.Vendas.Where(x => x.Destino.GetProdutor() == idProdutor);
         }
 
-        public async Task<Produtor> GetByOrigem(string produtor)
+        public IEnumerable<Venda> GetByOrigem(int idProdutor)
         {
-            throw new NotImplementedException();
+            return _contexto.Vendas.Where(x => x.Origem.GetProdutor() == idProdutor);
         }
 
-        public async void Incluir(Venda venda)
+        public void Incluir(Venda venda)
         {
-            throw new NotImplementedException();
+            _contexto.Vendas.Add(venda);
         }
     }
 }

@@ -13,6 +13,6 @@ namespace ControleDeVacinacaoBovina.Models
         public string Tipo { get; set; }
         public string Marca { get; set; }
 
-        public List<Vacina> Vacinas;
+        public List<RegistroVacinacao> RegistroVacinas;
     }
 }

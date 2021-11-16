@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 {
@@ -18,14 +19,16 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
             throw new NotImplementedException();
         }
 
-        public Task<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual)
+        public IEnumerable<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual)
         {
-            throw new NotImplementedException();
+            return _contexto.RegistroVacinacoes.Include(x => x.Animal)
+                                                .ThenInclude(x => x.Propriedade)
+                                                  .Where(x => x.Animal.Propriedade.IncricaoEstadual == IncricaoEstadual);
         }
 
         public void Incluir(RegistroVacinacao registroVacina)
         {
-            throw new NotImplementedException();
+            _contexto.RegistroVacinacoes.Add(registroVacina);
         }
     }
 }

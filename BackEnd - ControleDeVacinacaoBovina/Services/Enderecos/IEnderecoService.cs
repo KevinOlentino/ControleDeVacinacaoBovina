@@ -1,12 +1,9 @@
 ﻿using ControleDeVacinacaoBovina.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace ControleDeVacinacaoBovina.Repositories.Enderecos
+namespace ControleDeVacinacaoBovina.Services.Enderecos
 {
-    public interface IEnderecoRepository
+    interface IEnderecoService
     {
         Task<Endereco> GetById(int id);
         void Incluir(Endereco endereco);

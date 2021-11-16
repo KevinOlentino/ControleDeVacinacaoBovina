@@ -15,13 +15,13 @@ namespace ControleDeVacinacaoBovina.Models
         public Especie Especie { get; set; }
         public Propriedade Propriedade { get; set; }
 
-        public List<Vacina> Vacinas;
+        public List<RegistroVacinacao> RegistroVacinas;
 
-        public int getEspecie()
+        public int GetEspecie()
         {
             return IdEspecie;
         }
-        public int getPropriedade()
+        public int GetPropriedade()
         {
             return IdPropriedade;
         }

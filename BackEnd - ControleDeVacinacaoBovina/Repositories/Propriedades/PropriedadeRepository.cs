@@ -14,15 +14,17 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
         public PropriedadeRepository(Contexto novoContexto) : base(novoContexto)
         {
         }
-        public async Task Editar(Propriedade propriedade)
+        public void Editar(Propriedade propriedade)
         {
             _contexto.Propriedades.Update(propriedade);
-             await _contexto.SaveChangesAsync();
+            _contexto.SaveChanges();       
         }
 
         public async Task<Propriedade> GetByIncricao(string inscricaoEstadual)
-        {
-            return await _contexto.Propriedades.FirstOrDefaultAsync(propriedade => propriedade.IncricaoEstadual == inscricaoEstadual);
+        {            
+            return await _contexto.Propriedades.Include(propriedade => propriedade.Endereco).ThenInclude(endereco => endereco.Municipio)
+                                            .Include(propriedade => propriedade.Produtor)
+                                                .FirstOrDefaultAsync(propriedade => propriedade.IncricaoEstadual == inscricaoEstadual);
         }
 
         public async Task<Propriedade> GetByProdutor(Produtor produtor)
@@ -30,10 +32,10 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
             return await _contexto.Propriedades.FirstOrDefaultAsync(propriedade => propriedade.Produtor == produtor);
         }
 
-        public async Task<Propriedade> Incluir(Propriedade propriedade)
-        {
-            await _contexto.Propriedades.AddAsync(propriedade);
-            await _contexto.SaveChangesAsync();
+        public Propriedade Incluir(Propriedade propriedade)
+        {           
+            _contexto.Propriedades.Add(propriedade);
+            _contexto.SaveChanges();
 
             return propriedade;
         }

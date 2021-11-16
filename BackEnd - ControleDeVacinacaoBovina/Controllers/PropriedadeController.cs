@@ -20,7 +20,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             this.propriedadeService = propriedadeService;
         }
 
-        [HttpGet("incricao/{inscricao}")]
+        [HttpGet("inscricao/{inscricao}")]
         public async Task<ActionResult<Propriedade>> GetByInscricao(string inscricao)
         {
             return Ok(await propriedadeService.GetByInscricao(inscricao));
@@ -29,11 +29,11 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpGet("produtor/{produtor}")]
         public ActionResult<Propriedade> GetByProdutor(Produtor produtor)
         {
-           return Ok(propriedadeService.GetByProdutor(produtor));
+            return Ok(propriedadeService.GetByProdutor(produtor));
         }
-
+        
         [HttpPost]
-        public ActionResult<Propriedade> Incluir(Propriedade propriedade)
+        public ActionResult Incluir(Propriedade propriedade)
         {
            return Ok(propriedadeService.Incluir(propriedade));
         }
@@ -41,7 +41,13 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpPut]
         public ActionResult Editar(Propriedade propriedade)
         {
-            propriedadeService.Editar(propriedade);
+            try
+            {
+                propriedadeService.Editar(propriedade);
+            }catch(Exception ex)
+            {
+                return NotFound(ex);
+            }
             return NoContent();
         }
     }

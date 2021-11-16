@@ -1,10 +1,9 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 
-namespace ControleDeVacinacaoBovina.Repositories.Animais
+namespace ControleDeVacinacaoBovina.Services.Animais
 {
-    public interface IAnimalRepository
+    interface IAnimalService
     {
         void Incluir(Animal animal);
         void Cancelar(int id);

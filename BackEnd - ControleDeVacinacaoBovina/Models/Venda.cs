@@ -20,19 +20,19 @@ namespace ControleDeVacinacaoBovina.Models
         public Especie Especie { get; set; }
         public FinalidadeDeVenda FinalidadeDeVenda { get; set; }
 
-        public int getOrigem()
+        public int GetOrigem()
         {
             return IdOrigem;
         }
-        public int getDestino()
+        public int GetDestino()
         {
             return IdDestino;
         }
-        public int getEspecie()
+        public int GetEspecie()
         {
             return IdEspecie;
         }
-        public int getFinalidadeDeVenda()
+        public int GetFinalidadeDeVenda()
         {
             return IdFinalidadeDeVenda;
         }

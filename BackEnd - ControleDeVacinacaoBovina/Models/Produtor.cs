@@ -15,7 +15,7 @@ namespace ControleDeVacinacaoBovina.Models
 
         public List<Propriedade> Propriedades;
 
-        public int getEndereco()
+        public int GetEndereco()
         {
             return IdEndereco;
         }

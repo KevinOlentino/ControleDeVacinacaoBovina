@@ -8,8 +8,8 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
 {
     public interface IPropriedadeRepository
     {
-        Task<Propriedade> Incluir(Propriedade propriedade);
-        Task Editar(Propriedade propriedade);
+        Propriedade Incluir(Propriedade propriedade);
+        void Editar(Propriedade propriedade);
         Task<Propriedade> GetByProdutor(Produtor produtor);
         Task<Propriedade> GetByIncricao(string inscricaoEstadual);
     }

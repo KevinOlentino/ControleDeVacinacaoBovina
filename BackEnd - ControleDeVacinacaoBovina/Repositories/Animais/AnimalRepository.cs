@@ -2,6 +2,9 @@
 using ControleDeVacinacaoBovina.Models;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace ControleDeVacinacaoBovina.Repositories.Animais
 {
@@ -9,24 +12,35 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
     {
         public AnimalRepository(Contexto novoContexto) : base(novoContexto){}
 
-        public async void Cancelar()
+        public void Cancelar(int id)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<Animal> GetByProdutor()
+        public void Editar(Animal animal)
         {
-            throw new NotImplementedException();
+            _contexto.Animals.Update(animal);
         }
 
-        public async Task<Animal> GetByPropriedade()
+        public IEnumerable<Animal> GetByProdutor(int idProdutor)
         {
-            throw new NotImplementedException();
+            return _contexto.Animals.Include(animal => animal.Propriedade)
+                                        .ThenInclude(propriedade => propriedade.Endereco)
+                                            .ThenInclude(endereco => endereco.Municipio)                                            
+                                                .Where(animal => animal.Propriedade.GetProdutor() == idProdutor);
         }
 
-        public async void Incluir(Animal animal)
+        public IEnumerable<Animal> GetByPropriedade(int idPropriedade)
         {
-            throw new NotImplementedException();
+            return _contexto.Animals.Include(animal => animal.Propriedade)
+                                        .ThenInclude(propriedade => propriedade.Endereco)
+                                            .ThenInclude(endereco => endereco.Municipio)
+                                                .Where(animal => animal.GetPropriedade() == idPropriedade);
+        }
+
+        public void Incluir(Animal animal)
+        {
+            _contexto.Animals.Add(animal);
         }
     }
 }

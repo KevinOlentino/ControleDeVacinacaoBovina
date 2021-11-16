@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeVacinacaoBovina.Repositories.Produtores
 {
@@ -13,24 +14,24 @@ namespace ControleDeVacinacaoBovina.Repositories.Produtores
         {
         }
 
-        public async Task<Produtor> Editar(Produtor produtor)
+        public void Editar(Produtor produtor)
         {
-            throw new NotImplementedException();
+            _contexto.Produtores.Update(produtor);
         }
 
         public async Task<IEnumerable<Produtor>> GetAll()
         {
-            throw new NotImplementedException();
+            return await _contexto.Produtores.ToListAsync();
         }
 
         public async Task<Produtor> GetByCPF(string CPF)
         {
-            throw new NotImplementedException();
+            return await _contexto.Produtores.FirstOrDefaultAsync(x => x.CPF == CPF);
         }
 
-        public async void Incluir(Produtor produtor)
+        public void Incluir(Produtor produtor)
         {
-            throw new NotImplementedException();
+            _contexto.Produtores.Add(produtor);
         }
     }
 }

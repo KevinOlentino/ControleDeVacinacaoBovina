@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ControleDeVacinacaoBovina.Repositories.Vacinas
+namespace ControleDeVacinacaoBovina.Services.Vacinas
 {
-    public interface IVacinaRepository
+    interface IVacinaService
     {
         Task<Vacina> GetById(int id);
         void Incluir(Vacina vacina);

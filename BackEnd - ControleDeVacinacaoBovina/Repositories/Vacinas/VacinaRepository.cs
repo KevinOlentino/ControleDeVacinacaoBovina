@@ -1,5 +1,6 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,17 +16,17 @@ namespace ControleDeVacinacaoBovina.Repositories.Vacinas
 
         public void Editar(Vacina vacina)
         {
-            throw new NotImplementedException();
+            _contexto.Vacinas.Update(vacina);
         }
 
-        public Task<Vacina> GetById(int id)
+        public async Task<Vacina> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _contexto.Vacinas.FirstOrDefaultAsync(x => x.IdVacina == id);
         }
 
-        public Task<Vacina> Incluir(Vacina vacina)
+        public void Incluir(Vacina vacina)
         {
-            throw new NotImplementedException();
+            _contexto.Vacinas.Add(vacina);
         }
     }
 }

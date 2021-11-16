@@ -1,10 +1,12 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
-namespace ControleDeVacinacaoBovina.Repository.Vendas
+namespace ControleDeVacinacaoBovina.Services.Vendas
 {
-    public interface IVendaRepository
+    interface IVendaService
     {
         void Incluir(Venda venda);
         void Cancelar(int id);

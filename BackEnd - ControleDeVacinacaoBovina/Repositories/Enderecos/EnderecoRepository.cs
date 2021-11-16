@@ -2,6 +2,8 @@
 using ControleDeVacinacaoBovina.Models;
 using System;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace ControleDeVacinacaoBovina.Repositories.Enderecos
 {
@@ -11,19 +13,19 @@ namespace ControleDeVacinacaoBovina.Repositories.Enderecos
         {
         }
 
-        public Task<Endereco> Editar(Models.Endereco endereco)
+        public void Editar(Endereco endereco)
         {
-            throw new NotImplementedException();
+            _contexto.Enderecos.Update(endereco);           
         }
 
-        public Task<Endereco> GetById(int id)
+        public async Task<Endereco> GetById(int id)
         {
-            throw new NotImplementedException();
+            return await _contexto.Enderecos.FirstOrDefaultAsync(x => x.getMunicipio() == id);
         }
 
         public void Incluir(Endereco endereco)
         {
-            throw new NotImplementedException();
+            _contexto.Enderecos.Add(endereco);
         }
     }
 }

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace ControleDeVacinacaoBovina.Repositories.Produtores
+namespace ControleDeVacinacaoBovina.Services.Produtores
 {
-    public interface IProdutorRepository
+    interface IProdutorService
     {
         void Incluir(Produtor produtor);
         void Editar(Produtor produtor);
