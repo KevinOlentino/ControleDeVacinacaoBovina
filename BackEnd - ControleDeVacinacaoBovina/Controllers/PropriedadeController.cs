@@ -1,4 +1,5 @@
-﻿using ControleDeVacinacaoBovina.Models;
+﻿    using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Services.Propriedades;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -26,24 +27,37 @@ namespace ControleDeVacinacaoBovina.Controllers
             return Ok(await propriedadeService.GetByInscricao(inscricao));
         }
 
-        [HttpGet("produtor/{produtor}")]
-        public ActionResult<Propriedade> GetByProdutor(Produtor produtor)
+        [HttpGet("produtor/{idProdutor}")]
+        public ActionResult<Propriedade> GetByProdutor(int idProdutor)
         {
-            return Ok(propriedadeService.GetByProdutor(produtor));
+            List<Propriedade> propriedades;
+
+            try
+            {
+                propriedades = propriedadeService.GetByProdutor(idProdutor).ToList();
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.InnerException.Message);
+            }
+
+            return Ok(propriedadeService.GetByProdutor(idProdutor));
         }
         
         [HttpPost]
-        public ActionResult Incluir(Propriedade propriedade)
+        public ActionResult Incluir(PropriedadeDto propriedade)
         {
-           return Ok(propriedadeService.Incluir(propriedade));
+            propriedadeService.Incluir(propriedade.DtoToPropriedade(propriedade));
+            return Ok();
         }
 
-        [HttpPut]
-        public ActionResult Editar(Propriedade propriedade)
+        [HttpPut("{id}")]
+        public ActionResult Editar(int id,PropriedadeDto propriedade)
         {
+            propriedade.IdProdutor = id;
             try
             {
-                propriedadeService.Editar(propriedade);
+                propriedadeService.Editar(propriedade.DtoToPropriedade(propriedade));
             }catch(Exception ex)
             {
                 return NotFound(ex);
