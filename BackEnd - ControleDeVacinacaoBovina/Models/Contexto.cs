@@ -39,15 +39,17 @@ namespace ControleDeVacinacaoBovina.Models
 
             builder.Entity<Endereco>().ToTable("Endereco");            
             builder.Entity<Endereco>().HasKey(endereco => endereco.IdEndereco);
+            builder.Entity<Endereco>().Property(endereco => endereco.IdEndereco).UseIdentityColumn(1,1);
             builder.Entity<Endereco>().Property(endereco => endereco.Rua).HasMaxLength(150).IsRequired();
             builder.Entity<Endereco>().Property(endereco => endereco.Numero).HasMaxLength(20).IsRequired();
             builder.Entity<Endereco>().HasOne(endereco => endereco.Municipio).WithMany(municipio => municipio.Endereco).HasForeignKey(nameof(Municipio.IdMunicipio));
 
             builder.Entity<Produtor>().ToTable("Produtor");
             builder.Entity<Produtor>().HasKey(produtor => produtor.IdProdutor);
+            builder.Entity<Produtor>().Property(produtor => produtor.IdProdutor).UseIdentityColumn();
             builder.Entity<Produtor>().HasOne(produtor => produtor.Endereco).WithMany(endereco => endereco.Produtores).HasForeignKey(nameof(Endereco.IdEndereco));
-            builder.Entity<Produtor>().Property(p => p.Nome).HasMaxLength(50).IsRequired();
-            builder.Entity<Produtor>().Property(p => p.CPF).HasMaxLength(11).IsRequired();
+            builder.Entity<Produtor>().Property(produtor => produtor.Nome).HasMaxLength(50).IsRequired();
+            builder.Entity<Produtor>().Property(produtor => produtor.CPF).HasMaxLength(11).IsRequired();
 
             builder.Entity<Animal>().ToTable("Animal");
             builder.Entity<Animal>().HasKey(animal => animal.IdAnimal);
@@ -73,15 +75,15 @@ namespace ControleDeVacinacaoBovina.Models
             builder.Entity<Venda>().HasKey(venda => venda.IdVenda);
             builder.Entity<Venda>().Property(venda => venda.Quantidade);
             builder.Entity<Venda>().HasOne(venda => venda.Especie).WithMany(especie => especie.Vendas).HasForeignKey(nameof(Especie.IdEspecie));
-            builder.Entity<Venda>().Property(nameof(Venda.IdOrigem));
-            builder.Entity<Venda>().HasOne(venda => venda.Destino).WithMany(propriedade => propriedade.Vendas).HasForeignKey(nameof(Venda.IdVenda));
+            builder.Entity<Venda>().HasOne(venda => venda.Origem).WithMany(venda => venda.Origem).HasForeignKey(nameof(Venda.IdOrigem));
+            builder.Entity<Venda>().HasOne(venda => venda.Destino).WithMany(propriedade => propriedade.Destino).HasForeignKey(nameof(Venda.IdDestino));
             builder.Entity<Venda>().HasOne(venda => venda.FinalidadeDeVenda).WithMany(finalidadeDeVenda => finalidadeDeVenda.Vendas).HasForeignKey(nameof(FinalidadeDeVenda.IdFinalidadeDeVenda));
 
             builder.Entity<Especie>().ToTable("Especie");
             builder.Entity<Especie>().HasKey(especie => especie.IdEspecie);
             builder.Entity<Especie>().Property(especie => especie.Nome);
 
-            builder.Entity<FinalidadeDeVenda>().ToTable("FinaldiadeDeVenda");
+            builder.Entity<FinalidadeDeVenda>().ToTable("FinalidadeDeVenda");
             builder.Entity<FinalidadeDeVenda>().HasKey(finalVenda => finalVenda.IdFinalidadeDeVenda);
             builder.Entity<FinalidadeDeVenda>().Property(finalVenda => finalVenda.Nome);
         }

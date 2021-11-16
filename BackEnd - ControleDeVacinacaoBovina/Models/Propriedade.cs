@@ -11,13 +11,14 @@ namespace ControleDeVacinacaoBovina.Models
         public string IncricaoEstadual { get; set; }
         public string Nome { get; set; }
         public int IdEndereco { private get; set; }
-        public int IdProdutor { private get; set; }
-        public Endereco Endereco { get; private set; }
-        public Produtor Produtor { get; private set; }
+        public int IdProdutor { get; set; }
+        public Endereco Endereco { get; set; }
+        public Produtor Produtor { get; set; }
 
         public List<Animal> Animals;
 
-        public List<Venda> Vendas;
+        public List<Venda> Origem;
+        public List<Venda> Destino;
 
         public int GetEndereco()    
         {

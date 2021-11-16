@@ -16,7 +16,7 @@ namespace ControleDeVacinacaoBovina.Models
         public List<Produtor> Produtores;
         public List<Propriedade> Propriedades;
 
-        public int getMunicipio()
+        public int GetMunicipio()
         {
             return IdMunicipio;
         }
