@@ -21,14 +21,14 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
             produtorRepository.Editar(produtor);
         }
 
-        public Task<IEnumerable<Produtor>> GetAll()
+        public async Task<IEnumerable<Produtor>> GetAll()
         {
-            return produtorRepository.GetAll();
+            return await produtorRepository.GetAll();
         }
 
-        public Task<Produtor> GetByCPF(string CPF)
+        public async Task<Produtor> GetByCPF(string CPF)
         {
-            return produtorRepository.GetByCPF(CPF);
+            return await produtorRepository.GetByCPF(CPF);
         }
 
         public void Incluir(Produtor produtor)

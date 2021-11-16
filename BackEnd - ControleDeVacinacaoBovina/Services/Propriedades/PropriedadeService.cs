@@ -31,9 +31,9 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
             return await _propriedadeRepository.GetByIncricao(InscricaoEstadual);         
         }
 
-        public async Task<Propriedade> GetByProdutor(Produtor produtor)
+        public IEnumerable<Propriedade> GetByProdutor(int idProdutor)
         {
-            return await _propriedadeRepository.GetByProdutor(produtor);
+            return _propriedadeRepository.GetByProdutor(idProdutor);
         }
 
     }

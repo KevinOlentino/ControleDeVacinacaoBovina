@@ -18,7 +18,7 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
 
         public void Cancelar(int id)
         {
-            throw new NotImplementedException();
+            vendaRepository.Cancelar(id);
         }
 
         public IEnumerable<Venda> GetByDestino(int idProdutor)

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
 {
-    interface IRegistroVacinaService
+    public interface IRegistroVacinaService
     {
         void Incluir(RegistroVacinacao registroVacina);
         void Cancelar(int id);

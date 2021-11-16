@@ -18,7 +18,7 @@ namespace ControleDeVacinacaoBovina.Services.Animais
 
         public void Cancelar(int id)
         {
-            throw new NotImplementedException();
+            animalRepository.Cancelar(id);
         }
 
         public void Editar(Animal animal)
@@ -33,11 +33,16 @@ namespace ControleDeVacinacaoBovina.Services.Animais
 
         public IEnumerable<Animal> GetByPropriedade(int idProdutor)
         {
-            return animalRepository.GetByPropriedade(idProdutor);
+            return animalRepository.GetByPropriedade(idProdutor);       
         }
 
         public void Incluir(Animal animal)
         {
+            if(animal.QuantidadeVacinada > animal.QuantidadeTotal)
+            {
+                throw new Exception("A quantidade de animal vacinada não pode ser maior que o total de animais.");
+            }
+
             animalRepository.Incluir(animal);
         }
     }

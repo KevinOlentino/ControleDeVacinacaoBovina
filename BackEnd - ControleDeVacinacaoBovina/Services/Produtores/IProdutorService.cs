@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.Produtores
 {
-    interface IProdutorService
+    public interface IProdutorService
     {
         void Incluir(Produtor produtor);
         void Editar(Produtor produtor);
