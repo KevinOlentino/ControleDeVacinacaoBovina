@@ -1,21 +1,31 @@
 using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Repositories.Animais;
+using ControleDeVacinacaoBovina.Repositories.Enderecos;
+using ControleDeVacinacaoBovina.Repositories.Especies;
+using ControleDeVacinacaoBovina.Repositories.FinalidadeDeVendas;
+using ControleDeVacinacaoBovina.Repositories.Municipios;
+using ControleDeVacinacaoBovina.Repositories.Produtores;
 using ControleDeVacinacaoBovina.Repositories.Propriedades;
+using ControleDeVacinacaoBovina.Repositories.RegistrosVacinas;
+using ControleDeVacinacaoBovina.Repositories.Vacinas;
+using ControleDeVacinacaoBovina.Repository.Vendas;
+using ControleDeVacinacaoBovina.Services.Animais;
+using ControleDeVacinacaoBovina.Services.Enderecos;
+using ControleDeVacinacaoBovina.Services.Especies;
+using ControleDeVacinacaoBovina.Services.FinalidadeDeVendas;
+using ControleDeVacinacaoBovina.Services.Municipios;
+using ControleDeVacinacaoBovina.Services.Produtores;
 using ControleDeVacinacaoBovina.Services.Propriedades;
+using ControleDeVacinacaoBovina.Services.RegistrosVacinas;
+using ControleDeVacinacaoBovina.Services.Vacinas;
+using ControleDeVacinacaoBovina.Services.Vendas;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina
 {
@@ -33,8 +43,37 @@ namespace ControleDeVacinacaoBovina
         {
                    
             services.AddDbContext<Contexto>(option => option.UseSqlServer("Server=DESKTOP-BJMO5PO; Database=VacinacaoBovina; User ID=treinamento; Password=senha;"));
+            
             services.AddScoped<IPropriedadeService, PropriedadeService>();
             services.AddScoped<IPropriedadeRepository, PropriedadeRepository>();
+
+            services.AddScoped<IAnimalService, AnimalService>();
+            services.AddScoped<IAnimalRepository, AnimalRepository>();
+
+            services.AddScoped<IMunicipioService, MunicipioService>();
+            services.AddScoped<IMunicipioRepository, MunicipioRepository>();
+
+            services.AddScoped<IProdutorService, ProdutorService>();
+            services.AddScoped<IProdutorRepository, ProdutorRepository>();
+
+            services.AddScoped<IEspecieService, EspecieService>();
+            services.AddScoped<IEspecieRepository, EspecieRepository>();
+
+            services.AddScoped<IVendaService, VendaService>();
+            services.AddScoped<IVendaRepository, VendaRepository>();
+
+            services.AddScoped<IVacinaService, VacinaService>();
+            services.AddScoped<IVacinaRepository, VacinaRepository>();
+
+            services.AddScoped<IRegistroVacinaService, RegistroVacinaService>();
+            services.AddScoped<IRegistroVacinaRepository, RegistroVacinaRepository>();
+
+            services.AddScoped<IFinalidadeDeVendasService, FinalidadeDeVendasService>();
+            services.AddScoped<IFinalidadeDeVendaRepository, FinalidadeDeVendaRepository>();
+
+            services.AddScoped<IEnderecoService, EnderecoService>();
+            services.AddScoped<IEnderecoRepository, EnderecoRepository>();
+
 
             services.AddControllers();
 
