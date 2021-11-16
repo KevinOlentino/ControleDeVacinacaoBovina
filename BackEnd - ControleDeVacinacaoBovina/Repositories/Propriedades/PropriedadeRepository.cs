@@ -6,6 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
+using ControleDeVacinacaoBovina.Models.Dtos;
 
 namespace ControleDeVacinacaoBovina.Repositories.Propriedades
 {
@@ -23,19 +24,20 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
         public async Task<Propriedade> GetByIncricao(string inscricaoEstadual)
         {            
             return await _contexto.Propriedades.Include(propriedade => propriedade.Endereco).ThenInclude(endereco => endereco.Municipio)
-                                            .Include(propriedade => propriedade.Produtor)
-                                                .FirstOrDefaultAsync(propriedade => propriedade.IncricaoEstadual == inscricaoEstadual);
+                                                .Include(propriedade => propriedade.Produtor)
+                                                 .FirstOrDefaultAsync(propriedade => propriedade.IncricaoEstadual == inscricaoEstadual);
         }
 
-        public async Task<Propriedade> GetByProdutor(Produtor produtor)
+        public IEnumerable<Propriedade> GetByProdutor(int idProdutor)
         {
-            return await _contexto.Propriedades.FirstOrDefaultAsync(propriedade => propriedade.Produtor == produtor);
+            return _contexto.Propriedades.Where(propriedade => propriedade.IdProdutor == idProdutor);
         }
 
         public Propriedade Incluir(Propriedade propriedade)
-        {           
+        {
+            propriedade.Endereco.IdEndereco = null;
             _contexto.Propriedades.Add(propriedade);
-            _contexto.SaveChanges();
+            _contexto.SaveChanges();            
 
             return propriedade;
         }

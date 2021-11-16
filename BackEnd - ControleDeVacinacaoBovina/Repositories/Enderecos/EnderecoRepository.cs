@@ -15,17 +15,19 @@ namespace ControleDeVacinacaoBovina.Repositories.Enderecos
 
         public void Editar(Endereco endereco)
         {
-            _contexto.Enderecos.Update(endereco);           
+            _contexto.Enderecos.Update(endereco);
+            _contexto.SaveChanges();
         }
 
         public async Task<Endereco> GetById(int id)
         {
-            return await _contexto.Enderecos.FirstOrDefaultAsync(x => x.getMunicipio() == id);
+            return await _contexto.Enderecos.FirstOrDefaultAsync(x => x.GetMunicipio() == id);
         }
 
         public void Incluir(Endereco endereco)
         {
             _contexto.Enderecos.Add(endereco);
+            _contexto.SaveChanges();
         }
     }
 }

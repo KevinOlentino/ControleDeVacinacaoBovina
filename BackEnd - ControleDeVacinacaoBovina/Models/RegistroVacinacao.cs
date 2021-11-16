@@ -10,7 +10,7 @@ namespace ControleDeVacinacaoBovina.Models
         public int IdRegistroVacinacao { get; set; }
         public int Quantidade { get; set; }
         public DateTime DataDaVacina { get; set; }
-        public int IdAnimal { private get; set; }
+        public int IdAnimal { get; set; }
         public int IdVacina { private get; set; }
         public Animal Animal { get; set; }
         public Vacina Vacina { get; set; }

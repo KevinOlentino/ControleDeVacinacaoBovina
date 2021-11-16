@@ -20,6 +20,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
         public void Editar(Animal animal)
         {
             _contexto.Animals.Update(animal);
+            _contexto.SaveChanges();
         }
 
         public IEnumerable<Animal> GetByProdutor(int idProdutor)
@@ -27,7 +28,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
             return _contexto.Animals.Include(animal => animal.Propriedade)
                                         .ThenInclude(propriedade => propriedade.Endereco)
                                             .ThenInclude(endereco => endereco.Municipio)                                            
-                                                .Where(animal => animal.Propriedade.GetProdutor() == idProdutor);
+                                                .Where(animal => animal.Propriedade.IdProdutor == idProdutor);
         }
 
         public IEnumerable<Animal> GetByPropriedade(int idPropriedade)
@@ -35,12 +36,13 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
             return _contexto.Animals.Include(animal => animal.Propriedade)
                                         .ThenInclude(propriedade => propriedade.Endereco)
                                             .ThenInclude(endereco => endereco.Municipio)
-                                                .Where(animal => animal.GetPropriedade() == idPropriedade);
+                                                .Where(animal => animal.IdPropriedade == idPropriedade);
         }
 
         public void Incluir(Animal animal)
         {
             _contexto.Animals.Add(animal);
+            _contexto.SaveChanges();
         }
     }
 }

@@ -10,7 +10,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
     {
         Propriedade Incluir(Propriedade propriedade);
         void Editar(Propriedade propriedade);
-        Task<Propriedade> GetByProdutor(Produtor produtor);
+        IEnumerable<Propriedade> GetByProdutor(int idProdutor);
         Task<Propriedade> GetByIncricao(string inscricaoEstadual);
     }
 }

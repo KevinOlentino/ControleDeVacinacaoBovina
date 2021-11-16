@@ -8,7 +8,7 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
     {
         void Incluir(Venda venda);
         void Cancelar(int id);
-        IEnumerable<Venda> GetByOrigem(int idProdutor);
-        IEnumerable<Venda> GetByDestino(int idProdutor);
+        IEnumerable<Venda> GetByOrigem(int idPropriedade);
+        IEnumerable<Venda> GetByDestino(int idPropriedade);
     }
 }

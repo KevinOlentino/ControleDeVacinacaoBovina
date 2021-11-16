@@ -17,6 +17,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Vacinas
         public void Editar(Vacina vacina)
         {
             _contexto.Vacinas.Update(vacina);
+            _contexto.SaveChanges();
         }
 
         public async Task<Vacina> GetById(int id)
@@ -27,6 +28,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Vacinas
         public void Incluir(Vacina vacina)
         {
             _contexto.Vacinas.Add(vacina);
+            _contexto.SaveChanges();
         }
     }
 }

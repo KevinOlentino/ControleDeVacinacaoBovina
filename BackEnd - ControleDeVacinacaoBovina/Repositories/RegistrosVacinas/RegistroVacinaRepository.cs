@@ -21,14 +21,21 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 
         public IEnumerable<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual)
         {
-            return _contexto.RegistroVacinacoes.Include(x => x.Animal)
-                                                .ThenInclude(x => x.Propriedade)
+            return _contexto.RegistroVacinacoes.Include(x => x.Animal).ThenInclude(x => x.Propriedade).Include(x => x.Animal.Especie)                                                
                                                   .Where(x => x.Animal.Propriedade.IncricaoEstadual == IncricaoEstadual);
         }
 
         public void Incluir(RegistroVacinacao registroVacina)
         {
             _contexto.RegistroVacinacoes.Add(registroVacina);
+            _contexto.SaveChanges();
+        }
+
+        public RegistroVacinacao GetByAnimal(int id)
+        {
+            return _contexto.RegistroVacinacoes.Include(x => x.Animal)
+                                                .ThenInclude(x => x.Especie).OrderBy(x => x.IdRegistroVacinacao)
+                                                        .Last(x => x.IdAnimal == id);
         }
     }
 }
