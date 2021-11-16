@@ -42,7 +42,7 @@ namespace ControleDeVacinacaoBovina
         public void ConfigureServices(IServiceCollection services)
         {
                    
-            services.AddDbContext<Contexto>(option => option.UseSqlServer("Server=DESKTOP-BJMO5PO; Database=VacinacaoBovina; User ID=treinamento; Password=senha;"));
+            services.AddDbContext<Contexto>(option => option.UseSqlServer(Configuration.GetConnectionString("DbContext")));
             
             services.AddScoped<IPropriedadeService, PropriedadeService>();
             services.AddScoped<IPropriedadeRepository, PropriedadeRepository>();
@@ -75,7 +75,9 @@ namespace ControleDeVacinacaoBovina
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 
 
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.IgnoreNullValues = true; });
+
+
 
             services.AddSwaggerGen(c =>
             {

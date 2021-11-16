@@ -70,8 +70,8 @@ create table Animal(
 	IdAnimal int primary key identity(1,1),
 	QuantidadeTotal int not null default(0),
 	QuantidadeVacinada int not null default(0),
-	Especie int not null references Especie(IdEspecie),
-	Propriedade int not null references Propriedade(IdPropriedade)
+	IdEspecie int not null references Especie(IdEspecie),
+	IdPropriedade int not null references Propriedade(IdPropriedade)
 )
 
 go
@@ -79,8 +79,8 @@ go
 create table Venda(
 	IdVenda int not null primary key identity(1,1),
 	Quantidade int not null,
-	Origem int not null references Propriedade(IdPropriedade),
-	Destino int not null references Propriedade(IdPropriedade),
+	IdOrigem int not null references Propriedade(IdPropriedade),
+	IdDestino int not null references Propriedade(IdPropriedade),
 	Especie int not null references Especie(IdEspecie),
 	FinalidadeDeVenda int not null references FinalidadeDeVenda(IdFinalidadeDeVenda)
 )
@@ -89,8 +89,8 @@ go
 
 create table RegistroVacinacao(
 	IdRegistroVacinacao int not null primary key identity(1,1),
-	Animal int not null references Animal(IdAnimal),
-	VacinaAplicada int not null references Vacina(IdVacina),
+	IdAnimal int not null references Animal(IdAnimal),
+	IdVacina int not null references Vacina(IdVacina),
 	Quantidade int not null,
 	DataDaVacina date not null
 )
