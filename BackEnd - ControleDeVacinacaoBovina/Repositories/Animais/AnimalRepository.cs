@@ -12,9 +12,9 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
     {
         public AnimalRepository(Contexto novoContexto) : base(novoContexto){}
 
-        public void Cancelar(int id)
+        public void Cancelar(Animal animal)
         {
-            throw new NotImplementedException();
+            _contexto.Entry(animal).State = EntityState.Modified;
         }
 
         public void Editar(Animal animal)
@@ -43,6 +43,11 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
         {
             _contexto.Animals.Add(animal);
             _contexto.SaveChanges();
+        }
+
+        public Animal GetById(int id)
+        {
+            return _contexto.Animals.AsNoTracking().FirstOrDefault(x => x.IdAnimal == id);
         }
     }
 }

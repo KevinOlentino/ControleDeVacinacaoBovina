@@ -15,11 +15,8 @@ namespace ControleDeVacinacaoBovina.Repositories.Produtores
 
         public void Editar(Produtor produtor)
         {
-            Produtor produtorEdit = _contexto.Produtores.FirstOrDefault(x => x.IdProdutor == produtor.IdProdutor);
-
-            produtor.Endereco.IdEndereco = produtorEdit.GetEndereco();
-
-            _contexto.Produtores.Update(produtor);
+            produtor.IdEndereco = produtor.Endereco.IdEndereco.Value;
+            _contexto.Entry(produtor).State = EntityState.Modified;
             _contexto.SaveChanges();
         }
 
@@ -30,7 +27,12 @@ namespace ControleDeVacinacaoBovina.Repositories.Produtores
 
         public async Task<Produtor> GetByCPF(string CPF)
         {
-            return await _contexto.Produtores.FirstOrDefaultAsync(x => x.CPF == CPF);
+            return await _contexto.Produtores.Include(x => x.Endereco).ThenInclude(x => x.Municipio).FirstOrDefaultAsync(x => x.CPF == CPF);
+        }
+
+        public Produtor GetById(int id)
+        {
+            return _contexto.Produtores.AsNoTracking().FirstOrDefault(x => x.IdProdutor == id);
         }
 
         public void Incluir(Produtor produtor)

@@ -10,9 +10,9 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
     public class VendaRepository : BaseRepository, IVendaRepository
     {
         public VendaRepository(Contexto novoContexto) : base(novoContexto){ }
-        public void Cancelar(int id)
-        {
-            throw new NotImplementedException();
+        public void Cancelar(Venda venda)
+        {           
+            _contexto.Entry(venda).State = EntityState.Modified;
         }
 
         public IEnumerable<Venda> GetByDestino(int idProdutor)
@@ -20,6 +20,11 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
             return _contexto.Vendas.Include(x => x.Destino).Include(x => x.Origem)
                                      .Include(x => x.Especie).Include(x => x.FinalidadeDeVenda)
                                       .Where(x => x.IdDestino == idProdutor);
+        }
+
+        public Venda GetById(int id)
+        {
+            return _contexto.Vendas.Find(id);
         }
 
         public IEnumerable<Venda> GetByOrigem(int idProdutor)

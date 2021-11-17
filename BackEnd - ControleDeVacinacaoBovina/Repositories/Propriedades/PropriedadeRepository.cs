@@ -17,6 +17,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
         }
         public void Editar(Propriedade propriedade)
         {
+            propriedade.IdEndereco = propriedade.Endereco.IdEndereco.Value;
             _contexto.Propriedades.Update(propriedade);
             _contexto.SaveChanges();       
         }
@@ -40,6 +41,11 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
             _contexto.SaveChanges();            
 
             return propriedade;
+        }
+
+        public Propriedade GetById(int id)
+        {
+            return _contexto.Propriedades.AsNoTracking().FirstOrDefault(x => x.IdPropriedade == id);
         }
     }
 }

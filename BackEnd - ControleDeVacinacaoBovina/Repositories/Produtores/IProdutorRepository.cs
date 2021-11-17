@@ -10,5 +10,6 @@ namespace ControleDeVacinacaoBovina.Repositories.Produtores
         void Editar(Produtor produtor);
         Task<Produtor> GetByCPF(string CPF);
         Task<IEnumerable<Produtor>> GetAll();
+        Produtor GetById(int id);
     }
 }

@@ -14,9 +14,9 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         {
         }
 
-        public void Cancelar(int id)
+        public void Cancelar(RegistroVacinacao registroVacinacao)
         {
-            throw new NotImplementedException();
+            _contexto.Entry(registroVacinacao).State = EntityState.Modified;
         }
 
         public IEnumerable<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual)
@@ -36,6 +36,11 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
             return _contexto.RegistroVacinacoes.Include(x => x.Animal)
                                                 .ThenInclude(x => x.Especie).OrderBy(x => x.IdRegistroVacinacao)
                                                         .Last(x => x.IdAnimal == id);
+        }
+
+        public RegistroVacinacao GetById(int id)
+        {
+            return _contexto.RegistroVacinacoes.Find(id);
         }
     }
 }
