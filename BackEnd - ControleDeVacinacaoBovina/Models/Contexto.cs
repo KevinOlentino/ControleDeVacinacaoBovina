@@ -57,6 +57,7 @@ namespace ControleDeVacinacaoBovina.Models
             builder.Entity<Animal>().Property(animal => animal.QuantidadeVacinada);
             builder.Entity<Animal>().HasOne(animal => animal.Especie).WithMany(especie => especie.Animals).HasForeignKey(nameof(Especie.IdEspecie));
             builder.Entity<Animal>().HasOne(animal => animal.Propriedade).WithMany(propriedade => propriedade.Animals).HasForeignKey(nameof(Propriedade.IdPropriedade));
+            builder.Entity<Animal>().Property(animal => animal.Ativo);
 
             builder.Entity<Vacina>().ToTable("Vacina");
             builder.Entity<Vacina>().HasKey(vacina => vacina.IdVacina);
@@ -70,6 +71,7 @@ namespace ControleDeVacinacaoBovina.Models
             builder.Entity<RegistroVacinacao>().Property(rvacinacao => rvacinacao.DataDaVacina);
             builder.Entity<RegistroVacinacao>().HasOne(rvacinacao => rvacinacao.Animal).WithMany(animal => animal.RegistroVacinas).HasForeignKey(nameof(Animal.IdAnimal));
             builder.Entity<RegistroVacinacao>().HasOne(rvacinacao => rvacinacao.Vacina).WithMany(vacina => vacina.RegistroVacinas).HasForeignKey(nameof(Vacina.IdVacina));
+            builder.Entity<RegistroVacinacao>().Property(rvacinacao => rvacinacao.Ativo);
 
             builder.Entity<Venda>().ToTable("Venda");
             builder.Entity<Venda>().HasKey(venda => venda.IdVenda);
@@ -78,6 +80,7 @@ namespace ControleDeVacinacaoBovina.Models
             builder.Entity<Venda>().HasOne(venda => venda.Origem).WithMany(venda => venda.Origem).HasForeignKey(nameof(Venda.IdOrigem));
             builder.Entity<Venda>().HasOne(venda => venda.Destino).WithMany(propriedade => propriedade.Destino).HasForeignKey(nameof(Venda.IdDestino));
             builder.Entity<Venda>().HasOne(venda => venda.FinalidadeDeVenda).WithMany(finalidadeDeVenda => finalidadeDeVenda.Vendas).HasForeignKey(nameof(FinalidadeDeVenda.IdFinalidadeDeVenda));
+            builder.Entity<Venda>().Property(venda => venda.Ativo);
 
             builder.Entity<Especie>().ToTable("Especie");
             builder.Entity<Especie>().HasKey(especie => especie.IdEspecie);

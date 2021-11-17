@@ -31,7 +31,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             }
             catch(Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.Message);
             }
 
             if(listVenda.Count == 0)
@@ -52,7 +52,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.Message);
             }
 
             if (listVenda.Count == 0)
@@ -73,7 +73,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.InnerException.Message);
+                return BadRequest(ex.Message);
             }
            
             return Ok();
