@@ -44,5 +44,13 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
             registroVacinaRepository.Incluir(registroVacina);
             animalRepository.Editar(animaisVacinados);
         }
+
+        public DateTime ObterUltimaVacinaPorEspecie(int idAnimal)
+        {
+            RegistroVacinacao registro = registroVacinaRepository.GetByAnimal(idAnimal);
+
+            return registro.DataDaVacina;
+        }
+
     }
 }

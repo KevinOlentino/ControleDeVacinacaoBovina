@@ -14,6 +14,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
 
         public void Cancelar(Animal animal)
         {
+            animal.Ativo = false;
             _contexto.Entry(animal).State = EntityState.Modified;
         }
 
@@ -28,7 +29,8 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
             return _contexto.Animals.Include(animal => animal.Propriedade)
                                         .ThenInclude(propriedade => propriedade.Endereco)
                                             .ThenInclude(endereco => endereco.Municipio)                                            
-                                                .Where(animal => animal.Propriedade.IdProdutor == idProdutor);
+                                                .Where(animal => animal.Propriedade.IdProdutor == idProdutor)
+                                                    .Where(animal => animal.Ativo == true);
         }
 
         public IEnumerable<Animal> GetByPropriedade(int idPropriedade)
@@ -36,7 +38,8 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
             return _contexto.Animals.Include(animal => animal.Propriedade)
                                         .ThenInclude(propriedade => propriedade.Endereco)
                                             .ThenInclude(endereco => endereco.Municipio)
-                                                .Where(animal => animal.IdPropriedade == idPropriedade);
+                                                .Where(animal => animal.IdPropriedade == idPropriedade)
+                                                    .Where(animal => animal.Ativo == true); 
         }
 
         public void Incluir(Animal animal)

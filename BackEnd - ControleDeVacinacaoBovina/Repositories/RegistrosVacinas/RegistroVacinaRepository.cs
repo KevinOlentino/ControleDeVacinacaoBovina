@@ -16,13 +16,15 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 
         public void Cancelar(RegistroVacinacao registroVacinacao)
         {
+            registroVacinacao.Ativo = false;
             _contexto.Entry(registroVacinacao).State = EntityState.Modified;
         }
 
         public IEnumerable<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual)
         {
             return _contexto.RegistroVacinacoes.Include(x => x.Animal).ThenInclude(x => x.Propriedade).Include(x => x.Animal.Especie)                                                
-                                                  .Where(x => x.Animal.Propriedade.IncricaoEstadual == IncricaoEstadual);
+                                                  .Where(x => x.Animal.Propriedade.IncricaoEstadual == IncricaoEstadual)
+                                                    .Where(x => x.Ativo == true);
         }
 
         public void Incluir(RegistroVacinacao registroVacina)
@@ -34,7 +36,7 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         public RegistroVacinacao GetByAnimal(int id)
         {
             return _contexto.RegistroVacinacoes.Include(x => x.Animal)
-                                                .ThenInclude(x => x.Especie).OrderBy(x => x.IdRegistroVacinacao)
+                                                .ThenInclude(x => x.Especie).OrderBy(x => x.IdRegistroVacinacao).Where(x => x.Ativo == true)
                                                         .Last(x => x.IdAnimal == id);
         }
 

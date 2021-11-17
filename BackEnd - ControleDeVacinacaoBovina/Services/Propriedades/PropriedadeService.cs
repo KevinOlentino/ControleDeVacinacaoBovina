@@ -40,6 +40,7 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
         {
             return _propriedadeRepository.GetById(id);
         }
+                
 
     }
 }
