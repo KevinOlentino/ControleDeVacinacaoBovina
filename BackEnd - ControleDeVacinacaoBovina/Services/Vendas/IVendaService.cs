@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.Vendas
 {
-    interface IVendaService
+    public interface IVendaService
     {
         void Incluir(Venda venda);
         void Cancelar(int id);

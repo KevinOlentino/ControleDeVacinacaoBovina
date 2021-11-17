@@ -18,7 +18,10 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
 
         public void Cancelar(int id)
         {
-            vendaRepository.Cancelar(id);
+            Venda venda = vendaRepository.GetById(id);
+
+            vendaRepository.Cancelar(venda);
+
         }
 
         public IEnumerable<Venda> GetByDestino(int idProdutor)

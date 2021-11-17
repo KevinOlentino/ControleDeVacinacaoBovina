@@ -71,7 +71,8 @@ create table Animal(
 	QuantidadeTotal int not null default(0),
 	QuantidadeVacinada int not null default(0),
 	IdEspecie int not null references Especie(IdEspecie),
-	IdPropriedade int not null references Propriedade(IdPropriedade)
+	IdPropriedade int not null references Propriedade(IdPropriedade),
+	Ativo bit not null default 1
 )
 
 go
@@ -82,7 +83,8 @@ create table Venda(
 	IdOrigem int not null references Propriedade(IdPropriedade),
 	IdDestino int not null references Propriedade(IdPropriedade),
 	Especie int not null references Especie(IdEspecie),
-	FinalidadeDeVenda int not null references FinalidadeDeVenda(IdFinalidadeDeVenda)
+	FinalidadeDeVenda int not null references FinalidadeDeVenda(IdFinalidadeDeVenda),
+	Ativo bit not null default 1
 )
 
 go
@@ -92,5 +94,6 @@ create table RegistroVacinacao(
 	IdAnimal int not null references Animal(IdAnimal),
 	IdVacina int not null references Vacina(IdVacina),
 	Quantidade int not null,
-	DataDaVacina date not null
+	DataDaVacina date not null,
+	Ativo bit not null default 1
 )

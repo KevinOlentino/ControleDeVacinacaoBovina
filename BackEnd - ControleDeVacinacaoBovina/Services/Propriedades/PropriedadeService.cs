@@ -36,5 +36,10 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
             return _propriedadeRepository.GetByProdutor(idProdutor);
         }
 
+        public Propriedade GetById(int id)
+        {
+            return _propriedadeRepository.GetById(id);
+        }
+
     }
 }

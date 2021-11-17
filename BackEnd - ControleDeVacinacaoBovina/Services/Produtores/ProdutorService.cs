@@ -31,6 +31,11 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
             return await produtorRepository.GetByCPF(CPF);
         }
 
+        public Produtor GetById(int id)
+        {
+            return produtorRepository.GetById(id);
+        }
+
         public void Incluir(Produtor produtor)
         {
             produtorRepository.Incluir(produtor);

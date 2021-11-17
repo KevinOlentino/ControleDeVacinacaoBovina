@@ -11,5 +11,6 @@ namespace ControleDeVacinacaoBovina.Services.Animais
         void Editar(Animal animal);
         IEnumerable<Animal> GetByProdutor(int idProdutor);
         IEnumerable<Animal> GetByPropriedade(int idPropriedade);
+        Animal GetById(int id);
     }
 }

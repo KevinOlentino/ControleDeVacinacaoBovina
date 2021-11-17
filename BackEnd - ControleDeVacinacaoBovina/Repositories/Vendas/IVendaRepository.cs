@@ -7,7 +7,8 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
     public interface IVendaRepository
     {
         void Incluir(Venda venda);
-        void Cancelar(int id);
+        void Cancelar(Venda venda);
+        Venda GetById(int id);
         IEnumerable<Venda> GetByOrigem(int idPropriedade);
         IEnumerable<Venda> GetByDestino(int idPropriedade);
     }

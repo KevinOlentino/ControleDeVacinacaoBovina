@@ -17,8 +17,8 @@ namespace ControleDeVacinacaoBovina.Services.Animais
         }
 
         public void Cancelar(int id)
-        {
-            animalRepository.Cancelar(id);
+        {            
+            animalRepository.Cancelar(animalRepository.GetById(id));
         }
 
         public void Editar(Animal animal)
@@ -44,6 +44,11 @@ namespace ControleDeVacinacaoBovina.Services.Animais
             }
 
             animalRepository.Incluir(animal);
+        }
+
+        public Animal GetById(int id)
+        {
+            return animalRepository.GetById(id);
         }
     }
 }
