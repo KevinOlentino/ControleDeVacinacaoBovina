@@ -1,6 +1,7 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repository.Vendas;
+using ControleDeVacinacaoBovina.Services.Vendas;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -13,11 +14,11 @@ namespace ControleDeVacinacaoBovina.Controllers
     [ApiController]
     public class VendaController : ControllerBase
     {
-        private readonly IVendaRepository vendaRepository;
+        private readonly IVendaService vendaService;
 
-        public VendaController(IVendaRepository vendaRepository)
+        public VendaController(IVendaService vendaService)
         {
-            this.vendaRepository = vendaRepository;
+            this.vendaService = vendaService;
         }
 
         [HttpGet("/Destino/{idPropriedade}")]
@@ -26,7 +27,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             List<Venda> listVenda;
             try
             {
-                listVenda = vendaRepository.GetByDestino(idPropriedade).ToList();
+                listVenda = vendaService.GetByDestino(idPropriedade).ToList();
             }
             catch(Exception ex)
             {
@@ -47,7 +48,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             List<Venda> listVenda;
             try
             {
-                listVenda = vendaRepository.GetByOrigem(idPropriedade).ToList();
+                listVenda = vendaService.GetByOrigem(idPropriedade).ToList();
             }
             catch (Exception ex)
             {
@@ -68,7 +69,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         {
             try
             {
-                vendaRepository.Incluir(venda.DtoToVenda(venda));
+                vendaService.Incluir(venda.DtoToVenda(venda));
             }
             catch (Exception ex)
             {
@@ -81,8 +82,15 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpDelete]
         public ActionResult Cancelar(int id)
         {
-            vendaRepository.Cancelar(id);
-            return Ok();
+            try
+            {
+                vendaService.Cancelar(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex);
+            }
+            return NoContent();
         }
     }
 }

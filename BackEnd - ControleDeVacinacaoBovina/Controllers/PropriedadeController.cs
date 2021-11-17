@@ -47,17 +47,26 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpPost]
         public ActionResult Incluir(PropriedadeDto propriedade)
         {
-            propriedadeService.Incluir(propriedade.DtoToPropriedade(propriedade));
+            try
+            {
+                propriedadeService.Incluir(propriedade.DtoToPropriedade(propriedade));
+            }catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }            
             return Ok();
         }
 
         [HttpPut("{id}")]
         public ActionResult Editar(int id,PropriedadeDto propriedade)
         {
-            propriedade.IdProdutor = id;
             try
             {
+                Propriedade PropriedadeOld = propriedadeService.GetById(id);
+
+                propriedade.Endereco.IdEndereco = PropriedadeOld.GetEndereco();
                 propriedadeService.Editar(propriedade.DtoToPropriedade(propriedade));
+
             }catch(Exception ex)
             {
                 return NotFound(ex);

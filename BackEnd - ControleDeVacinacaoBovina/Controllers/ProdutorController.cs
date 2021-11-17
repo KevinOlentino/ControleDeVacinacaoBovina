@@ -65,13 +65,22 @@ namespace ControleDeVacinacaoBovina.Controllers
         public ActionResult Editar(int id, ProdutorDto produtor)
         {
             produtor.Id = id;
+            Produtor produtorGet = produtorService.GetById(id);
+         
+
+            if(produtorGet == null)
+            {
+                return NotFound($"Id:{id} Não foi encontrado!");
+            }
 
             if (!ModelState.IsValid)
             {               
                 return BadRequest();
             }
+
             try
             {
+                produtor.Endereco.IdEndereco = produtorGet.GetEndereco();
                 produtorService.Editar(produtor.DtoToProdutor(produtor));
             }
             catch(Exception ex)

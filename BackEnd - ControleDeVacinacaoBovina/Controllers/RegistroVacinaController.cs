@@ -51,7 +51,14 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpDelete]
         public ActionResult Cancelar(int id)
         {
-            registroVacinaService.Cancelar(id);
+            try
+            {
+                registroVacinaService.Cancelar(id);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex);
+            }            
             return Ok();
         }
     }
