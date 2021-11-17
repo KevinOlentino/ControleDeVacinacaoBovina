@@ -10,7 +10,8 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         [MaxLength(50, ErrorMessage ="Nome pode ser até 50 caracteres")]
         public string Nome { get; set; }
         [Required(ErrorMessage ="CPF não pode ser nulo")]
-        [StringLength(11, ErrorMessage = "O CPF não pode ser maior ou menor que 11 caracteres")]
+        [MaxLength(11, ErrorMessage = "O CPF não pode ser maior que 11 caracteres")]
+        [MinLength(11, ErrorMessage = "O CPF não pode ser menor que 11 caracteres")]
         public string CPF { get; set; }
         [Required(ErrorMessage = "Endereco não pode ser nulo!")]
         public EnderecoDto Endereco { get; set; }
