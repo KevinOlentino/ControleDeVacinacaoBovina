@@ -20,10 +20,10 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
             _contexto.Entry(registroVacinacao).State = EntityState.Modified;
         }
 
-        public IEnumerable<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual)
+        public IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade)
         {
             return _contexto.RegistroVacinacoes.Include(x => x.Animal).ThenInclude(x => x.Propriedade).Include(x => x.Animal.Especie)                                                
-                                                  .Where(x => x.Animal.Propriedade.InscricaoEstadual == IncricaoEstadual)
+                                                  .Where(x => x.Animal.IdPropriedade == idPropriedade)
                                                     .Where(x => x.Ativo == true);
         }
 

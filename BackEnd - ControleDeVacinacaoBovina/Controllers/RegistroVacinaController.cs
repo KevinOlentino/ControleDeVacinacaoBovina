@@ -20,19 +20,19 @@ namespace ControleDeVacinacaoBovina.Controllers
             this.registroVacinaService = registroVacinaService;
         }
 
-        [HttpGet]
-        public ActionResult<List<RegistroVacinacao>> GetByPropriedade(string IncricaoEstadual)
+        [HttpGet("{idPropriedade}")]
+        public ActionResult<List<RegistroVacinacao>> GetByPropriedade(int idPropriedade)
         {
             List<RegistroVacinacao> listRegistroVacinacaos;
             try
             {
-                listRegistroVacinacaos = registroVacinaService.GetByPropriedade(IncricaoEstadual).ToList();
+                listRegistroVacinacaos = registroVacinaService.GetByPropriedade(idPropriedade).ToList();
             }
             catch(Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-            return Ok(registroVacinaService.GetByPropriedade(IncricaoEstadual));
+            return Ok(registroVacinaService.GetByPropriedade(idPropriedade));
         }
 
         [HttpPost]

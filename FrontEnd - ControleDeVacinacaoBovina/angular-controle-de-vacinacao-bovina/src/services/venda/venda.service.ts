@@ -15,7 +15,7 @@ export class VendaService {
     return this.http.get<any>(`${this.rotaBase}/Origem/${id}`);
   }
 
-  listarPorVenda(id: number): Observable<any> {
+  listarPorDestino(id: number): Observable<any> {
     return this.http.get<any>(`${this.rotaBase}/Destino/${id}`);
   }
 

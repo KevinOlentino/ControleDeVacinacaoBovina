@@ -31,7 +31,10 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
 
         public IEnumerable<Propriedade> GetByProdutor(int idProdutor)
         {
-            return _contexto.Propriedades.Where(propriedade => propriedade.IdProdutor == idProdutor);
+            return _contexto.Propriedades.Include(propriedade => propriedade.Endereco)
+                                            .ThenInclude(endereco => endereco.Municipio)
+                                                .Include(propriedade => propriedade.Produtor)
+                                                    .Where(propriedade => propriedade.IdProdutor == idProdutor);
         }
 
         public Propriedade Incluir(Propriedade propriedade)

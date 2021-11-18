@@ -21,13 +21,13 @@ namespace ControleDeVacinacaoBovina.Controllers
             this.vendaService = vendaService;
         }
 
-        [HttpGet("/Destino/{idPropriedade}")]
-        public ActionResult<List<Venda>> GetByDestino(int idPropriedade)
+        [HttpGet("Destino/{idProdutor}")]
+        public ActionResult<List<Venda>> GetByDestino(int idProdutor)
         {
             List<Venda> listVenda;
             try
             {
-                listVenda = vendaService.GetByDestino(idPropriedade).ToList();
+                listVenda = vendaService.GetByDestino(idProdutor).ToList();
             }
             catch(Exception ex)
             {
@@ -42,13 +42,13 @@ namespace ControleDeVacinacaoBovina.Controllers
             return Ok(listVenda);
         }
 
-        [HttpGet("/Origem/{idPropriedade}")]
-        public ActionResult<List<Venda>> GetByOrigem(int idPropriedade)
+        [HttpGet("Origem/{idProdutor}")]
+        public ActionResult<List<Venda>> GetByOrigem(int idProdutor)
         {
             List<Venda> listVenda;
             try
             {
-                listVenda = vendaService.GetByOrigem(idPropriedade).ToList();
+                listVenda = vendaService.GetByOrigem(idProdutor).ToList();
             }
             catch (Exception ex)
             {

@@ -24,9 +24,9 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
             registroVacinaRepository.Cancelar(registroVacinaRepository.GetById(id));
         }
 
-        public IEnumerable<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual)
+        public IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade)
         {
-            return registroVacinaRepository.GetByPropriedade(IncricaoEstadual);
+            return registroVacinaRepository.GetByPropriedade(idPropriedade);
         }
 
         public void Incluir(RegistroVacinacao registroVacina)

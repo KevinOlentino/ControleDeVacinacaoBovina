@@ -10,7 +10,7 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
     {
         void Incluir(RegistroVacinacao registroVacina);
         void Cancelar(int id);
-        IEnumerable<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual);
+        IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade);
         DateTime ObterUltimaVacinaPorEspecie(int idAnimal);
     }
 }

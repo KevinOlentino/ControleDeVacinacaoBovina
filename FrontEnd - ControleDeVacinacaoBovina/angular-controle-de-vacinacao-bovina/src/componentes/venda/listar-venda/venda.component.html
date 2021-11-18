@@ -1,0 +1,28 @@
+<div class="container col-xxl-8 px-4 py-4">
+  <div class="row d-flex justify-content-between">
+    <button type="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
+  </div>
+  <div class="row">
+    <input type="radio" class="btn-check" name="options" id="Vendas" checked/>
+    <label class="btn btn-primary col-md-2 mt-2" (click)="listarVendasPorOrigem()" for="Vendas">Vendas</label>
+    <input type="radio" class="btn-check" name="options" id="Compras">
+    <label class="btn btn-primary col-md-2 mt-2"  (click)="listarVendasPorDestino()" for="Compras">Compras</label>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mt-3" *ngFor="let venda of vendas">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Especie: {{venda.especie.nome}}</h5>
+          <p class="card-text">Origem: {{venda.origem.nome}}</p>
+          <p class="card-text">Destino: {{venda.destino.nome}}</p>
+          <p class="card-text">Quantidade: {{venda.quantidade}}</p>
+          <p class="card-text">Especie: {{venda.especie.nome}}</p>
+          <p class="card-text">Finalidade de Venda: {{venda.finalidadeDeVenda.nome}}</p>
+          <a href="#" class="btn btn-warning fas fa-edit"></a>
+          <a href="#" class="btn btn-danger ms-1 fa fa-trash"></a>
+          <a class="btn btn-primary ms-1">Selecionar </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
