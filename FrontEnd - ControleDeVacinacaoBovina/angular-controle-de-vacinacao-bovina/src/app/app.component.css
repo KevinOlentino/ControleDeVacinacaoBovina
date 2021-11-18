@@ -1,0 +1,9 @@
+.background{
+  background-color: #4FB536;
+}
+
+.background-top{
+  background: url("src/imagens/arte.jpg") bottom left;
+  height: 15rem;
+  padding: 8.2rem 1rem 2rem!important;
+}
