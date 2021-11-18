@@ -1,0 +1,25 @@
+<div class="container col-xxl-8 px-4 py-4">
+  <div class="row d-flex justify-content-between">
+    <button type="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
+    <form class="d-flex col-md-4 mt-2">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Procurar</button>
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mt-3" *ngFor="let propriedade of propriedades">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{propriedade.produtor.nome}}    {{propriedade.produtor.idProdutor}}</h5>
+          <p class="card-text">Inscrição Estadual: {{propriedade.inscricaoEstadual}}</p>
+          <p class="card-text">Rua: {{propriedade.endereco.rua}},{{propriedade.endereco.numero}}</p>
+          <p class="card-text">Municipio: {{propriedade.endereco.municipio.nome}}</p>
+          <p class="card-text">Produtor: {{propriedade.produtor.nome}}</p>
+          <p class="card-text">CPF: {{propriedade.produtor.cpf}}</p>
+          <a href="#" class="btn btn-warning fas fa-edit"></a>
+          <a href="#" class="btn btn-danger ms-1 fa fa-trash"></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

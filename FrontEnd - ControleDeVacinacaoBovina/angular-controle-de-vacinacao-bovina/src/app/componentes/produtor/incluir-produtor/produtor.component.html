@@ -1,0 +1,31 @@
+<div class="container col-xxl-6 mt-4">
+  <div class="row d-flex justify-content-between">
+    <form class="row" method="POST" #frm="ngForm" (ngSubmit)="Incluir(frm)">
+      <div class="col-md-6">
+        <label for="inputNome" class="form-label" >Nome</label>
+        <input type="email" name="nome" class="form-control" id="inputNome" [(ngModel)]="produtor.nome">
+      </div>
+      <div class="col-md-6">
+        <label for="inputCPF" class="form-label">CPF</label>
+        <input type="number" name="cpf" class="form-control" id="inputCPF" [(ngModel)]="produtor.cpf">
+      </div>
+      <div class="col-md-10">
+        <label for="inputRua" class="form-label">Rua</label>
+        <input type="text" name="rua" class="form-control" id="inputRua" [(ngModel)]="produtor.endereco.rua">
+      </div>
+      <div class="col-md-2">
+        <label for="inputNumero" class="form-label">Numero</label>
+        <input type="number" name="numero" class="form-control" id="inputNumero" [(ngModel)]="produtor.endereco.numero">
+      </div>
+      <div class="col-md-4">
+        <label for="inputState" class="form-label">Estado</label>
+        <select name="idMunicipio" id="inputState" class="form-select" [(ngModel)]="produtor.endereco.idMunicipio">
+          <option *ngFor="let municipio of municipios">Escolha...</option>
+        </select>
+      </div>
+      <div class="col-md-2 p-4 mt-2">
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+      </div>
+    </form>
+  </div>
+</div>

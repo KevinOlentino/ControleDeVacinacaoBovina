@@ -1,0 +1,23 @@
+<div class="container col-xxl-8 px-4 py-4">
+  <div class="row d-flex justify-content-between">
+    <button type="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
+    <form class="d-flex col-md-4 mt-2">
+      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit">Procurar</button>
+    </form>
+  </div>
+  <div class="row">
+    <div class="col-sm-4 mt-3" *ngFor="let produtor of produtores">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{produtor.nome}}</h5>
+          <p class="card-text">CPF: {{produtor.cpf}}</p>
+          <p class="card-text">Endereço: {{produtor.endereco.rua}}, {{produtor.endereco.numero}}</p>
+          <a href="#" class="btn btn-warning fas fa-edit"></a>
+          <a href="#" class="btn btn-danger ms-1 fa fa-trash"></a>
+          <a class="btn btn-primary ms-1" (click)="selecionarProdutor(produtor.idProdutor, produtor.nome)">Selecionar </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
