@@ -1,4 +1,4 @@
-import { Propriedade } from '../../Entities/propriedade';
+import { Propriedade } from '../../entities/propriedade';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

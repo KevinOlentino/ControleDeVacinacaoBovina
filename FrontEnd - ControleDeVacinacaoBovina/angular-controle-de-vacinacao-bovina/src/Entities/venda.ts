@@ -1,6 +1,7 @@
-import { FinalidadeDeVenda } from './finalidadedevenda';
-import { Especie } from './especie';
-import { Propriedade } from './propriedade';
+import { Especie } from "./especie";
+import { FinalidadeDeVenda } from "./finalidadedevenda";
+import { Propriedade } from "./propriedade";
+
 export interface Venda{
    IdVenda: number,
    Quantidade: number,
