@@ -1,4 +1,4 @@
-import { RegistroVacina } from './../../app/Entities/registrovacinacao';
+import { RegistroVacina } from '../../Entities/registrovacinacao';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';

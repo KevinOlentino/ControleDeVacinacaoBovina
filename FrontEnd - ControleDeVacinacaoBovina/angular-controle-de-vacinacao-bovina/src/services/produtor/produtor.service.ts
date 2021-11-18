@@ -1,4 +1,4 @@
-import { Produtor } from './../../app/Entities/produtor';
+import { Produtor } from '../../Entities/produtor';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
