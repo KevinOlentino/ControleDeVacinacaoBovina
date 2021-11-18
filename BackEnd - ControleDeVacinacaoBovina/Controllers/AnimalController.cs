@@ -88,7 +88,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             return NoContent();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult Cancelar(int id)
         {
             try

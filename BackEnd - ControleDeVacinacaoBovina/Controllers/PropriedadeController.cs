@@ -21,7 +21,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             this.propriedadeService = propriedadeService;
         }
 
-        [HttpGet("inscricao/{inscricao}")]
+        [HttpGet("{inscricao}")]
         public async Task<ActionResult<Propriedade>> GetByInscricao(string inscricao)
         {
             return Ok(await propriedadeService.GetByInscricao(inscricao));
