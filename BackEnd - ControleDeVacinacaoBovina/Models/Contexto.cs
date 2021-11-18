@@ -34,7 +34,7 @@ namespace ControleDeVacinacaoBovina.Models
             builder.Entity<Propriedade>().HasKey(propriedade => propriedade.IdPropriedade);
             builder.Entity<Propriedade>().HasOne(propriedade => propriedade.Endereco).WithMany(endereco => endereco.Propriedades).HasForeignKey(nameof(Endereco.IdEndereco));
             builder.Entity<Propriedade>().HasOne(propriedade => propriedade.Produtor).WithMany(produtor => produtor.Propriedades).HasForeignKey(nameof(Produtor.IdProdutor));
-            builder.Entity<Propriedade>().Property(propriedade => propriedade.IncricaoEstadual).HasMaxLength(10).IsRequired(); ;
+            builder.Entity<Propriedade>().Property(propriedade => propriedade.InscricaoEstadual).HasMaxLength(10).IsRequired(); ;
             builder.Entity<Propriedade>().Property(propriedade => propriedade.Nome).HasMaxLength(50).IsRequired();
 
             builder.Entity<Endereco>().ToTable("Endereco");            

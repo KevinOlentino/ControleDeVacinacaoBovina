@@ -20,7 +20,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
             return new Propriedade
             {
                 IdPropriedade = propriedade.IdPropriedade,
-                IncricaoEstadual = rng.Next(285000000, 999999999).ToString(),
+                InscricaoEstadual = rng.Next(285000000, 999999999).ToString(),
                 Nome = propriedade.Nome,
                 IdProdutor = propriedade.IdProdutor,
                 Endereco = propriedade.Endereco.DtoToEndereco(propriedade.Endereco)

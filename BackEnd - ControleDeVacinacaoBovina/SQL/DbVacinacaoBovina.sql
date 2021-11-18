@@ -58,7 +58,7 @@ go
 
 create table Propriedade(
 	IdPropriedade int primary key identity(1,1) not null,
-	IncricaoEstadual varchar(10) not null,
+	InscricaoEstadual varchar(10) not null,
 	Nome varchar(50) not null,
 	Endereco int not null references Endereco(IdEndereco),
 	Produtor int not null references Produtor(IdProdutor)

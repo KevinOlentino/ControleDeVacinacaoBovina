@@ -23,7 +23,7 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         public IEnumerable<RegistroVacinacao> GetByPropriedade(string IncricaoEstadual)
         {
             return _contexto.RegistroVacinacoes.Include(x => x.Animal).ThenInclude(x => x.Propriedade).Include(x => x.Animal.Especie)                                                
-                                                  .Where(x => x.Animal.Propriedade.IncricaoEstadual == IncricaoEstadual)
+                                                  .Where(x => x.Animal.Propriedade.InscricaoEstadual == IncricaoEstadual)
                                                     .Where(x => x.Ativo == true);
         }
 

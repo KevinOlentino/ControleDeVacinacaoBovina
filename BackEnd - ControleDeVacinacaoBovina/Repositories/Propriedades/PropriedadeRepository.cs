@@ -26,7 +26,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
         {            
             return await _contexto.Propriedades.Include(propriedade => propriedade.Endereco).ThenInclude(endereco => endereco.Municipio)
                                                 .Include(propriedade => propriedade.Produtor)
-                                                 .FirstOrDefaultAsync(propriedade => propriedade.IncricaoEstadual == inscricaoEstadual);
+                                                 .FirstOrDefaultAsync(propriedade => propriedade.InscricaoEstadual == inscricaoEstadual);
         }
 
         public IEnumerable<Propriedade> GetByProdutor(int idProdutor)
