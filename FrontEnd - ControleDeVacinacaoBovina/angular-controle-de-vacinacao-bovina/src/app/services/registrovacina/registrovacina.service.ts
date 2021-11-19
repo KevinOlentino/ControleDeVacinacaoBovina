@@ -15,11 +15,11 @@ export class RegistrovacinaService {
     return this.http.get<any>(`${this.rotaBase}/${id}`);
   }
 
-  CadastrarProdutor(RegistroVacina: RegistroVacina) {
+  CadastrarProdutor(RegistroVacina: RegistroVacina): Observable<RegistroVacina> {
     return this.http.post<RegistroVacina>(`${this.rotaBase}`, RegistroVacina);
   }
 
-  CancelarRegistroVacina(id: number) {
+  CancelarRegistroVacina(id: number): Observable<RegistroVacina> {
     return this.http.delete<RegistroVacina>(`${this.rotaBase}/${id}`);
   }
 }

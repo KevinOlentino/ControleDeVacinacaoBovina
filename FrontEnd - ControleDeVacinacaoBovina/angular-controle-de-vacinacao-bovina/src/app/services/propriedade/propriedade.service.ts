@@ -15,7 +15,7 @@ export class PropriedadeService {
     return this.http.get<any>(`${this.rotaBase}/Produtor/${id}`);
   }
 
-  ObterPorInscricaoEstadual(inscricaoEstudal: String) {
+  ObterPorInscricaoEstadual(inscricaoEstudal: String):Observable<any> {
     return this.http.get<Propriedade>(`${this.rotaBase}/${inscricaoEstudal}`);
   }
 
@@ -23,7 +23,7 @@ export class PropriedadeService {
     return this.http.put<Propriedade>(`${this.rotaBase}`, propriedade);
   }
 
-  CadastrarPropriedade(propriedade: Propriedade) {
+  CadastrarPropriedade(propriedade: Propriedade):Observable<any> {
     return this.http.post<Propriedade>(`${this.rotaBase}`, propriedade);
   }
 }

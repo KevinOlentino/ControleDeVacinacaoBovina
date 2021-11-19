@@ -15,15 +15,15 @@ export class AnimalService {
     return this.http.get<any>(`${this.rotaBase}/Produtor/${id}`);
   }
 
-  listarPorPropriedade(id: number): Observable<any> {
+  listarPorPropriedade(id: number): Observable<any>{
     return this.http.get<any>(`${this.rotaBase}/Propriedade/${id}`);
   }
 
-  CadastrarAnimais(animal: Animal) {
+  CadastrarAnimais(animal: Animal):Observable<Animal>{
     return this.http.post<Animal>(`${this.rotaBase}`, animal);
   }
 
-  CancelarRegistroAnimal(id: number) {
+  CancelarRegistroAnimal(id: number):Observable<Animal>{
     return this.http.delete<Animal>(`${this.rotaBase}/${id}`);
   }
 }

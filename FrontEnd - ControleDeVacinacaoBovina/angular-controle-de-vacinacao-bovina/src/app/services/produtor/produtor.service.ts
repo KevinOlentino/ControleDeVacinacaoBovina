@@ -15,7 +15,7 @@ export class ProdutorService {
     return this.http.get<any>(`${this.rotaBase}`);
   }
 
-  ObterPorCPF(cpf: String) {
+  ObterPorCPF(cpf: String): Observable<Produtor> {
     return this.http.get<Produtor>(`${this.rotaBase}/${cpf}`);
   }
 
@@ -23,7 +23,7 @@ export class ProdutorService {
     return this.http.put<Produtor>(`${this.rotaBase}`, produtor);
   }
 
-  CadastrarProdutor(produtor: Produtor) {
+  CadastrarProdutor(produtor: Produtor):Observable<any> {
     return this.http.post<Produtor>(`${this.rotaBase}`, produtor);
   }
 }

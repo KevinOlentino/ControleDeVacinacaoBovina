@@ -11,9 +11,7 @@ import { Produtor } from 'src/app/entities/produtor';
   styleUrls: ['./produtor.component.css']
 })
 export class ProdutorComponent implements OnInit {
-
   produtor: Produtor = new Produtor();
-
   municipios: Municipio[] = []
 
   constructor(private produtorService: ProdutorService) { }
@@ -23,8 +21,8 @@ export class ProdutorComponent implements OnInit {
 
  Incluir(frm: NgForm){
    this.produtorService.CadastrarProdutor(this.produtor).subscribe(
-     dados => alert("Produtor cadastrado com sucesso!"),
-     error => alert("Erro ao cadastrar Produtor")
+     dados => {alert("Produtor cadastrado com sucesso!"), console.log(dados)},
+     error => {alert("Erro ao cadastrar Produtor"),console.log(error)}
    )
  }
 

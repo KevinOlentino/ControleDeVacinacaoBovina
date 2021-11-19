@@ -22,8 +22,8 @@ export class EditarProdutorComponent implements OnInit {
 
   EditarProdutor(frm: NgForm){
     this.produtorService.EditarProdutor(this.produtor).subscribe(
-      dados => {alert("Clube cadastrado com sucesso"), console.log(dados)},
-      error => {alert("Erro ao cadastrar clubes"), console.log(error)}
+      dados => {alert("Produtor alterado com sucesso"), console.log(dados)},
+      error => {alert("Erro ao alterar Produtor"), console.log(error)}
     )
   }
 

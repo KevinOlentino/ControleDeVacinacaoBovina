@@ -4,7 +4,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
 {
     public class ProdutorDto
     {
-        public int Id { get; set; }
+        public int IdProdutor { get; set; }
 
         [Required(ErrorMessage = "Nome não pode ser nulo")]
         [MaxLength(50, ErrorMessage ="Nome pode ser até 50 caracteres")]
@@ -20,7 +20,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         {
             return new Produtor
             {
-                IdProdutor = produtor.Id,
+                IdProdutor = produtor.IdProdutor,
                 Nome = produtor.Nome,
                 CPF = produtor.CPF,
                 Endereco = produtor.Endereco.DtoToEndereco(produtor.Endereco)

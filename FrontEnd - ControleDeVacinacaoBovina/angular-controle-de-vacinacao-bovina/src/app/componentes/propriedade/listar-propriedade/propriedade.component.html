@@ -10,9 +10,9 @@
     <div class="col-sm-4 mt-3" *ngFor="let propriedade of propriedades">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">{{propriedade.produtor.nome}}    {{propriedade.produtor.idProdutor}}</h5>
+          <h5 class="card-title">{{propriedade.produtor.nome}}</h5>
           <p class="card-text">Inscrição Estadual: {{propriedade.inscricaoEstadual}}</p>
-          <p class="card-text">Rua: {{propriedade.endereco.rua}},{{propriedade.endereco.numero}}</p>
+          <p class="card-text">Rua: {{propriedade.endereco.rua}}, {{propriedade.endereco.numero}}</p>
           <p class="card-text">Municipio: {{propriedade.endereco.municipio.nome}}</p>
           <p class="card-text">Produtor: {{propriedade.produtor.nome}}</p>
           <p class="card-text">CPF: {{propriedade.produtor.cpf}}</p>

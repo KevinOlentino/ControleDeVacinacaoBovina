@@ -6,6 +6,9 @@ import { PropriedadeComponent } from 'src/app/componentes/propriedade/listar-pro
 import { ProdutorComponent } from 'src/app/componentes/produtor/incluir-produtor/produtor.component';
 import { VendaComponent } from 'src/app/componentes/venda/listar-venda/venda.component';
 import { RegistrovacinaComponent } from 'src/app/componentes/registrovacina/listar-registrovacina/registrovacina.component';
+import {IncluirAnimalComponent} from "./componentes/animal/incluir-animal/incluir-animal.component";
+import {IncluirPropriedadeComponent} from "./componentes/propriedade/incluir-propriedade/incluir-propriedade.component";
+import {IncluirRegistrovacinaComponent} from "./componentes/registrovacina/incluir-registrovacina/incluir-registrovacina.component";
 
 const routes: Routes = [
   {path: "Animal", component: AnimalComponent},
@@ -13,7 +16,10 @@ const routes: Routes = [
   {path: "Propriedade", component: PropriedadeComponent},
   {path: "Venda", component: VendaComponent},
   {path: "Produtor", component: ListarProdutorComponent},
-  {path: "Produtor/Add", component: ProdutorComponent}
+  {path: "Produtor/Add", component: ProdutorComponent},
+  {path: "Animal/Add", component: IncluirAnimalComponent},
+  {path: "Propriedade/Add",component: IncluirPropriedadeComponent},
+  {path: "RegistroVacina/Add",component: IncluirRegistrovacinaComponent}
 ];
 
 @NgModule({

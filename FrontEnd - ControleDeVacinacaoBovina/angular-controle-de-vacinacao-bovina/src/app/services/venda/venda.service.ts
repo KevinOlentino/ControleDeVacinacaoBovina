@@ -19,7 +19,7 @@ export class VendaService {
     return this.http.get<any>(`${this.rotaBase}/Destino/${id}`);
   }
 
-  CadastrarVenda(venda: Venda) {
+  CadastrarVenda(venda: Venda): Observable<Venda> {
     return this.http.post<Venda>(`${this.rotaBase}`, venda);
   }
 
