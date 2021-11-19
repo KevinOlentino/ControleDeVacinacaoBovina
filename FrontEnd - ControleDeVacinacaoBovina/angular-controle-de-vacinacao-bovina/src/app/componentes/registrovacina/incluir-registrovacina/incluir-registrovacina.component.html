@@ -1,21 +1,21 @@
 <div class="container col-xxl-6 mt-4">
   <div class="row d-flex justify-content-between">
     <form class="row" method="POST" #frm="ngForm" (ngSubmit)="IncluirRegistroVacina(frm)">
-      <div class="col-md-6">
-        <label for="inputQuantidade" class="form-label">CPF</label>
+      <div class="col-md-2">
+        <label for="inputQuantidade" class="form-label">Quantidade</label>
         <input type="text" pattern="[0-9]+" name="cpf" class="form-control" id="inputQuantidade" [(ngModel)]="registroVacina.quantidade">
       </div>
       <div class="col-md-10">
-        <label for="inputDataDaVacina" class="form-label">Rua</label>
-        <input type="date" name="rua" class="form-control" id="inputDataDaVacina" [(ngModel)]="registroVacina.dataDaVacina">
+        <label for="inputDataDaVacina" class="form-label">Data da vacina</label>
+        <input type="date" name="dataDaVacina" class="form-control" id="inputDataDaVacina" [(ngModel)]="registroVacina.dataDaVacina">
       </div>
-      <div class="col-md-4">
+      <div class="col-md-5">
         <label for="inputEspecie" class="form-label">Especie</label>
         <select name="idAnimal" id="inputEspecie" class="form-select" [(ngModel)]="registroVacina.idAnimal">
           <option *ngFor="let animal of animais" value="{{animal.idAnimal}}">{{animal.idEspecie}}</option>
         </select>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-5">
         <label for="inputVacina" class="form-label">Vacina</label>
         <select name="idVacina" id="inputVacina" class="form-select" [(ngModel)]="registroVacina.idVacina">
           <option *ngFor="let vacina of vacinas" value="{{vacina.IdVacina}}">{{vacina.Tipo}}:{{vacina.Marca}}</option>

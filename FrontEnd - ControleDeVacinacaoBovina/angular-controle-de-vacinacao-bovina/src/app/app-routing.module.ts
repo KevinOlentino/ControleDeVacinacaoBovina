@@ -9,17 +9,19 @@ import { RegistrovacinaComponent } from 'src/app/componentes/registrovacina/list
 import {IncluirAnimalComponent} from "./componentes/animal/incluir-animal/incluir-animal.component";
 import {IncluirPropriedadeComponent} from "./componentes/propriedade/incluir-propriedade/incluir-propriedade.component";
 import {IncluirRegistrovacinaComponent} from "./componentes/registrovacina/incluir-registrovacina/incluir-registrovacina.component";
+import {IncluirVendaComponent} from "./componentes/venda/incluir-venda/incluir-venda.component";
 
 const routes: Routes = [
   {path: "Animal", component: AnimalComponent},
   {path: "RegistroVacina/:id", component: RegistrovacinaComponent},
   {path: "Propriedade", component: PropriedadeComponent},
   {path: "Venda", component: VendaComponent},
+  {path: "Venda/Add", component: IncluirVendaComponent},
   {path: "Produtor", component: ListarProdutorComponent},
   {path: "Produtor/Add", component: ProdutorComponent},
   {path: "Animal/Add", component: IncluirAnimalComponent},
   {path: "Propriedade/Add",component: IncluirPropriedadeComponent},
-  {path: "RegistroVacina/Add",component: IncluirRegistrovacinaComponent}
+  {path: "RegistroVacina",component: IncluirRegistrovacinaComponent}
 ];
 
 @NgModule({

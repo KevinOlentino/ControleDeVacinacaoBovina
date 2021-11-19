@@ -12,7 +12,7 @@ import {Vacina} from "../../../entities/vacina";
 })
 export class IncluirRegistrovacinaComponent implements OnInit {
 
-  registroVacina!: RegistroVacina;
+  registroVacina: RegistroVacina = new RegistroVacina();
   animais: Animal[] = [];
   vacinas: Vacina[] = [];
 

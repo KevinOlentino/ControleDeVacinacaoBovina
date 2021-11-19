@@ -13,7 +13,7 @@ import {Propriedade} from "../../../entities/propriedade";
 })
 export class IncluirVendaComponent implements OnInit {
 
-  venda!: Venda;
+  venda: Venda = new Venda();
   especies: Especie[] = [];
   finalidesDeVenda: FinalidadeDeVenda[]=[];
   propriedades: Propriedade[] = [];
