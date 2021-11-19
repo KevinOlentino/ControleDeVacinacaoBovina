@@ -11,8 +11,9 @@ import {PropriedadeService} from "../../../services/propriedade/propriedade.serv
 })
 export class IncluirPropriedadeComponent implements OnInit {
 
-  propriedade!: Propriedade;
+  propriedade: Propriedade = new Propriedade();
   municipios: Municipio[] = [];
+  idProdutor?: number = Number(localStorage.getItem('idProdutor')?.toString());
 
   constructor(private propriedadeService: PropriedadeService) { }
 
@@ -20,6 +21,10 @@ export class IncluirPropriedadeComponent implements OnInit {
   }
 
   IncluirPropriedade(frm: NgForm){
+    if(this.idProdutor){
+      this.propriedade.idProdutor = this.idProdutor;
+    }
+    console.log(this.propriedade);
     this.propriedadeService.CadastrarPropriedade(this.propriedade).subscribe(
       dados => alert("Propriedade cadastrada com sucesso!"),
       error => alert("Erro ao cadastrar propriedade")

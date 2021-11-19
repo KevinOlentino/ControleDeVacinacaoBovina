@@ -64,7 +64,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpPut("{id}")]
         public ActionResult Editar(int id, ProdutorDto produtor)
         {
-            produtor.Id = id;
+            produtor.IdProdutor = id;
             Produtor produtorGet = produtorService.GetById(id);
          
 

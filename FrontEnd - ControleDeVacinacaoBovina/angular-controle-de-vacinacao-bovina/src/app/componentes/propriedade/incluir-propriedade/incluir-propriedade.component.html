@@ -7,7 +7,7 @@
       </div>
       <div class="col-md-6">
         <label for="inputInscricaoEstadual" class="form-label">Inscrição Estadual</label>
-        <input type="number" name="cpf" class="form-control" id="inputInscricaoEstadual" [(ngModel)]="propriedade.inscricaoEstadual">
+        <input type="text" name="inscricaoEstadual" class="form-control" id="inputInscricaoEstadual" [(ngModel)]="propriedade.inscricaoEstadual">
       </div>
       <div class="col-md-10">
         <label for="inputRua" class="form-label">Rua</label>
@@ -15,11 +15,12 @@
       </div>
       <div class="col-md-2">
         <label for="inputNumero" class="form-label">Numero</label>
-        <input type="number" name="numero" class="form-control" id="inputNumero" [(ngModel)]="propriedade.endereco.numero">
+        <input type="text" name="numero" class="form-control" id="inputNumero" [(ngModel)]="propriedade.endereco.numero">
       </div>
       <div class="col-md-4">
         <label for="inputState" class="form-label">Estado</label>
         <select name="idMunicipio" id="inputState" class="form-select" [(ngModel)]="propriedade.endereco.idMunicipio">
+          <option value="1">Teste</option>
           <option *ngFor="let municipio of municipios">Escolha...</option>
         </select>
       </div>
