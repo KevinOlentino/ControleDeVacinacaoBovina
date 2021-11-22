@@ -14,15 +14,10 @@ namespace ControleDeVacinacaoBovina.Models
         public int IdVacina { get; set; }
         public Animal Animal { get; set; }
         public Vacina Vacina { get; set; }
-        public bool Ativo { get; set; }
-
-        public int GetIdAnimal()
+        public bool Ativo { get; private set; } = true;
+        public void SetAtivo(bool ativo)
         {
-            return IdAnimal;
-        }
-        public int GetIdVacina()
-        {
-            return IdVacina;
+            Ativo = ativo;
         }
     }
 }

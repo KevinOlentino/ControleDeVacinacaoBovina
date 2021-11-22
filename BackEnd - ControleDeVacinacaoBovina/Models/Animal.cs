@@ -12,19 +12,15 @@ namespace ControleDeVacinacaoBovina.Models
         public int QuantidadeVacinada { get; set; }
         public int IdEspecie { get; set; }
         public int IdPropriedade { get; set; }
-        public bool Ativo { get; set; }
+        public bool Ativo { get; private set; } = true;
         public Especie Especie { get; set; }
         public Propriedade Propriedade { get; set; }
 
-        public List<RegistroVacinacao> RegistroVacinas;        
+        public List<RegistroVacinacao> RegistroVacinas;
 
-        public int GetEspecie()
+        public void SetAtivo(bool ativo)
         {
-            return IdEspecie;
-        }
-        public int GetPropriedade()
-        {
-            return IdPropriedade;
+            Ativo = ativo;
         }
     }
 }
