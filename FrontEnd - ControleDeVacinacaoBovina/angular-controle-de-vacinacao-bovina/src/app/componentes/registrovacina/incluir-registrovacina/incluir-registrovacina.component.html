@@ -1,6 +1,5 @@
-<div class="container col-xxl-6 mt-4">
-  <div class="row d-flex justify-content-between">
-    <form class="row" method="POST" #frm="ngForm" (ngSubmit)="IncluirRegistroVacina(frm)">
+<div class="container d-flex justify-content-between">
+    <form class="row p-3" method="POST" #frm="ngForm" (ngSubmit)="IncluirRegistroVacina(frm)">
       <div class="col-md-2">
         <label for="inputQuantidade" class="form-label">Quantidade</label>
         <input type="text" pattern="[0-9]+" name="cpf" class="form-control" id="inputQuantidade" [(ngModel)]="registroVacina.quantidade">
@@ -10,15 +9,16 @@
         <input type="date" name="dataDaVacina" class="form-control" id="inputDataDaVacina" [(ngModel)]="registroVacina.dataDaVacina">
       </div>
       <div class="col-md-5">
-        <label for="inputEspecie" class="form-label">Especie</label>
-        <select name="idAnimal" id="inputEspecie" class="form-select" [(ngModel)]="registroVacina.idAnimal">
-          <option *ngFor="let animal of animais" value="{{animal.idAnimal}}">{{animal.idEspecie}}</option>
+        <label for="inputAnimal" class="form-label">Animal e Propriedade</label>
+        <select name="idAnimal" id="inputAnimal" class="form-select" [(ngModel)]="registroVacina.idAnimal">
+          <option *ngFor="let animal of animais" value="{{animal.idAnimal}}">
+            {{animal.especie.nome}} - {{animal.propriedade.idPropriedade}} - {{animal.propriedade.nome}}</option>
         </select>
       </div>
       <div class="col-md-5">
         <label for="inputVacina" class="form-label">Vacina</label>
         <select name="idVacina" id="inputVacina" class="form-select" [(ngModel)]="registroVacina.idVacina">
-          <option *ngFor="let vacina of vacinas" value="{{vacina.IdVacina}}">{{vacina.Tipo}}:{{vacina.Marca}}</option>
+          <option *ngFor="let vacina of vacinas" value="{{vacina.idVacina}}">{{vacina.tipo}} - {{vacina.marca}}</option>
         </select>
       </div>
       <div class="col-md-2 p-4 mt-2">
@@ -26,4 +26,3 @@
       </div>
     </form>
   </div>
-</div>

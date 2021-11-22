@@ -9,5 +9,5 @@ export class RegistroVacina{
   idVacina: number = 0;
   animal: Animal = new Animal();
   vacina: Vacina = new Vacina();
-  ativo: boolean = false;
+  ativo: boolean = true;
 }

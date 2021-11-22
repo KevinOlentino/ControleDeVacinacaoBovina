@@ -16,6 +16,9 @@ import { IncluirAnimalComponent } from './componentes/animal/incluir-animal/incl
 import { IncluirPropriedadeComponent } from './componentes/propriedade/incluir-propriedade/incluir-propriedade.component';
 import { IncluirRegistrovacinaComponent } from './componentes/registrovacina/incluir-registrovacina/incluir-registrovacina.component';
 import { IncluirVendaComponent } from './componentes/venda/incluir-venda/incluir-venda.component';
+import { CancelarAnimalComponent } from './componentes/animal/cancelar-animal/cancelar-animal.component';
+import { CancelarVendaComponent } from './componentes/venda/cancelar-venda/cancelar-venda.component';
+import { CancelarRegistrovacinaComponent } from './componentes/registrovacina/cancelar-registrovacina/cancelar-registrovacina.component';
 
 
 @NgModule({
@@ -32,7 +35,10 @@ import { IncluirVendaComponent } from './componentes/venda/incluir-venda/incluir
     IncluirAnimalComponent,
     IncluirPropriedadeComponent,
     IncluirRegistrovacinaComponent,
-    IncluirVendaComponent
+    IncluirVendaComponent,
+    CancelarAnimalComponent,
+    CancelarVendaComponent,
+    CancelarRegistrovacinaComponent
   ],
   imports: [
     BrowserModule,

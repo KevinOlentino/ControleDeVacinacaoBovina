@@ -9,7 +9,7 @@ export class Venda{
    idDestino: number = 0;
    idEspecie: number = 0;
    idFinalidadeDeVenda: number =0;
-   ativo: Boolean = false;
+   ativo: Boolean = true;
    origem: Propriedade = new Propriedade();
    destino: Propriedade = new Propriedade();
    especie: Especie = new Especie();

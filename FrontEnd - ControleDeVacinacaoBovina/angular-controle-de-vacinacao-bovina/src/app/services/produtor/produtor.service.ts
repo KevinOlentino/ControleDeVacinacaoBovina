@@ -19,8 +19,8 @@ export class ProdutorService {
     return this.http.get<Produtor>(`${this.rotaBase}/${cpf}`);
   }
 
-  EditarProdutor(produtor: Produtor): Observable<any> {
-    return this.http.put<Produtor>(`${this.rotaBase}`, produtor);
+  EditarProdutor(id:number,produtor: Produtor): Observable<any> {
+    return this.http.put<Produtor>(`${this.rotaBase}/${id}`, produtor);
   }
 
   CadastrarProdutor(produtor: Produtor):Observable<any> {

@@ -1,7 +1,7 @@
 export class Vacina{
-  IdVacina: number = 0;
-  Nome: String = '';
-  Doenca: String = '';
-  Tipo: String = '';
-  Marca: String = '';
+  idVacina: number = 0;
+  nome: String = '';
+  doenca: String = '';
+  tipo: String = '';
+  marca: String = '';
 }

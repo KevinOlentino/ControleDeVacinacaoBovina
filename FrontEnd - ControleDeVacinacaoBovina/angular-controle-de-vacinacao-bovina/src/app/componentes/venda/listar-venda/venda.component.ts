@@ -1,6 +1,6 @@
 import { Venda } from 'src/app/entities/venda';
 import { VendaService } from '../../../services/venda/venda.service';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-venda',
@@ -11,7 +11,7 @@ export class VendaComponent implements OnInit {
 
   vendas: Venda[] = [];
   idProdutor?: number = Number(localStorage.getItem('idProdutor')?.toString());
-
+  @Output() venda: Venda = new Venda();
 
   constructor(private vendaService: VendaService) { }
 
@@ -33,6 +33,10 @@ export class VendaComponent implements OnInit {
       dados => {this.vendas = dados, console.log(this.vendas)},
       error => console.log(error)
     )
+  }
+
+  cancelarVenda(venda: Venda){
+    this.venda = venda;
   }
 
 }

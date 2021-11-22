@@ -7,7 +7,7 @@ export class Animal {
 	quantidadeVacinada: number = 0;
 	idEspecie: number = 0;
 	idPropriedade: number = 0;
-	ativo: boolean = false;
+	ativo: boolean = true;
 	propriedade: Propriedade = new Propriedade();
   especie: Especie = new Especie();
 }

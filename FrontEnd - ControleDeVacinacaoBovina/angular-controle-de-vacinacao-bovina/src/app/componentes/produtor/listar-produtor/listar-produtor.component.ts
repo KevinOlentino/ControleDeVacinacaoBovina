@@ -1,6 +1,6 @@
 import { AppComponent } from '../../../app.component';
 import { ProdutorService } from '../../../services/produtor/produtor.service';
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output} from '@angular/core';
 import { Produtor } from 'src/app/entities/produtor';
 
 @Component({
@@ -11,6 +11,7 @@ import { Produtor } from 'src/app/entities/produtor';
 export class ListarProdutorComponent implements OnInit {
 
   produtores: Produtor[] = [];
+  @Output("produtor") produtor: Produtor = new Produtor();
 
   constructor(private produtorService: ProdutorService, private app: AppComponent) { }
 
@@ -23,6 +24,11 @@ export class ListarProdutorComponent implements OnInit {
 
   selecionarProdutor(id: Number, nome: string){
     this.app.setProdutor(id,nome);
+  }
+
+  getProdutor(produtor: Produtor){
+    console.log(produtor);
+    this.produtor = produtor;
   }
 
 }

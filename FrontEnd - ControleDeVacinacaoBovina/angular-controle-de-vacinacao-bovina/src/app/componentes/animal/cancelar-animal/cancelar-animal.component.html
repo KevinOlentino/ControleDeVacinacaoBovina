@@ -1,0 +1,15 @@
+<div class="row p-3">
+<h5 class="card-title">{{animal.propriedade.nome}}</h5>
+<p class="card-text">Quantidade Total: {{animal.quantidadeTotal}}</p>
+<p class="card-text">Quantidade Vacinada: {{animal.quantidadeVacinada}}</p>
+<p class="card-text">Especie: {{animal.especie.nome}}</p>
+<p class="card-text">Inscricao Estadual: {{animal.propriedade.inscricaoEstadual}}</p>
+
+  <div>
+    <div class="modal-footer">
+      <p>Deseja realmente excluir este registro:</p>
+      <button class="btn btn-danger" (click)="cancelarAnimal(animal.idAnimal)">Sim</button>
+      <button type="" class="btn btn-primary" data-bs-dismiss="modal">Não</button>
+    </div>
+  </div>
+</div>

@@ -1,6 +1,6 @@
 import { AppComponent } from '../../../app.component';
 import { AnimalService } from '../../../services/animal/animal.service';
-import { Component, OnInit } from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import { Animal } from 'src/app/entities/animal';
 
 @Component({
@@ -15,6 +15,7 @@ export class AnimalComponent implements OnInit {
 
   animais:Animal[]= [];
   idProdutor?: number = Number(localStorage.getItem('idProdutor')?.toString());
+  @Output() animal: Animal = new Animal();
 
   ngOnInit() {
     if(this.idProdutor)
@@ -22,6 +23,10 @@ export class AnimalComponent implements OnInit {
       dados => {this.animais = dados, console.log(this.animais)},
       error => {console.log("Error ao procurar animal",error)}
       )
+  }
+
+  cancelar(animal: Animal){
+    this.animal = animal;
   }
 
 }

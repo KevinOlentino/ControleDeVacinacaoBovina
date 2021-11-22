@@ -1,22 +1,44 @@
-n<div class="container col-xxl-8 px-4 py-4">
+<div class="modal fade" id="adicionarAnimal" aria-hidden="true" aria-labelledby="adicionarAnimalLabel" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content container">
+      <app-incluir-animal></app-incluir-animal>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="cancelarAnimal" aria-hidden="true" aria-labelledby="adicionarAnimalLabel" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content container">
+      <app-cancelar-animal [animal]="animal"></app-cancelar-animal>
+    </div>
+  </div>
+</div>
+
+<div class="container col-xxl-8 px-4 py-4">
   <div class="row d-flex justify-content-between">
-    <button type="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
+    <button type="button" data-bs-toggle="modal" href="#adicionarAnimal" role="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
     <form class="d-flex col-md-4 mt-2">
       <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Procurar</button>
     </form>
+    <ng-container *ngIf="animais.length == 0">
+      <div class="alert alert-danger mt-2" role="alert">
+        Nenhum registro encontrado!
+      </div>
+    </ng-container>
   </div>
     <div class="row">
       <div class="col-sm-4 mt-3" *ngFor="let animal of animais">
         <div class="card">
           <div class="card-body">
+            <div class="d-flex flex-row-reverse">
+              <a data-bs-toggle="modal" href="#cancelarAnimal" (click)="cancelar(animal)" role="button" class="btn btn-danger ms-1 fa fa-trash"></a>
+            </div>
             <h5 class="card-title">{{animal.propriedade.nome}}</h5>
             <p class="card-text">Quantidade Total: {{animal.quantidadeTotal}}</p>
             <p class="card-text">Quantidade Vacinada: {{animal.quantidadeVacinada}}</p>
             <p class="card-text">Especie: {{animal.especie.nome}}</p>
             <p class="card-text">Inscricao Estadual: {{animal.propriedade.inscricaoEstadual}}</p>
-            <a href="#" class="btn btn-warning fas fa-edit"></a>
-            <a href="#" class="btn btn-danger ms-1 fa fa-trash"></a>
           </div>
         </div>
       </div>

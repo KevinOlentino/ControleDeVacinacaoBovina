@@ -19,8 +19,8 @@ export class PropriedadeService {
     return this.http.get<Propriedade>(`${this.rotaBase}/${inscricaoEstudal}`);
   }
 
-  EditarPropriedade(propriedade: Propriedade): Observable<any> {
-    return this.http.put<Propriedade>(`${this.rotaBase}`, propriedade);
+  EditarPropriedade(id:number,propriedade: Propriedade): Observable<any> {
+    return this.http.put<Propriedade>(`${this.rotaBase}/${id}`, propriedade);
   }
 
   CadastrarPropriedade(propriedade: Propriedade):Observable<any> {

@@ -4,6 +4,7 @@ import { ProdutorService } from '../../../services/produtor/produtor.service';
 import { Component, Input, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Produtor } from 'src/app/entities/produtor';
+import {MunicipioService} from "../../../services/municipio/municipio.service";
 
 @Component({
   selector: 'app-produtor',
@@ -14,9 +15,13 @@ export class ProdutorComponent implements OnInit {
   produtor: Produtor = new Produtor();
   municipios: Municipio[] = []
 
-  constructor(private produtorService: ProdutorService) { }
+  constructor(private produtorService: ProdutorService, private municipioService: MunicipioService) { }
 
   ngOnInit() {
+    this.municipioService.listarMuncipios().subscribe(
+      dados => {this.municipios = dados, console.log(this.municipios)},
+      error => console.log(error)
+    )
   }
 
  Incluir(frm: NgForm){

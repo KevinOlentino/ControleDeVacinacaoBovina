@@ -1,6 +1,5 @@
-<div class="container col-xxl-6 mt-4">
-  <div class="row d-flex justify-content-between">
-    <form class="row" method="POST" #frm="ngForm" (ngSubmit)="IncluirVenda(frm)">
+<div class="container d-flex justify-content-between">
+    <form class="row p-3" method="POST" #frm="ngForm" (ngSubmit)="IncluirVenda(frm)">
       <div class="col-md-2">
         <label for="inputQuantidade" class="form-label" >Quantidade</label>
         <input type="text" name="nome" pattern="[0-9]+" class="form-control" id="inputQuantidade" [(ngModel)]="venda.quantidade">
@@ -8,7 +7,7 @@
       <div class="col-md-5">
         <label for="inputFinalidadeDeVenda" class="form-label">Finalidade de Venda</label>
         <select name="idFinalidadeDeVenda" id="inputFinalidadeDeVenda" class="form-select" [(ngModel)]="venda.idFinalidadeDeVenda">
-          <option *ngFor="let finalidadeDeVenda of finalidesDeVenda" value="{{finalidadeDeVenda.idFinalidadeDeVenda}}">{{finalidadeDeVenda.nome}}</option>
+          <option *ngFor="let finalidadeDeVenda of finalidadesDeVenda" value="{{finalidadeDeVenda.idFinalidadeDeVenda}}">{{finalidadeDeVenda.nome}}</option>
         </select>
       </div>
       <div class="col-md-5">
@@ -29,9 +28,8 @@
           <option *ngFor="let propriedade of propriedades" value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
         </select>
       </div>
-      <div class="col-md-3 p-2">
+      <div class="modal-footer mt-1">
         <button type="submit" class="btn btn-success">Cadastrar</button>
       </div>
     </form>
   </div>
-</div>
