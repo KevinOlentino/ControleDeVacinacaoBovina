@@ -78,7 +78,7 @@ namespace ControleDeVacinacaoBovina
             services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.IgnoreNullValues = true; });
 
             services.AddCors(options => options.AddDefaultPolicy(
-                        builder => builder.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyOrigin()
+                        builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
                         ));
             
 
