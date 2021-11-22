@@ -79,7 +79,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult Cancelar(int id)
         {
             try

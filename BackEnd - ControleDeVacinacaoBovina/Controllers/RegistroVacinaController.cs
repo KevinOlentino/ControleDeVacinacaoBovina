@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
 {
@@ -32,23 +33,18 @@ namespace ControleDeVacinacaoBovina.Controllers
             {
                 return BadRequest(ex.Message);
             }
+
             return Ok(registroVacinaService.GetByPropriedade(idPropriedade));
         }
 
         [HttpPost]
-        public ActionResult Incluir(RegistroVacinacaoDto registroVacina)
-        {            
-            try
-            {
-                registroVacinaService.Incluir(registroVacina.DtoToRegistroVacinacao(registroVacina));
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }            
+        public async Task<ActionResult> Incluir(RegistroVacinacaoDto registroVacina)
+        {
+            await registroVacinaService.Incluir(registroVacina.DtoToRegistroVacinacao(registroVacina));                                   
             return Ok();
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public ActionResult Cancelar(int id)
         {
             try

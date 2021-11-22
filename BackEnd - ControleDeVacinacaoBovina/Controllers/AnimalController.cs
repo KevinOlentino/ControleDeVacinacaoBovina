@@ -14,6 +14,7 @@ namespace ControleDeVacinacaoBovina.Controllers
     {
         private readonly IAnimalService animalService;
 
+
         public AnimalController(IAnimalService animalService)
         {
             this.animalService = animalService;

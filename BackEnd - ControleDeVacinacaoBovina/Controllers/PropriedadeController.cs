@@ -49,7 +49,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         {
             try
             {
-                propriedadeService.Incluir(propriedade.DtoToPropriedade(propriedade));
+                propriedadeService.Incluir(propriedade);
             }catch(Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -63,7 +63,7 @@ namespace ControleDeVacinacaoBovina.Controllers
             try
             {
                 Propriedade PropriedadeOld = propriedadeService.GetById(id);
-
+                propriedade.LockInscricaoEstadual(PropriedadeOld.InscricaoEstadual);
                 propriedade.Endereco.IdEndereco = PropriedadeOld.GetEndereco();
                 propriedadeService.Editar(propriedade.DtoToPropriedade(propriedade));
 
