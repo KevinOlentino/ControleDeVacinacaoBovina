@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.FinalidadeDeVendas
 {
-    interface IFinalidadeDeVendasService
+    public interface IFinalidadeDeVendasService
     {
         IEnumerable<FinalidadeDeVenda> GetAll();
         FinalidadeDeVenda GetById(int id);

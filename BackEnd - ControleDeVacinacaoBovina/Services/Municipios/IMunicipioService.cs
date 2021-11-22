@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.Municipios
 {
-    interface IMunicipioService
+    public interface IMunicipioService
     {
         IEnumerable<Municipio> GetAll();
         Municipio GetId(int Id);

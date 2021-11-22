@@ -1,4 +1,5 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repositories.Propriedades;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,8 +17,10 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
             _propriedadeRepository = propriedadeRepository;
         }
 
-        public Propriedade Incluir(Propriedade propriedade)
-        {              
+        public Propriedade Incluir(PropriedadeDto propriedadeDto)
+        {
+            propriedadeDto.SetInscricaoEstadual();
+            Propriedade propriedade = propriedadeDto.DtoToPropriedade(propriedadeDto);
             return _propriedadeRepository.Incluir(propriedade);
         }
 

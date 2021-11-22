@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.Vacinas
 {
-    interface IVacinaService
+    public interface IVacinaService
     {
         Task<Vacina> GetById(int id);
+        Task<IEnumerable<Vacina>> GetAll();
         void Incluir(Vacina vacina);
         void Editar(Vacina vacina);
     }

@@ -29,27 +29,37 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
             return registroVacinaRepository.GetByPropriedade(idPropriedade);
         }
 
-        public void Incluir(RegistroVacinacao registroVacina)
+        public async Task Incluir(RegistroVacinacao registroVacina)
         {
-            RegistroVacinacao registroVacinacao = registroVacinaRepository.GetByAnimal(registroVacina.IdAnimal);
-            Animal animaisVacinados = registroVacinacao.Animal;
+            RegistroVacinacao registroVacinacaOld = ObterUltimaVacinaPorEspecie(registroVacina.IdAnimal);
+            Animal animaisAVacinar = animalRepository.GetById(registroVacina.IdAnimal);
 
-            if (registroVacinacao.DataDaVacina.Year == DateTime.Now.Year && registroVacinacao.Animal.QuantidadeVacinada == registroVacinacao.Animal.QuantidadeTotal)
+            if (registroVacinacaOld != null && registroVacinacaOld.DataDaVacina.Year == DateTime.Now.Year 
+                && animaisAVacinar.QuantidadeVacinada == animaisAVacinar.QuantidadeTotal)
             {
                 throw new Exception("Todos os animais já foram vacinados esse ano!");
             }
+            if(registroVacina.Quantidade > animaisAVacinar.QuantidadeTotal - animaisAVacinar.QuantidadeVacinada)
+            {
+                throw new Exception("Valor não pode ser maior que a quantidade total de animais!");
+            }
 
-            animaisVacinados.QuantidadeVacinada += registroVacina.Quantidade;
-
-            registroVacinaRepository.Incluir(registroVacina);
-            animalRepository.Editar(animaisVacinados);
+            animaisAVacinar.QuantidadeVacinada += registroVacina.Quantidade;
+            
+            await registroVacinaRepository.Incluir(registroVacina);   
+            await animalRepository.Editar(animaisAVacinar);
         }
 
-        public DateTime ObterUltimaVacinaPorEspecie(int idAnimal)
+        public RegistroVacinacao ObterUltimaVacinaPorEspecie(int idAnimal)
         {
-            RegistroVacinacao registro = registroVacinaRepository.GetByAnimal(idAnimal);
+            IEnumerable<RegistroVacinacao> registro = registroVacinaRepository.GetByAnimal(idAnimal);
 
-            return registro.DataDaVacina;
+            if (registro.Any())
+            {
+                return registro.Last();
+            }
+
+            return null;
         }
 
     }

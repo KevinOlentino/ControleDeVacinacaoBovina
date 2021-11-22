@@ -30,5 +30,10 @@ namespace ControleDeVacinacaoBovina.Services.Vacinas
         {
             vacinaRepository.Incluir(vacina);
         }
+
+        public async Task<IEnumerable<Vacina>> GetAll()
+        {
+            return await vacinaRepository.GetAll();
+        }
     }
 }

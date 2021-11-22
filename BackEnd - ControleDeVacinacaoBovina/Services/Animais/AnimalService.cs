@@ -21,9 +21,9 @@ namespace ControleDeVacinacaoBovina.Services.Animais
             animalRepository.Cancelar(animalRepository.GetById(id));
         }
 
-        public void Editar(Animal animal)
+        public async Task Editar(Animal animal)
         {
-            animalRepository.Editar(animal);
+            await animalRepository.Editar(animal);
         }
 
         public IEnumerable<Animal> GetByProdutor(int idProdutor)

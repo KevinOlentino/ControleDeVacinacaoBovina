@@ -16,6 +16,11 @@ namespace ControleDeVacinacaoBovina.Services.Especies
             this.especieRepository = especieRepository;
         }
 
+        public async Task<IEnumerable<Especie>> GetAll()
+        {
+            return await especieRepository.GetAll();
+        }
+
         public Task<Especie> GetById(int id)
         {
             return especieRepository.GetById(id);

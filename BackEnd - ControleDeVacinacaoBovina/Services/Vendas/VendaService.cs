@@ -54,32 +54,53 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
         {
             Animal animalOrigem = animalService.GetByPropriedade(venda.IdOrigem).FirstOrDefault(x => x.IdEspecie == venda.IdEspecie);
             Animal animalDestino = animalService.GetByPropriedade(venda.IdDestino).FirstOrDefault(x => x.IdEspecie == venda.IdEspecie);
-            DateTime ultimaVacina = registroVacinacaoService.ObterUltimaVacinaPorEspecie(animalOrigem.IdAnimal);
+            RegistroVacinacao UltimoRegistro = registroVacinacaoService.ObterUltimaVacinaPorEspecie(animalOrigem.IdAnimal);
+            DateTime? ultimaVacina;
 
-            if (animalDestino == null || animalOrigem == null)
+            if (animalOrigem == null)
             {
-                throw new Exception("O Destino ou a Origem não foi encontrado!");
+                throw new Exception("A origem não foi encontrada e o animal não pode ser vendido");
+            }
+            if (UltimoRegistro == null)
+            {
+                throw new Exception("Nenhum registro de vacina registrado, sendo assim não pode realizar a venda!");
             }
 
-            if(animalOrigem.QuantidadeTotal <= 0)
+            ultimaVacina = UltimoRegistro.DataDaVacina;
+
+            if (animalOrigem.QuantidadeVacinada <= 0 || ultimaVacina.Value.Year != DateTime.Now.Year)
             {
                 return false;
             }
-            else if(animalOrigem.QuantidadeVacinada <= 0 || ultimaVacina.Year != DateTime.Now.Year)
-            {
-                return false;
-            }
 
-            animalOrigem.QuantidadeVacinada -= venda.Quantidade;
-            animalOrigem.QuantidadeTotal -= venda.Quantidade;
-
-            animalDestino.QuantidadeVacinada += venda.Quantidade;
-            animalDestino.QuantidadeTotal += venda.Quantidade;
-
-            animalService.Editar(animalOrigem);
-            animalService.Editar(animalDestino);
+            EditarEntidadesDeAnimais(animalOrigem, animalDestino, venda);
 
             return true;
+        }
+
+        private void EditarEntidadesDeAnimais(Animal animalOrigem, Animal animalDestino, Venda venda)
+        {
+            animalOrigem.QuantidadeVacinada -= venda.Quantidade;
+            animalOrigem.QuantidadeTotal -= venda.Quantidade;
+            animalService.Editar(animalOrigem);
+
+
+            if (animalDestino != null)
+            {
+                animalDestino.QuantidadeTotal += venda.Quantidade;
+                animalDestino.QuantidadeVacinada += venda.Quantidade;
+                animalService.Editar(animalDestino);
+            }
+            else
+            {
+                animalService.Incluir(new Animal()
+                {
+                    IdPropriedade = venda.IdDestino,
+                    QuantidadeTotal = venda.Quantidade,
+                    QuantidadeVacinada = venda.Quantidade,
+                    IdEspecie = venda.IdEspecie
+                });
+            }
         }
     }
 }
