@@ -1,5 +1,6 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Repository;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,11 @@ namespace ControleDeVacinacaoBovina.Repositories.Especies
     {
         public EspecieRepository(Contexto novoContexto) : base(novoContexto)
         {
+        }
+
+        public async Task<IEnumerable<Especie>> GetAll()
+        {
+            return await _contexto.Especies.ToListAsync();
         }
 
         public async Task<Especie> GetById(int id)

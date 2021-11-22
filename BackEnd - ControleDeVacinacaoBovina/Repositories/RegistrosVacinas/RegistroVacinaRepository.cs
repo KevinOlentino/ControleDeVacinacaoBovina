@@ -16,8 +16,9 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 
         public void Cancelar(RegistroVacinacao registroVacinacao)
         {
-            registroVacinacao.Ativo = false;
+            registroVacinacao.SetAtivo(false);
             _contexto.Entry(registroVacinacao).State = EntityState.Modified;
+            _contexto.SaveChanges();
         }
 
         public IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade)
@@ -27,22 +28,24 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
                                                     .Where(x => x.Ativo == true);
         }
 
-        public void Incluir(RegistroVacinacao registroVacina)
+        public async Task Incluir(RegistroVacinacao registroVacina)
         {
-            _contexto.RegistroVacinacoes.Add(registroVacina);
-            _contexto.SaveChanges();
+            await _contexto.RegistroVacinacoes.AddAsync(registroVacina);
+            await _contexto.SaveChangesAsync();                        
+                        
         }
 
-        public RegistroVacinacao GetByAnimal(int id)
+        public IEnumerable<RegistroVacinacao> GetByAnimal(int id)
         {
-            return _contexto.RegistroVacinacoes.Include(x => x.Animal)
-                                                .ThenInclude(x => x.Especie).OrderBy(x => x.IdRegistroVacinacao).Where(x => x.Ativo == true)
-                                                        .Last(x => x.IdAnimal == id);
+            return _contexto.RegistroVacinacoes.AsNoTracking().Include(x => x.Animal)
+                                                .ThenInclude(x => x.Especie).OrderBy(x => x.IdRegistroVacinacao)
+                                                .Where(x => x.IdAnimal == id).Where(x => x.Ativo == true);                     
         }
 
         public RegistroVacinacao GetById(int id)
         {
             return _contexto.RegistroVacinacoes.Find(id);
         }
+     
     }
 }

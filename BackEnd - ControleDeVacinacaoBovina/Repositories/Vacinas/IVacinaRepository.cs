@@ -11,5 +11,6 @@ namespace ControleDeVacinacaoBovina.Repositories.Vacinas
         Task<Vacina> GetById(int id);
         void Incluir(Vacina vacina);
         void Editar(Vacina vacina);
+        Task<IEnumerable<Vacina>> GetAll();
     }
 }

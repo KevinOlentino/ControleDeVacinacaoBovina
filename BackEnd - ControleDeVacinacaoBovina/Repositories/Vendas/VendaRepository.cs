@@ -12,8 +12,9 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
         public VendaRepository(Contexto novoContexto) : base(novoContexto){ }
         public void Cancelar(Venda venda)
         {
-            venda.Ativo = false;
+            venda.SetAtivo(false);
             _contexto.Entry(venda).State = EntityState.Modified;
+            _contexto.SaveChanges();
         }
 
         public IEnumerable<Venda> GetByDestino(int idProdutor)

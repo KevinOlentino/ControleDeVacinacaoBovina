@@ -6,10 +6,10 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 {
     public interface IRegistroVacinaRepository
     {
-        void Incluir(RegistroVacinacao registroVacina);
+        Task Incluir(RegistroVacinacao registroVacina);
         void Cancelar(RegistroVacinacao registroVacina);
         IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade);
-        RegistroVacinacao GetByAnimal(int id);
+        IEnumerable<RegistroVacinacao> GetByAnimal(int id);
         RegistroVacinacao GetById(int id);
     }
 }

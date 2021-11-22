@@ -20,6 +20,11 @@ namespace ControleDeVacinacaoBovina.Repositories.Vacinas
             _contexto.SaveChanges();
         }
 
+        public async Task<IEnumerable<Vacina>> GetAll()
+        {
+            return await _contexto.Vacinas.ToListAsync();
+        }
+
         public async Task<Vacina> GetById(int id)
         {
             return await _contexto.Vacinas.FirstOrDefaultAsync(x => x.IdVacina == id);

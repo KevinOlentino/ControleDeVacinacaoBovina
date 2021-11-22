@@ -16,7 +16,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Produtores
         public void Editar(Produtor produtor)
         {
             produtor.IdEndereco = produtor.Endereco.IdEndereco.Value;
-            _contexto.Entry(produtor).State = EntityState.Modified;
+            _contexto.Produtores.Update(produtor);
             _contexto.SaveChanges();
         }
 

@@ -14,14 +14,15 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
 
         public void Cancelar(Animal animal)
         {
-            animal.Ativo = false;
+            animal.SetAtivo(false);
             _contexto.Entry(animal).State = EntityState.Modified;
+            _contexto.SaveChanges();
         }
 
-        public void Editar(Animal animal)
+        public async Task Editar(Animal animal)
         {
             _contexto.Animals.Update(animal);
-            _contexto.SaveChanges();
+            await _contexto.SaveChangesAsync();
         }
 
         public IEnumerable<Animal> GetByProdutor(int idProdutor)
