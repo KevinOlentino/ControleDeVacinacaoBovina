@@ -20,75 +20,27 @@ namespace ControleDeVacinacaoBovina.Controllers
         }
 
         [HttpGet("{cpf}")]
-        public async Task<ActionResult<Produtor>> GetByCPF(string cpf)
+        public async Task<ActionResult> GetByCPF(string cpf)
         {
-            Produtor produtor;
-            try
-            {
-                produtor = await produtorService.GetByCPF(cpf);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }            
-            return Ok(produtor);
+            return await produtorService.GetByCPF(cpf);
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Produtor>>> GetAll()
+        public async Task<ActionResult> GetAll()
         {
-            return Ok(await produtorService.GetAll());
+            return await produtorService.GetAll();
         }
 
         [HttpPost]
-        public ActionResult Incluir([FromBody]ProdutorDto produtor)
+        public async Task<ActionResult> Incluir(ProdutorDto produtor)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest();
-            }
-
-            produtor.Endereco.IdEndereco = null;
-
-            try 
-            {
-                produtorService.Incluir(produtor.DtoToProdutor(produtor));
-            }catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }            
-
-            return Ok("Produtor adicionado com sucesso!");
+            return await produtorService.Incluir(produtor);
         }
 
         [HttpPut("{id}")]
-        public ActionResult Editar(int id, ProdutorDto produtor)
+        public async Task<ActionResult> Editar(int id, ProdutorDto produtor)
         {
-            produtor.IdProdutor = id;
-            Produtor produtorGet = produtorService.GetById(id);
-         
-
-            if(produtorGet == null)
-            {
-                return NotFound($"Id:{id} Não foi encontrado!");
-            }
-
-            if (!ModelState.IsValid)
-            {               
-                return BadRequest();
-            }
-
-            try
-            {
-                produtor.Endereco.IdEndereco = produtorGet.GetEndereco();
-                produtorService.Editar(produtor.DtoToProdutor(produtor));
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }            
-
-            return NoContent();
+            return await produtorService.Editar(id,produtor);
         }
 
     }

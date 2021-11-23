@@ -1,6 +1,8 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repositories.Animais;
 using ControleDeVacinacaoBovina.Repositories.RegistrosVacinas;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,46 +21,92 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
             this.animalRepository = animalRepository;
         }
 
-        public void Cancelar(int id)
+        public Task<ObjectResult> Cancelar(int id)
         {
-            registroVacinaRepository.Cancelar(registroVacinaRepository.GetById(id));
-        }
+            var response = new ResponseDto<RegistroVacinacao>(EStatusCode.NO_CONTENT, null);
+            RegistroVacinacao registroVacinacao = registroVacinaRepository.GetById(id);
 
-        public IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade)
-        {
-            return registroVacinaRepository.GetByPropriedade(idPropriedade);
-        }
-
-        public async Task Incluir(RegistroVacinacao registroVacina)
-        {
-            RegistroVacinacao registroVacinacaOld = ObterUltimaVacinaPorEspecie(registroVacina.IdAnimal);
-            Animal animaisAVacinar = animalRepository.GetById(registroVacina.IdAnimal);
-
-            if (registroVacinacaOld != null && registroVacinacaOld.DataDaVacina.Year == DateTime.Now.Year 
-                && animaisAVacinar.QuantidadeVacinada == animaisAVacinar.QuantidadeTotal)
+            if (registroVacinacao == null)
             {
-                throw new Exception("Todos os animais já foram vacinados esse ano!");
+                response.StatusCode = EStatusCode.NOT_FOUND;
+                return response.ResultAsync();
             }
-            if(registroVacina.Quantidade > animaisAVacinar.QuantidadeTotal - animaisAVacinar.QuantidadeVacinada)
+            try
             {
-                throw new Exception("Valor não pode ser maior que a quantidade total de animais!");
+                registroVacinaRepository.Cancelar(registroVacinacao);
+            }
+            catch (Exception ex)
+            {
+                response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
 
-            animaisAVacinar.QuantidadeVacinada += registroVacina.Quantidade;
-            
-            await registroVacinaRepository.Incluir(registroVacina);   
-            await animalRepository.Editar(animaisAVacinar);
+            return response.ResultAsync();            
+        }
+
+        public async Task<ObjectResult> GetByPropriedade(int idPropriedade)
+        {
+            var response = new ResponseDto<IEnumerable<RegistroVacinacao>>(EStatusCode.OK, null);
+            try
+            {
+                IEnumerable<RegistroVacinacao> registroVacinacao = registroVacinaRepository.GetByPropriedade(idPropriedade);
+                response.Data = registroVacinacao;
+
+                if (!registroVacinacao.Any())
+                {
+                    response.StatusCode = EStatusCode.NOT_FOUND;
+                    return await response.ResultAsync();
+                }
+            }
+            catch (Exception ex)
+            {
+                response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
+            }
+
+            return await response.ResultAsync();            
+        }
+
+        public async Task<ObjectResult> Incluir(RegistroVacinacaoDto registroVacinacaoDto)
+        {
+            var response = new ResponseDto<RegistroVacinacao>(EStatusCode.NO_CONTENT, null);
+
+            RegistroVacinacao registroVacinacaOld = ObterUltimaVacinaPorEspecie(registroVacinacaoDto.IdAnimal);
+            Animal animaisAVacinar = animalRepository.GetById(registroVacinacaoDto.IdAnimal);
+            RegistroVacinacao registroVacinacaoNovo = registroVacinacaoDto.DtoToRegistroVacinacao(registroVacinacaoDto);                     
+
+            if (ValidarRegistroDeVacinas(registroVacinacaoDto.Quantidade, animaisAVacinar, response))
+            {
+                animaisAVacinar.QuantidadeVacinada += registroVacinacaoDto.Quantidade;
+                await registroVacinaRepository.Incluir(registroVacinacaoNovo);
+                await animalRepository.Editar(animaisAVacinar);
+            }
+
+            return await response.ResultAsync();
+        }
+
+        private static bool ValidarRegistroDeVacinas(int Quantidade, Animal animaisAVacinar, ResponseDto<RegistroVacinacao> response)
+        {
+            if (animaisAVacinar.QuantidadeVacinada == animaisAVacinar.QuantidadeTotal)
+            {
+                response.Errors.Add("error","Todos os animais já foram vacinados esse ano");
+            }
+            if (Quantidade > animaisAVacinar.QuantidadeTotal - animaisAVacinar.QuantidadeVacinada)
+            {
+                response.Errors.Add("error","Valor não pode ser maior que a quantidade total de animais");                
+            }
+            if (response.Errors.Any())
+            {
+                response.StatusCode = EStatusCode.BAD_REQUEST;
+                return false;
+            }
+            return true;
         }
 
         public RegistroVacinacao ObterUltimaVacinaPorEspecie(int idAnimal)
         {
             IEnumerable<RegistroVacinacao> registro = registroVacinaRepository.GetByAnimal(idAnimal);
-
             if (registro.Any())
-            {
                 return registro.Last();
-            }
-
+  
             return null;
         }
 

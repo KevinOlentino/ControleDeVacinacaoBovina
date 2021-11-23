@@ -1,5 +1,7 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repositories.Vacinas;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,25 +17,23 @@ namespace ControleDeVacinacaoBovina.Services.Vacinas
         {
             this.vacinaRepository = vacinaRepository;
         }
-
-        public void Editar(Vacina vacina)
-        {
-            vacinaRepository.Editar(vacina);
-        }
-
         public Task<Vacina> GetById(int id)
         {
             return vacinaRepository.GetById(id);
         }
 
-        public void Incluir(Vacina vacina)
+        public async Task<ObjectResult> GetAll()
         {
-            vacinaRepository.Incluir(vacina);
-        }
-
-        public async Task<IEnumerable<Vacina>> GetAll()
-        {
-            return await vacinaRepository.GetAll();
+            var response = new ResponseDto<IEnumerable<Vacina>>(EStatusCode.OK, null);
+            try
+            {
+                response.Data = await vacinaRepository.GetAll();
+            }
+            catch (Exception ex)
+            {
+                response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
+            }
+            return await response.ResultAsync();
         }
     }
 }

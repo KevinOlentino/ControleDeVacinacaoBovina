@@ -22,56 +22,27 @@ namespace ControleDeVacinacaoBovina.Controllers
         }
 
         [HttpGet("{inscricao}")]
-        public async Task<ActionResult<Propriedade>> GetByInscricao(string inscricao)
+        public async Task<ActionResult> GetByInscricao(string inscricao)
         {
-            return Ok(await propriedadeService.GetByInscricao(inscricao));
+            return await propriedadeService.GetByInscricao(inscricao);
         }
 
         [HttpGet("produtor/{idProdutor}")]
-        public ActionResult<Propriedade> GetByProdutor(int idProdutor)
+        public async Task<ActionResult> GetByProdutor(int idProdutor)
         {
-            List<Propriedade> propriedades;
-
-            try
-            {
-                propriedades = propriedadeService.GetByProdutor(idProdutor).ToList();
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.InnerException.Message);
-            }
-
-            return Ok(propriedadeService.GetByProdutor(idProdutor));
+            return await propriedadeService.GetByProdutor(idProdutor);
         }
         
         [HttpPost]
-        public ActionResult Incluir(PropriedadeDto propriedade)
+        public async Task<ActionResult> Incluir(PropriedadeDto propriedade)
         {
-            try
-            {
-                propriedadeService.Incluir(propriedade);
-            }catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }            
-            return Ok();
+            return await propriedadeService.Incluir(propriedade);
         }
 
         [HttpPut("{id}")]
-        public ActionResult Editar(int id,PropriedadeDto propriedade)
+        public async Task<ActionResult> Editar(int id,PropriedadeDto propriedade)
         {
-            try
-            {
-                Propriedade PropriedadeOld = propriedadeService.GetById(id);
-                propriedade.LockInscricaoEstadual(PropriedadeOld.InscricaoEstadual);
-                propriedade.Endereco.IdEndereco = PropriedadeOld.GetEndereco();
-                propriedadeService.Editar(propriedade.DtoToPropriedade(propriedade));
-
-            }catch(Exception ex)
-            {
-                return NotFound(ex);
-            }
-            return NoContent();
+            return await propriedadeService.Editar(id, propriedade);
         }
     }
 }

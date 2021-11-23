@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using ControleDeVacinacaoBovina.DbMappings;
 
 namespace ControleDeVacinacaoBovina.Repositories.Produtores
 {

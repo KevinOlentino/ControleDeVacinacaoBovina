@@ -1,4 +1,5 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace ControleDeVacinacaoBovina.Services.FinalidadeDeVendas
 {
     public interface IFinalidadeDeVendasService
     {
-        IEnumerable<FinalidadeDeVenda> GetAll();
+        Task<ObjectResult> GetAll();
         FinalidadeDeVenda GetById(int id);
     }
 }

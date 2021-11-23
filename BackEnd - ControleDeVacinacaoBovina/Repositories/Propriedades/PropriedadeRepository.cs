@@ -1,12 +1,11 @@
 ﻿using ControleDeVacinacaoBovina.Repository;
 using ControleDeVacinacaoBovina.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Data;
 using Microsoft.EntityFrameworkCore;
-using ControleDeVacinacaoBovina.Models.Dtos;
+using ControleDeVacinacaoBovina.DbMappings;
 
 namespace ControleDeVacinacaoBovina.Repositories.Propriedades
 {
@@ -24,17 +23,18 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
 
         public async Task<Propriedade> GetByIncricao(string inscricaoEstadual)
         {            
-            return await _contexto.Propriedades.Include(propriedade => propriedade.Endereco).ThenInclude(endereco => endereco.Municipio)
-                                                .Include(propriedade => propriedade.Produtor)
-                                                 .FirstOrDefaultAsync(propriedade => propriedade.InscricaoEstadual == inscricaoEstadual);
+            return await _contexto.Propriedades.Include(propriedade => propriedade.Endereco)
+                .ThenInclude(endereco => endereco.Municipio)
+                .Include(propriedade => propriedade.Produtor)
+                .FirstOrDefaultAsync(propriedade => propriedade.InscricaoEstadual == inscricaoEstadual);
         }
 
         public IEnumerable<Propriedade> GetByProdutor(int idProdutor)
         {
             return _contexto.Propriedades.Include(propriedade => propriedade.Endereco)
-                                            .ThenInclude(endereco => endereco.Municipio)
-                                                .Include(propriedade => propriedade.Produtor)
-                                                    .Where(propriedade => propriedade.IdProdutor == idProdutor);
+                .ThenInclude(endereco => endereco.Municipio)
+                .Include(propriedade => propriedade.Produtor)
+                .Where(propriedade => propriedade.IdProdutor == idProdutor);
         }
 
         public Propriedade Incluir(Propriedade propriedade)

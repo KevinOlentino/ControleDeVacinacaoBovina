@@ -19,7 +19,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpGet]
         public async Task<ActionResult> GetVacinas()
         {
-            return Ok(await vacinaService.GetAll());
+            return await vacinaService.GetAll();
         }
     }
 }

@@ -1,9 +1,8 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.DbMappings;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Repository.Vendas
 {
@@ -20,18 +19,19 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
         public IEnumerable<Venda> GetByDestino(int idProdutor)
         {
             return _contexto.Vendas.Include(x => x.Destino).Include(x => x.Origem)
-                                     .Include(x => x.Especie)
-                                        .Include(x => x.FinalidadeDeVenda)
-                                            .Where(x => x.Ativo == true)
-                                                .Where(x => x.Destino.IdProdutor == idProdutor);
+                .Include(x => x.Especie)
+                .Include(x => x.FinalidadeDeVenda)
+                .Where(x => x.Ativo == true)
+                .Where(x => x.Destino.IdProdutor == idProdutor);
         }
 
         public IEnumerable<Venda> GetByOrigem(int idProdutor)
         {
-            return _contexto.Vendas.Include(x => x.Destino).Include(x => x.Origem)
-                                     .Include(x => x.Especie).Include(x => x.FinalidadeDeVenda)
-                                        .Where(x => x.Ativo == true)
-                                            .Where(x => x.Origem.IdProdutor == idProdutor);
+            return _contexto.Vendas.Include(x => x.Destino)
+                .Include(x => x.Origem)
+                .Include(x => x.Especie).Include(x => x.FinalidadeDeVenda)
+                .Where(x => x.Ativo == true)
+                .Where(x => x.Origem.IdProdutor == idProdutor);
         }
 
         public Venda GetById(int id)

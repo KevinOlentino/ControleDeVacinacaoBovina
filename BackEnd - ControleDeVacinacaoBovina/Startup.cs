@@ -1,3 +1,4 @@
+using ControleDeVacinacaoBovina.DbMappings;
 using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Repositories.Animais;
 using ControleDeVacinacaoBovina.Repositories.Enderecos;

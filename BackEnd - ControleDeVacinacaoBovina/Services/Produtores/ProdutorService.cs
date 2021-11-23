@@ -1,5 +1,7 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repositories.Produtores;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,29 +18,84 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
             this.produtorRepository = produtorRepository;
         }
 
-        public void Editar(Produtor produtor)
+        public Task<ObjectResult> Editar(int id,ProdutorDto produtorDto)
         {
-            produtorRepository.Editar(produtor);
+            var response = new ResponseDto<IEnumerable<Produtor>>(EStatusCode.NO_CONTENT, null);
+            Produtor produtorAtualizado = produtorDto.DtoToProdutor(produtorDto);
+            Produtor produtorOld = produtorRepository.GetById(id);
+
+            if (produtorOld == null)
+            {
+                response.Errors.Add("produtor", $"O produtor com id:{id} e CPF:{produtorOld.CPF} não foi encontrado!");
+                response.StatusCode = EStatusCode.NOT_FOUND;
+                return response.ResultAsync();
+            }
+            produtorAtualizado.Endereco.IdEndereco = produtorOld.IdEndereco;
+            produtorAtualizado.IdEndereco = produtorOld.IdEndereco;
+            try
+            {
+                produtorRepository.Editar(produtorAtualizado);
+            }
+            catch(Exception ex)
+            {
+                response.AddException(ex, EStatusCode.BAD_REQUEST);
+            }
+
+            return response.ResultAsync();
+
         }
 
-        public async Task<IEnumerable<Produtor>> GetAll()
+        public async Task<ObjectResult> GetAll()
         {
-            return await produtorRepository.GetAll();
+            var response = new ResponseDto<IEnumerable<Produtor>>(EStatusCode.OK, null);
+            try
+            {
+                response.Data = await produtorRepository.GetAll();                              
+            }
+            catch(Exception ex)
+            {
+                response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
+            }
+            return await response.ResultAsync();
         }
 
-        public async Task<Produtor> GetByCPF(string CPF)
+        public async Task<ObjectResult> GetByCPF(string CPF)
         {
-            return await produtorRepository.GetByCPF(CPF);
+            var response = new ResponseDto<Produtor>(EStatusCode.OK, null);
+            try
+            {                
+                Produtor produtor = await produtorRepository.GetByCPF(CPF);
+                response.Data = produtor;
+
+                if (produtor == null)
+                {
+                    response.StatusCode = EStatusCode.NOT_FOUND;
+                    return await response.ResultAsync();
+                }                
+            }
+            catch(Exception ex)
+            {
+                response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
+            }
+
+            return await response.ResultAsync();
         }
 
-        public Produtor GetById(int id)
+        public Task<ObjectResult> Incluir(ProdutorDto produtorDto)
         {
-            return produtorRepository.GetById(id);
-        }
+            produtorDto.Endereco.IdEndereco = null;
+            Produtor produtor = produtorDto.DtoToProdutor(produtorDto);
+            var response = new ResponseDto<Produtor>(EStatusCode.OK, null);
 
-        public void Incluir(Produtor produtor)
-        {
-            produtorRepository.Incluir(produtor);
+            try
+            {
+                produtorRepository.Incluir(produtor);                
+            }
+            catch(Exception ex)
+            {
+                response.AddException(ex, EStatusCode.BAD_REQUEST);            
+            }
+            return response.ResultAsync();
         }
     }
 }

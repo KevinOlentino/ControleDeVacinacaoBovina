@@ -1,4 +1,6 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Models.Dtos;
+using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +8,9 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
 {
     public interface IProdutorService
     {
-        void Incluir(Produtor produtor);
-        void Editar(Produtor produtor);
-        Task<Produtor> GetByCPF(string CPF);
-        Task<IEnumerable<Produtor>> GetAll();
-        Produtor GetById(int id);
+        Task<ObjectResult> Incluir(ProdutorDto produtorDto);
+        Task<ObjectResult> Editar(int id, ProdutorDto produtorDto);
+        Task<ObjectResult> GetByCPF(string CPF);
+        Task<ObjectResult> GetAll();
     }
 }

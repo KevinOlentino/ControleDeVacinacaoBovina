@@ -1,10 +1,10 @@
 ﻿using ControleDeVacinacaoBovina.Repository;
 using ControleDeVacinacaoBovina.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using ControleDeVacinacaoBovina.DbMappings;
 
 namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 {
@@ -23,9 +23,11 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 
         public IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade)
         {
-            return _contexto.RegistroVacinacoes.Include(x => x.Animal).ThenInclude(x => x.Propriedade).Include(x => x.Animal.Especie)                                                
-                                                  .Where(x => x.Animal.IdPropriedade == idPropriedade)
-                                                    .Where(x => x.Ativo == true);
+            return _contexto.RegistroVacinacoes.Include(x => x.Animal)
+                .ThenInclude(x => x.Propriedade)
+                .Include(x => x.Animal.Especie)                                                
+                .Where(x => x.Animal.IdPropriedade == idPropriedade)
+                .Where(x => x.Ativo == true);
         }
 
         public async Task Incluir(RegistroVacinacao registroVacina)
@@ -38,8 +40,10 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         public IEnumerable<RegistroVacinacao> GetByAnimal(int id)
         {
             return _contexto.RegistroVacinacoes.AsNoTracking().Include(x => x.Animal)
-                                                .ThenInclude(x => x.Especie).OrderBy(x => x.IdRegistroVacinacao)
-                                                .Where(x => x.IdAnimal == id).Where(x => x.Ativo == true);                     
+                .ThenInclude(x => x.Especie)
+                .OrderBy(x => x.IdRegistroVacinacao)
+                .Where(x => x.IdAnimal == id)
+                .Where(x => x.Ativo == true);                     
         }
 
         public RegistroVacinacao GetById(int id)

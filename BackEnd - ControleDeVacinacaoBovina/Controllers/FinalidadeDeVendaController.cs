@@ -1,6 +1,7 @@
 ﻿using ControleDeVacinacaoBovina.Services.FinalidadeDeVendas;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
 {
@@ -16,9 +17,9 @@ namespace ControleDeVacinacaoBovina.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetFinalidadeDeVenda()
+        public async Task<ActionResult> GetFinalidadeDeVenda()
         {
-            return Ok(finalidadeDeVendasService.GetAll());
+            return await finalidadeDeVendasService.GetAll();
         }
     }
 }

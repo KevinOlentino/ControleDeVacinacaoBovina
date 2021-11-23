@@ -10,10 +10,9 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
 {
     public interface IPropriedadeService
     {
-        Propriedade Incluir(PropriedadeDto propriedade);
-        void Editar(Propriedade propriedade);
-        Task<Propriedade> GetByInscricao(string InscricaoEstadual);
-        IEnumerable<Propriedade> GetByProdutor(int idProdutor);
-        Propriedade GetById(int id);
+        Task<ObjectResult> Incluir(PropriedadeDto propriedadeDto);
+        Task<ObjectResult> Editar(int id, PropriedadeDto propriedadeDto);
+        Task<ObjectResult> GetByInscricao(string InscricaoEstadual);
+        Task<ObjectResult> GetByProdutor(int idProdutor);
     }
 }

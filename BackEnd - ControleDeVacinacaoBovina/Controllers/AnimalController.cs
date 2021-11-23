@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
 {
@@ -21,87 +22,27 @@ namespace ControleDeVacinacaoBovina.Controllers
         }
 
         [HttpGet("Produtor/{idProdutor}")]
-        public ActionResult<List<Animal>> GetByProdutor(int idProdutor)
+        public async Task<ActionResult> GetByProdutor(int idProdutor)
         {
-            List<Animal> ListAnimal;
-
-            try
-            {
-                ListAnimal = animalService.GetByProdutor(idProdutor).ToList();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }            
-
-            if (ListAnimal.Count == 0){  return NotFound(); }
-
-            return Ok(ListAnimal);
+            return await animalService.GetByProdutor(idProdutor);    
         }
 
         [HttpGet("Propriedade/{idPropriedade}")]
-        public ActionResult<List<Animal>> GetByPropriedade(int idPropriedade)
+        public async Task<ActionResult> GetByPropriedade(int idPropriedade)
         {
-            List<Animal> ListAnimal;
-
-            try
-            {
-                ListAnimal = animalService.GetByPropriedade(idPropriedade).ToList();
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            if(ListAnimal.Count == 0){  return NotFound(); }
-
-            return Ok(ListAnimal);            
+            return await animalService.GetByPropriedade(idPropriedade);
         }
 
         [HttpPost]
-        public ActionResult Incluir(AnimalDto animal)
+        public async Task<ActionResult> Incluir(AnimalDto animal)
         {
-            try
-            {
-               animalService.Incluir(animal.DtoToAnimal(animal));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.InnerException.Message);
-            } 
-            
-            return Ok("Animal foi adicionado com sucesso!");
-        }
-
-        [HttpPut("{id}")]
-        public ActionResult Editar(int id, AnimalDto animal)
-        {
-            try
-            {
-                animal.IdAnimal = id;
-                animalService.Editar(animal.DtoToAnimal(animal));
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }        
-            
-            return NoContent();
-        }
+            return await animalService.Incluir(animal);
+        }     
 
         [HttpDelete("{id}")]
-        public ActionResult Cancelar(int id)
+        public async Task<ActionResult> Cancelar(int id)
         {
-            try
-            {
-                animalService.Cancelar(id);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }                     
-
-            return NoContent();
+            return await animalService.Cancelar(id);
         }
 
     }

@@ -1,6 +1,7 @@
 ﻿using ControleDeVacinacaoBovina.Services.Municipios;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
 {
@@ -16,9 +17,9 @@ namespace ControleDeVacinacaoBovina.Controllers
         }
 
         [HttpGet]
-        public ActionResult GetMunicipios()
+        public async Task<ActionResult> GetMunicipios()
         {
-            return Ok(municipioService.GetAll());
+            return await municipioService.GetAll();
         }
     }
 }

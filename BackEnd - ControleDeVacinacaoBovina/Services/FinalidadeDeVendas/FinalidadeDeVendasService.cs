@@ -1,8 +1,9 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repositories.FinalidadeDeVendas;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.FinalidadeDeVendas
@@ -16,9 +17,18 @@ namespace ControleDeVacinacaoBovina.Services.FinalidadeDeVendas
             this.finalidadeDeVendasRepository = finalidadeDeVendasRepository;
         }
 
-        public IEnumerable<FinalidadeDeVenda> GetAll()
+        public Task<ObjectResult> GetAll()
         {
-            return finalidadeDeVendasRepository.GetAll();
+            var response = new ResponseDto<IEnumerable<FinalidadeDeVenda>>(EStatusCode.OK, null);
+            try
+            {
+                response.Data = finalidadeDeVendasRepository.GetAll();
+            }
+            catch (Exception ex)
+            {
+                response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
+            }
+            return response.ResultAsync();
         }
 
         public FinalidadeDeVenda GetById(int id)

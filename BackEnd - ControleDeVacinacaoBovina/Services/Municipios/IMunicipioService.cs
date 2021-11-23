@@ -1,4 +1,5 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ namespace ControleDeVacinacaoBovina.Services.Municipios
 {
     public interface IMunicipioService
     {
-        IEnumerable<Municipio> GetAll();
+        Task<ObjectResult> GetAll();
         Municipio GetId(int Id);
     }
 }

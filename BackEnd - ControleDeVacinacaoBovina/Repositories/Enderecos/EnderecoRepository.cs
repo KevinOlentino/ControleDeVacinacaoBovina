@@ -1,9 +1,8 @@
 ﻿using ControleDeVacinacaoBovina.Repository;
 using ControleDeVacinacaoBovina.Models;
-using System;
 using System.Threading.Tasks;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using ControleDeVacinacaoBovina.DbMappings;
 
 namespace ControleDeVacinacaoBovina.Repositories.Enderecos
 {

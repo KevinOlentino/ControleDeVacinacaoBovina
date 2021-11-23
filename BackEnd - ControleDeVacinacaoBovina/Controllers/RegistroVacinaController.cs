@@ -22,40 +22,21 @@ namespace ControleDeVacinacaoBovina.Controllers
         }
 
         [HttpGet("{idPropriedade}")]
-        public ActionResult<List<RegistroVacinacao>> GetByPropriedade(int idPropriedade)
+        public async Task<ActionResult> GetByPropriedade(int idPropriedade)
         {
-            List<RegistroVacinacao> listRegistroVacinacaos;
-            try
-            {
-                listRegistroVacinacaos = registroVacinaService.GetByPropriedade(idPropriedade).ToList();
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            return Ok(registroVacinaService.GetByPropriedade(idPropriedade));
+            return await registroVacinaService.GetByPropriedade(idPropriedade);
         }
 
         [HttpPost]
         public async Task<ActionResult> Incluir(RegistroVacinacaoDto registroVacina)
         {
-            await registroVacinaService.Incluir(registroVacina.DtoToRegistroVacinacao(registroVacina));                                   
-            return Ok();
+            return await registroVacinaService.Incluir(registroVacina);                                               
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Cancelar(int id)
+        public async Task<ActionResult> Cancelar(int id)
         {
-            try
-            {
-                registroVacinaService.Cancelar(id);
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex);
-            }            
-            return Ok();
+            return await registroVacinaService.Cancelar(id);
         }
     }
 }

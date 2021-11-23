@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
 {
@@ -21,76 +22,28 @@ namespace ControleDeVacinacaoBovina.Controllers
             this.vendaService = vendaService;
         }
 
-        [HttpGet("Destino/{idProdutor}")]
-        public ActionResult<List<Venda>> GetByDestino(int idProdutor)
+        [HttpGet("Destino/{idPropriedade}")]
+        public async Task<ActionResult> GetByDestino(int idPropriedade)
         {
-            List<Venda> listVenda;
-            try
-            {
-                listVenda = vendaService.GetByDestino(idProdutor).ToList();
-            }
-            catch(Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            if(listVenda.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(listVenda);
+            return await vendaService.GetByDestino(idPropriedade);
         }
 
-        [HttpGet("Origem/{idProdutor}")]
-        public ActionResult<List<Venda>> GetByOrigem(int idProdutor)
+        [HttpGet("Origem/{idPropriedade}")]
+        public async Task<ActionResult> GetByOrigem(int idPropriedade)
         {
-            List<Venda> listVenda;
-            try
-            {
-                listVenda = vendaService.GetByOrigem(idProdutor).ToList();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-            if (listVenda.Count == 0)
-            {
-                return NotFound();
-            }
-
-            return Ok(listVenda);
+            return await vendaService.GetByOrigem(idPropriedade);
         }
-
 
         [HttpPost]
-        public ActionResult Incluir(VendaDto venda)
+        public async Task<ActionResult> Incluir(VendaDto venda)
         {
-            try
-            {
-                vendaService.Incluir(venda.DtoToVenda(venda));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-           
-            return Ok();
+            return await vendaService.Incluir(venda);
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Cancelar(int id)
+        public  async Task<ActionResult> Cancelar(int id)
         {
-            try
-            {
-                vendaService.Cancelar(id);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex);
-            }
-            return NoContent();
+            return await vendaService.Cancelar(id);
         }
     }
 }

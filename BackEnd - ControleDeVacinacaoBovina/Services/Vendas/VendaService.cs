@@ -1,7 +1,11 @@
 ﻿using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Models.Dtos;
+using ControleDeVacinacaoBovina.Repositories.Animais;
+using ControleDeVacinacaoBovina.Repositories.RegistrosVacinas;
 using ControleDeVacinacaoBovina.Repository.Vendas;
 using ControleDeVacinacaoBovina.Services.Animais;
 using ControleDeVacinacaoBovina.Services.RegistrosVacinas;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,64 +16,122 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
     public class VendaService : IVendaService
     {
         private readonly IVendaRepository vendaRepository;
-        private readonly IAnimalService animalService;
-        private readonly IRegistroVacinaService registroVacinacaoService;
+        private readonly IAnimalRepository animalRepository;        
 
-        public VendaService(IVendaRepository vendaRepository, IAnimalService animalService, IRegistroVacinaService registroVacinacaoService )
+        public VendaService(IVendaRepository vendaRepository, IAnimalRepository animalRepository)
         {
             this.vendaRepository = vendaRepository;
-            this.animalService = animalService;
-            this.registroVacinacaoService = registroVacinacaoService;
+            this.animalRepository = animalRepository;
+           
         }
 
-        public void Cancelar(int id)
+        public Task<ObjectResult> Cancelar(int id)
         {
-            Venda venda = vendaRepository.GetById(id);
-
-            vendaRepository.Cancelar(venda);
-
-        }
-
-        public IEnumerable<Venda> GetByDestino(int idProdutor)
-        {
-            return vendaRepository.GetByDestino(idProdutor);
-        }
-
-        public IEnumerable<Venda> GetByOrigem(int idProdutor)
-        {
-            return vendaRepository.GetByOrigem(idProdutor);
-        }
-
-        public void Incluir(Venda venda)
-        {
-            if (!ValidarVenda(venda))
+            var response = new ResponseDto<Venda>(EStatusCode.NO_CONTENT, null);  
+            try
             {
-                throw new Exception("Venda não pode ser realizada, verifique a quantidade de animais!");
+                Venda venda = vendaRepository.GetById(id);
+                if (venda == null)
+                {
+                    response.StatusCode = EStatusCode.NOT_FOUND;
+                    return response.ResultAsync();
+                }
+
+                vendaRepository.Cancelar(venda);
+            }
+            catch (Exception ex)
+            {
+                response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
 
-            vendaRepository.Incluir(venda);            
+            return response.ResultAsync();
+
         }
 
-        private bool ValidarVenda(Venda venda)
+        public async Task<ObjectResult> GetByDestino(int idPropriedade)
         {
-            Animal animalOrigem = animalService.GetByPropriedade(venda.IdOrigem).FirstOrDefault(x => x.IdEspecie == venda.IdEspecie);
-            Animal animalDestino = animalService.GetByPropriedade(venda.IdDestino).FirstOrDefault(x => x.IdEspecie == venda.IdEspecie);
-            RegistroVacinacao UltimoRegistro = registroVacinacaoService.ObterUltimaVacinaPorEspecie(animalOrigem.IdAnimal);
-            DateTime? ultimaVacina;
+            var response = new ResponseDto<IEnumerable<Venda>>(EStatusCode.OK, null);
+            try
+            {
+                IEnumerable<Venda> listVenda = vendaRepository.GetByDestino(idPropriedade);
+
+                if (!listVenda.Any())
+                {
+                    response.StatusCode = EStatusCode.NOT_FOUND;
+                    return await response.ResultAsync();
+                }
+
+                response.Data = listVenda;
+            }
+            catch (Exception ex)
+            {
+                response.AddException(ex, EStatusCode.BAD_REQUEST);
+            }
+
+            return await response.ResultAsync();
+
+        }
+
+        public async Task<ObjectResult> GetByOrigem(int idPropriedade)
+        {
+            var response = new ResponseDto<IEnumerable<Venda>>(EStatusCode.OK, null);
+            try
+            {
+                IEnumerable<Venda> listVenda = vendaRepository.GetByOrigem(idPropriedade);
+
+                if (!listVenda.Any())
+                {
+                    response.StatusCode = EStatusCode.NOT_FOUND;
+                    return await response.ResultAsync();
+                }
+
+                response.Data = listVenda;
+            }
+            catch (Exception ex)
+            {
+                response.AddException(ex, EStatusCode.BAD_REQUEST);
+            }
+
+            return await response.ResultAsync();
+
+        }
+
+        public async Task<ObjectResult> Incluir(VendaDto vendaDto)
+        {
+            Venda venda = vendaDto.DtoToVenda(vendaDto);
+            var response = new ResponseDto<Venda>(EStatusCode.OK, null);          
+                        
+            try
+            {
+                if (ValidarVenda(venda, response))
+                    vendaRepository.Incluir(venda);
+            }
+            catch (Exception ex)
+            {
+                response.AddException(ex, EStatusCode.BAD_REQUEST);
+            }
+
+            return await response.ResultAsync();          
+        }
+
+        private bool ValidarVenda(Venda venda, ResponseDto<Venda> response)
+        {
+            Animal animalOrigem = animalRepository.GetByPropriedade(venda.IdOrigem).FirstOrDefault(x => x.IdEspecie == venda.IdEspecie);
+            Animal animalDestino = animalRepository.GetByPropriedade(venda.IdDestino).FirstOrDefault(x => x.IdEspecie == venda.IdEspecie);            
 
             if (animalOrigem == null)
             {
-                throw new Exception("A origem não foi encontrada e o animal não pode ser vendido");
-            }
-            if (UltimoRegistro == null)
+                response.StatusCode = EStatusCode.NOT_FOUND;
+                response.Errors.Add("Origem:","A origem não foi encontrada e o animal não pode ser vendido");
+                return false;
+            }    
+            if (animalOrigem.QuantidadeVacinada <= 0 || animalOrigem.QuantidadeVacinada > venda.Quantidade)
             {
-                throw new Exception("Nenhum registro de vacina registrado, sendo assim não pode realizar a venda!");
+                response.Errors.Add("QuantidadeVacinada",$"Não há {venda.Quantidade} animais vacinados para venda");
             }
-
-            ultimaVacina = UltimoRegistro.DataDaVacina;
-
-            if (animalOrigem.QuantidadeVacinada <= 0 || ultimaVacina.Value.Year != DateTime.Now.Year)
+            if (response.Errors.Any())
             {
+                response.StatusCode = EStatusCode.BAD_REQUEST;
                 return false;
             }
 
@@ -82,18 +144,18 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
         {
             animalOrigem.QuantidadeVacinada -= venda.Quantidade;
             animalOrigem.QuantidadeTotal -= venda.Quantidade;
-            animalService.Editar(animalOrigem);
+            animalRepository.Editar(animalOrigem);
 
 
             if (animalDestino != null)
             {
                 animalDestino.QuantidadeTotal += venda.Quantidade;
                 animalDestino.QuantidadeVacinada += venda.Quantidade;
-                animalService.Editar(animalDestino);
+                animalRepository.Editar(animalDestino);
             }
             else
             {
-                animalService.Incluir(new Animal()
+                animalRepository.Incluir(new Animal()
                 {
                     IdPropriedade = venda.IdDestino,
                     QuantidadeTotal = venda.Quantidade,
