@@ -1,22 +1,12 @@
-<div class="modal fade" id="adicionarProdutor" aria-hidden="true" aria-labelledby="adicionarProdutorLabel" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content container">
-      <app-produtor></app-produtor>
-    </div>
-  </div>
-</div>
-<div class="modal fade" id="editarProdutor" aria-hidden="true" aria-labelledby="editarProdutorLabel" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content container">
-      <app-editar-produtor [produtor]="produtor"></app-editar-produtor>
-    </div>
-  </div>
-</div>
+<app-produtor></app-produtor>
+<app-editar-produtor [produtor]="produtor"></app-editar-produtor>
 <div class="container col-xxl-8 px-4 py-4">
   <div class="row d-flex justify-content-between">
-    <button type="button" data-bs-toggle="modal" href="#adicionarProdutor" role="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
+    <button type="button" data-bs-toggle="modal" href="#adicionarProdutor" role="button"
+            class="btn btn-success col-md-3 mt-2">Adicionar
+    </button>
     <form class="d-flex col-md-4 mt-2">
-      <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+      <input class="form-control me-2" type="search" placeholder="Pesquisar por CPF" aria-label="Search">
       <button class="btn btn-outline-success" type="submit">Procurar</button>
     </form>
   </div>
@@ -27,8 +17,12 @@
           <h5 class="card-title">{{produtor.nome}}</h5>
           <p class="card-text">CPF: {{produtor.cpf}}</p>
           <p class="card-text">Endereço: {{produtor.endereco.rua}}, {{produtor.endereco.numero}}</p>
-          <a href="#editarProdutor" data-bs-toggle="modal" (click)="getProdutor(produtor)" class="btn btn-warning fas fa-edit"></a>
-          <a class="btn btn-primary ms-1" (click)="selecionarProdutor(produtor.idProdutor, produtor.nome)">Selecionar </a>
+          <p class="card-text">Municipio: {{produtor.endereco.municipio.nome}}
+            - {{produtor.endereco.municipio.estado}}</p>
+          <a href="#editarProdutor" data-bs-toggle="modal" (click)="getProdutor(produtor)"
+             class="btn btn-warning fas fa-edit"></a>
+          <a class="btn btn-primary ms-1"
+             (click)="selecionarProdutor(produtor.idProdutor, produtor.nome)" href="#">Selecionar </a>
         </div>
       </div>
     </div>

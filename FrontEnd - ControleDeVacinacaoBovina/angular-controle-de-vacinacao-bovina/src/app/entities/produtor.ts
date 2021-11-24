@@ -6,4 +6,5 @@ export class Produtor{
   cpf: string = '';
   idEndereco: number = 0;
   endereco: Endereco = new Endereco();
+
 }

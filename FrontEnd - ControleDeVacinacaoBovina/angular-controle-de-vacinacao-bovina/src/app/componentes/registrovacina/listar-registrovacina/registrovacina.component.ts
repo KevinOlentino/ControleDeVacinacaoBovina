@@ -31,10 +31,9 @@ export class RegistrovacinaComponent implements OnInit {
   SelecionarPropriedade(){
     this.registroVacinaService.ListarPorPropriedade(this.idPropriedade).subscribe(
       dados => {this.registroVacinas = dados, console.log(this.registroVacinas)},
-      error => console.log(error)
+      error => {console.log(error), this.registroVacinas = []}
     )
   }
-
   cancelarRegistroVacina(registroVacina: RegistroVacina){
     this.registroVacina = registroVacina;
   }

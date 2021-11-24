@@ -27,8 +27,13 @@ export class ListarProdutorComponent implements OnInit {
   }
 
   getProdutor(produtor: Produtor){
-    console.log(produtor);
-    this.produtor = produtor;
+    this.produtor.idProdutor = produtor.idProdutor;
+    this.produtor.nome = produtor.nome;
+    this.produtor.cpf = produtor.cpf;
+    this.produtor.endereco.rua = produtor.endereco.rua;
+    this.produtor.endereco.numero = produtor.endereco.numero;
+    this.produtor.endereco.idEndereco = produtor.endereco.idEndereco;
+    this.produtor.endereco.idMunicipio = produtor.endereco.idMunicipio;
   }
 
 }

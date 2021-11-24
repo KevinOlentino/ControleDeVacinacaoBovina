@@ -1,35 +1,50 @@
-<div class="container d-flex justify-content-between">
-    <form class="row p-3" method="POST" #frm="ngForm" (ngSubmit)="IncluirVenda(frm)">
-      <div class="col-md-2">
-        <label for="inputQuantidade" class="form-label" >Quantidade</label>
-        <input type="text" name="nome" pattern="[0-9]+" class="form-control" id="inputQuantidade" [(ngModel)]="venda.quantidade">
+<div class="modal fade" id="adicionarVenda" aria-hidden="true" aria-labelledby="adicionarVendaLabel" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content container">
+      <div class="container">
+        <div class="modal-header">
+          <button class="btn btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form class="row p-3" method="POST" #frm="ngForm" (ngSubmit)="incluirVenda(frm)">
+          <div class="col-md-2">
+            <label for="inputQuantidade" class="form-label">Quantidade</label>
+            <input type="text" name="nome" pattern="[0-9]+" class="form-control" id="inputQuantidade"
+                   [(ngModel)]="venda.quantidade">
+          </div>
+          <div class="col-md-5">
+            <label for="inputFinalidadeDeVenda" class="form-label">Finalidade de Venda</label>
+            <select name="idFinalidadeDeVenda" id="inputFinalidadeDeVenda" class="form-select"
+                    [(ngModel)]="venda.idFinalidadeDeVenda">
+              <option *ngFor="let finalidadeDeVenda of finalidadesDeVenda"
+                      value="{{finalidadeDeVenda.idFinalidadeDeVenda}}">{{finalidadeDeVenda.nome}}</option>
+            </select>
+          </div>
+          <div class="col-md-5">
+            <label for="inputEspecie" class="form-label">Especie</label>
+            <select name="idFinalidadeDeVenda" id="inputEspecie" class="form-select" [(ngModel)]="venda.idEspecie">
+              <option *ngFor="let especie of especies" value="{{especie.idEspecie}}">{{especie.nome}}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="inputOrigem" class="form-label">Origem</label>
+            <select name="idOrigem" id="inputOrigem" class="form-select" [(ngModel)]="venda.idOrigem">
+              <option *ngFor="let propriedade of propriedades"
+                      value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
+            </select>
+          </div>
+          <div class="col-md-6">
+            <label for="inputDestino" class="form-label">Destino</label>
+            <select name="idDestino" id="inputDestino" class="form-select" [(ngModel)]="venda.idDestino">
+              <option *ngFor="let propriedade of propriedades"
+                      value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Cadastrar</button>
+            <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
       </div>
-      <div class="col-md-5">
-        <label for="inputFinalidadeDeVenda" class="form-label">Finalidade de Venda</label>
-        <select name="idFinalidadeDeVenda" id="inputFinalidadeDeVenda" class="form-select" [(ngModel)]="venda.idFinalidadeDeVenda">
-          <option *ngFor="let finalidadeDeVenda of finalidadesDeVenda" value="{{finalidadeDeVenda.idFinalidadeDeVenda}}">{{finalidadeDeVenda.nome}}</option>
-        </select>
-      </div>
-      <div class="col-md-5">
-        <label for="inputEspecie" class="form-label">Especie</label>
-        <select name="idFinalidadeDeVenda" id="inputEspecie" class="form-select" [(ngModel)]="venda.idEspecie">
-          <option *ngFor="let especie of especies" value="{{especie.idEspecie}}">{{especie.nome}}</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label for="inputOrigem" class="form-label">Origem</label>
-        <select name="idOrigem" id="inputOrigem" class="form-select" [(ngModel)]="venda.idOrigem">
-          <option *ngFor="let propriedade of propriedades" value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
-        </select>
-      </div>
-      <div class="col-md-6">
-        <label for="inputDestino" class="form-label">Destino</label>
-        <select name="idDestino" id="inputDestino" class="form-select" [(ngModel)]="venda.idDestino">
-          <option *ngFor="let propriedade of propriedades" value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
-        </select>
-      </div>
-      <div class="modal-footer mt-1">
-        <button type="submit" class="btn btn-success">Cadastrar</button>
-      </div>
-    </form>
+    </div>
   </div>
+</div>

@@ -1,31 +1,22 @@
-<div class="modal fade" id="adicionarRegistroVacina" aria-hidden="true" aria-labelledby="adicionarRegistroVacinaLabel" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content container">
-      <app-incluir-registrovacina></app-incluir-registrovacina>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="cancelarRegistroVacina" aria-hidden="true" aria-labelledby="cancelarRegistroVacinaLabel" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content container">
-      <app-cancelar-registrovacina [registroVacina]="registroVacina"></app-cancelar-registrovacina>
-    </div>
-  </div>
-</div>
+<app-incluir-registrovacina></app-incluir-registrovacina>
+<app-cancelar-registrovacina [registroVacina]="registroVacina"></app-cancelar-registrovacina>
 
 <div class="container col-xxl-8 px-4 py-4">
   <div class="row d-flex justify-content-between">
-    <button type="button" data-bs-toggle="modal" href="#adicionarRegistroVacina" role="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
+    <button type="button" data-bs-toggle="modal" href="#adicionarRegistroVacina" role="button"
+            class="btn btn-success col-md-3 mt-2">Adicionar
+    </button>
     <div class="col-md-5">
-      <select name="idPropriedade" id="inputPropriedade" class="form-select" (change)="SelecionarPropriedade()" [(ngModel)]="idPropriedade">
+      <select name="idPropriedade" id="inputPropriedade" class="form-select" (change)="SelecionarPropriedade()"
+              [(ngModel)]="idPropriedade">
         <option selected value="0">Selecione uma propriedade...</option>
-        <option *ngFor="let propriedade of propriedades" value="{{propriedade.idPropriedade}}" >{{propriedade.inscricaoEstadual}} - {{propriedade.nome}}</option>
+        <option *ngFor="let propriedade of propriedades"
+                value="{{propriedade.idPropriedade}}">{{propriedade.inscricaoEstadual}} - {{propriedade.nome}}</option>
       </select>
     </div>
   </div>
   <div class="row">
-    <ng-container *ngIf="registroVacinas.length == 0 && idPropriedade !=0">
+    <ng-container *ngIf="registroVacinas.length == 0 && idPropriedade != 0">
       <div class="alert alert-danger mt-2" role="alert">
         Nenhum registro encontrado!
       </div>
@@ -39,7 +30,8 @@
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-row-reverse">
-            <a href="#cancelarRegistroVacina" data-bs-toggle="modal" (click)="cancelarRegistroVacina(registroVacina)" class="btn btn-danger ms-1 fa fa-trash"></a>
+            <a href="#cancelarRegistroVacina" data-bs-toggle="modal" (click)="cancelarRegistroVacina(registroVacina)"
+               class="btn btn-danger ms-1 fa fa-trash"></a>
           </div>
           <h5 class="card-title">Data: {{registroVacina.dataDaVacina | date: 'dd/MM/yyyy'}}</h5>
           <p class="card-text">Quantidade Vacinada: {{registroVacina.quantidade}}</p>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {NgForm} from "@angular/forms";
 import {VendaService} from "../../../services/venda/venda.service";
 import {Venda} from "../../../entities/venda";
@@ -14,13 +14,15 @@ import {EspecieService} from "../../../services/especie/especie.service";
   templateUrl: './incluir-venda.component.html',
   styleUrls: ['./incluir-venda.component.css']
 })
-export class IncluirVendaComponent implements OnInit {
+export class IncluirVendaComponent implements OnInit,AfterViewInit {
 
   venda: Venda = new Venda();
   especies: Especie[] = [];
   finalidadesDeVenda: FinalidadeDeVenda[]=[];
   propriedades: Propriedade[] = [];
   idProdutor?: number = Number(localStorage.getItem('idProdutor')?.toString());
+  @ViewChild('frm')
+  private frm!: NgForm ;
 
   constructor(private vendaService: VendaService, private propriedadeService: PropriedadeService,
               private finalidadeDeVendaService: FinalidadeDeVendaService, private especieService: EspecieService) { }
@@ -41,11 +43,19 @@ export class IncluirVendaComponent implements OnInit {
     )
   }
 
-  IncluirVenda(frm: NgForm){
+  ngAfterViewInit() {
+    // @ts-ignore
+    document.getElementById('adicionarVenda').addEventListener('hidden.bs.modal',
+      (event) => {
+        this.frm.reset()
+      }, false)
+  }
+
+  incluirVenda(frm: NgForm){
     console.log(this.venda);
     this.vendaService.CadastrarVenda(this.venda).subscribe(
-      dados => alert("Venda cadastrada com sucesso!"),
-      error => alert("Erro ao cadastrar venda")
+      dados => {alert("Venda cadastrada com sucesso!")},
+      error => {alert("Erro ao cadastrar venda")}
     )
   }
 

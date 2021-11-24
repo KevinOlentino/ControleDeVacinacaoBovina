@@ -1,29 +1,40 @@
-  <div class="container p-3 d-flex justify-content-between">
-    <form class="row" method="POST" #frm="ngForm" (ngSubmit)="EditarPropriedade(frm)">
-      <div class="col-md-6">
-        <label for="inputNome" class="form-label" >Nome</label>
-        <input type="email" name="nome" class="form-control" id="inputNome" [(ngModel)]="propriedade.nome">
+<div class="modal fade" id="editarPropriedade" aria-hidden="true" aria-labelledby="editarPropriedadeLabel"
+     tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content container">
+      <div class="container">
+        <div class="modal-header">
+          <button class="btn btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form class="row" method="POST" #frm="ngForm" (ngSubmit)="EditarPropriedade(frm)">
+          <div class="col-md-12">
+            <label for="inputNome" class="form-label">Nome</label>
+            <input type="email" name="nome" class="form-control" id="inputNome" [(ngModel)]="propriedade.nome">
+          </div>
+          <div class="col-md-10">
+            <label for="inputRua" class="form-label">Rua</label>
+            <input type="text" name="rua" class="form-control" id="inputRua" [(ngModel)]="propriedade.endereco.rua">
+          </div>
+          <div class="col-md-2">
+            <label for="inputNumero" class="form-label">Numero</label>
+            <input type="text" name="numero" class="form-control" id="inputNumero"
+                   [(ngModel)]="propriedade.endereco.numero">
+          </div>
+          <div class="col-md-4">
+            <label for="inputState" class="form-label">Estado</label>
+            <select name="idMunicipio" id="inputState" class="form-select"
+                    [(ngModel)]="propriedade.endereco.idMunicipio">
+              <option *ngFor="let municipio of municipios" [ngValue]="municipio.idMunicipio">{{municipio.nome}}
+                - {{municipio.estado}}</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Atualizar</button>
+            <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cancelar</button>
+          </div>
+        </form>
+
       </div>
-      <div class="col-md-6">
-        <label for="inputInscricaoEstadual" class="form-label">Inscrição Estadual</label>
-        <input type="text" name="cpf" class="form-control" id="inputInscricaoEstadual" [(ngModel)]="propriedade.inscricaoEstadual">
-      </div>
-      <div class="col-md-10">
-        <label for="inputRua" class="form-label">Rua</label>
-        <input type="text" name="rua" class="form-control" id="inputRua" [(ngModel)]="propriedade.endereco.rua">
-      </div>
-      <div class="col-md-2">
-        <label for="inputNumero" class="form-label">Numero</label>
-        <input type="text" name="numero" class="form-control" id="inputNumero" [(ngModel)]="propriedade.endereco.numero">
-      </div>
-      <div class="col-md-4">
-        <label for="inputState" class="form-label">Estado</label>
-        <select name="idMunicipio" id="inputState" class="form-select" [(ngModel)]="propriedade.endereco.idMunicipio">
-          <option *ngFor="let municipio of municipios" [ngValue]="municipio.idMunicipio">{{municipio.nome}} - {{municipio.estado}}</option>
-        </select>
-      </div>
-      <div class="col-md-2 p-4 mt-2">
-        <button type="submit" class="btn btn-success">Atualizar</button>
-      </div>
-    </form>
+    </div>
   </div>
+</div>

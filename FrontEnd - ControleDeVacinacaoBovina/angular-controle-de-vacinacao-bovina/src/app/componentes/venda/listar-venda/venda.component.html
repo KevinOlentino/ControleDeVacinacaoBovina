@@ -1,18 +1,5 @@
-<div class="modal fade" id="adicionarVenda" aria-hidden="true" aria-labelledby="adicionarVendaLabel" tabindex="-1">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content container">
-      <app-incluir-venda></app-incluir-venda>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="cancelarVenda" aria-hidden="true" aria-labelledby="adicionarVendaLabel" tabindex="-1">
-  <div class="modal-dialog">
-    <div class="modal-content container">
-      <app-cancelar-venda [venda]="venda"></app-cancelar-venda>
-    </div>
-  </div>
-</div>
+<app-incluir-venda></app-incluir-venda>
+<app-cancelar-venda [venda]="venda"></app-cancelar-venda>
 
 <div class="container col-xxl-8 px-4 py-4">
   <div class="row d-flex justify-content-between">

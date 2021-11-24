@@ -19,6 +19,7 @@ import { IncluirVendaComponent } from './componentes/venda/incluir-venda/incluir
 import { CancelarAnimalComponent } from './componentes/animal/cancelar-animal/cancelar-animal.component';
 import { CancelarVendaComponent } from './componentes/venda/cancelar-venda/cancelar-venda.component';
 import { CancelarRegistrovacinaComponent } from './componentes/registrovacina/cancelar-registrovacina/cancelar-registrovacina.component';
+import { BemVindoComponent } from './componentes/bem-vindo/bem-vindo.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { CancelarRegistrovacinaComponent } from './componentes/registrovacina/ca
     IncluirVendaComponent,
     CancelarAnimalComponent,
     CancelarVendaComponent,
-    CancelarRegistrovacinaComponent
+    CancelarRegistrovacinaComponent,
+    BemVindoComponent
   ],
   imports: [
     BrowserModule,

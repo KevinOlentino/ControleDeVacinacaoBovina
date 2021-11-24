@@ -24,8 +24,11 @@ export class PropriedadeComponent implements OnInit {
   }
 
   getPropriedade(propriedade: Propriedade){
-    console.log(propriedade);
-    this.propriedade = propriedade;
+    this.propriedade.nome = propriedade.nome;
+    this.propriedade.endereco.rua = propriedade.endereco.rua;
+    this.propriedade.endereco.numero = propriedade.endereco.numero;
+    this.propriedade.endereco.idEndereco = propriedade.endereco.idEndereco;
+    this.propriedade.endereco.idMunicipio = propriedade.endereco.idMunicipio;
   }
 
 }

@@ -10,8 +10,10 @@ import {IncluirAnimalComponent} from "./componentes/animal/incluir-animal/inclui
 import {IncluirPropriedadeComponent} from "./componentes/propriedade/incluir-propriedade/incluir-propriedade.component";
 import {IncluirRegistrovacinaComponent} from "./componentes/registrovacina/incluir-registrovacina/incluir-registrovacina.component";
 import {IncluirVendaComponent} from "./componentes/venda/incluir-venda/incluir-venda.component";
+import {BemVindoComponent} from "./componentes/bem-vindo/bem-vindo.component";
 
 const routes: Routes = [
+  {path: "", component: BemVindoComponent},
   {path: "Animal", component: AnimalComponent},
   {path: "Propriedade", component: PropriedadeComponent},
   {path: "Venda", component: VendaComponent},
