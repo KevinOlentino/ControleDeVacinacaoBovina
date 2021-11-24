@@ -21,10 +21,8 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
         public VendaService(IVendaRepository vendaRepository, IAnimalRepository animalRepository)
         {
             this.vendaRepository = vendaRepository;
-            this.animalRepository = animalRepository;
-           
+            this.animalRepository = animalRepository;           
         }
-
         public Task<ObjectResult> Cancelar(int id)
         {
             var response = new ResponseDto<Venda>(EStatusCode.NO_CONTENT, null);  
@@ -47,7 +45,6 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
             return response.ResultAsync();
 
         }
-
         public async Task<ObjectResult> GetByDestino(int idPropriedade)
         {
             var response = new ResponseDto<IEnumerable<Venda>>(EStatusCode.OK, null);
@@ -71,7 +68,6 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
             return await response.ResultAsync();
 
         }
-
         public async Task<ObjectResult> GetByOrigem(int idPropriedade)
         {
             var response = new ResponseDto<IEnumerable<Venda>>(EStatusCode.OK, null);
@@ -95,7 +91,6 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
             return await response.ResultAsync();
 
         }
-
         public async Task<ObjectResult> Incluir(VendaDto vendaDto)
         {
             Venda venda = vendaDto.DtoToVenda(vendaDto);
@@ -146,23 +141,14 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
             animalOrigem.QuantidadeTotal -= venda.Quantidade;
             animalRepository.Editar(animalOrigem);
 
-
-            if (animalDestino != null)
+            animalRepository.Incluir(new Animal()
             {
-                animalDestino.QuantidadeTotal += venda.Quantidade;
-                animalDestino.QuantidadeVacinada += venda.Quantidade;
-                animalRepository.Editar(animalDestino);
-            }
-            else
-            {
-                animalRepository.Incluir(new Animal()
-                {
-                    IdPropriedade = venda.IdDestino,
-                    QuantidadeTotal = venda.Quantidade,
-                    QuantidadeVacinada = venda.Quantidade,
-                    IdEspecie = venda.IdEspecie
-                });
-            }
+                IdPropriedade = venda.IdDestino,
+                QuantidadeTotal = venda.Quantidade,
+                QuantidadeVacinada = venda.Quantidade,
+                IdEspecie = venda.IdEspecie
+            });
+            
         }
     }
 }

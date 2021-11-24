@@ -87,8 +87,19 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
             Produtor produtor = produtorDto.DtoToProdutor(produtorDto);
             var response = new ResponseDto<Produtor>(EStatusCode.OK, null);
 
+            if (produtorRepository.ExistByCPF(produtor.CPF))
+            {
+                response.StatusCode = EStatusCode.BAD_REQUEST;
+                response.Errors.Add("CPF", "Este CPF já foi cadastrado!");
+            }
+            if (!ValidarCPF(produtor.CPF))
+            {
+                response.StatusCode = EStatusCode.BAD_REQUEST;
+                response.Errors.Add("CPF", "CPF INVALIDO!");
+            }
             try
             {
+                if(!response.Errors.Any())
                 produtorRepository.Incluir(produtor);                
             }
             catch(Exception ex)
@@ -96,6 +107,44 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
                 response.AddException(ex, EStatusCode.BAD_REQUEST);            
             }
             return response.ResultAsync();
+        }
+
+        public bool ValidarCPF(string CPF)
+        {            
+            int[] multiplicador1 = new int[9]{ 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = new int[10] { 11,10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            
+            string tempCPF = CPF.Substring(0,9);            
+            int soma = 0;            
+     
+            if (CPF[0] == CPF[1] && CPF[1] == CPF[2] && CPF[2] == CPF[3] && CPF[3] == CPF[4]
+                && CPF[4] == CPF[5] && CPF[5] == CPF[6] && CPF[6] == CPF[7] && CPF[7] == CPF[8]
+                && CPF[8] == CPF[9] && CPF[9] == CPF[10])
+                return false;
+
+            for (int x = 0; x < 9; x++)
+                soma += int.Parse(tempCPF[x].ToString()) * multiplicador1[x];
+
+            int resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+
+            string digito = resto.ToString();
+            tempCPF += digito;
+            soma = 0;
+            for (int x = 0; x < 10; x++)
+                soma += int.Parse(tempCPF[x].ToString()) * multiplicador2[x];
+
+            resto = soma % 11;
+            if (resto < 2)
+                resto = 0;
+            else
+                resto = 11 - resto;
+            digito += resto.ToString();
+
+            return CPF.EndsWith(digito);
         }
     }
 }

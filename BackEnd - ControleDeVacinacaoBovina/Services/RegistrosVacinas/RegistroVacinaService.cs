@@ -87,11 +87,11 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
         {
             if (animaisAVacinar.QuantidadeVacinada == animaisAVacinar.QuantidadeTotal)
             {
-                response.Errors.Add("error","Todos os animais já foram vacinados esse ano");
+                response.Errors.Add("Animais Vacinados","Todos os animais já foram vacinados esse ano");
             }
             if (Quantidade > animaisAVacinar.QuantidadeTotal - animaisAVacinar.QuantidadeVacinada)
             {
-                response.Errors.Add("error","Valor não pode ser maior que a quantidade total de animais");                
+                response.Errors.Add("Quantidade","Valor não pode ser maior que a quantidade total de animais");                
             }
             if (response.Errors.Any())
             {

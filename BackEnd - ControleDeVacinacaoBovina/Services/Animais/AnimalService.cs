@@ -98,7 +98,7 @@ namespace ControleDeVacinacaoBovina.Services.Animais
 
             if (animal.QuantidadeVacinada > animal.QuantidadeTotal)
             {
-                response.Errors.Add("error","A quantidade de animal vacinada não pode ser maior que o total de animais.");
+                response.Errors.Add("QuantidadeAnimal","A quantidade de animal vacinada não pode ser maior que o total de animais.");
                 response.StatusCode = EStatusCode.BAD_REQUEST;
             }
 

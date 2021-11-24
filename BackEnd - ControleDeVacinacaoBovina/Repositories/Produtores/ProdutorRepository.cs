@@ -41,5 +41,10 @@ namespace ControleDeVacinacaoBovina.Repositories.Produtores
             _contexto.Produtores.Add(produtor);
             _contexto.SaveChanges();
         }
+
+        public bool ExistByCPF(string cpf)
+        {
+            return _contexto.Produtores.Any(x => x.CPF == cpf);
+        }
     }
 }

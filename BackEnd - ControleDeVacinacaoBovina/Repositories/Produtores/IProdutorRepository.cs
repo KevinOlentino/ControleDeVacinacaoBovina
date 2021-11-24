@@ -11,5 +11,6 @@ namespace ControleDeVacinacaoBovina.Repositories.Produtores
         Task<Produtor> GetByCPF(string CPF);
         Task<IEnumerable<Produtor>> GetAll();
         Produtor GetById(int id);
+        bool ExistByCPF(string cpf);
     }
 }
