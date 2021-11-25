@@ -16,6 +16,9 @@ import {Propriedade} from "../../../entities/propriedade";
 import {Especie} from "../../../entities/especie";
 import {EspecieService} from "../../../services/especie/especie.service";
 import {PropriedadeService} from "../../../services/propriedade/propriedade.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {tipoDeEntradas} from "../../../entities/tipodeentradas";
+import {TipoDeEntradasService} from "../../../services/tipoDeEntradas/tipo-de-entradas.service";
 
 @Component({
   selector: 'app-incluir-animal',
@@ -27,21 +30,37 @@ export class IncluirAnimalComponent implements OnInit, AfterViewInit {
   @Input('animal') animal: Animal = new Animal();
   propriedades: Propriedade[] = [];
   especies: Especie [] = []
+  tipoDeEntradas: tipoDeEntradas [] = []
   idProdutor?: number = Number(localStorage.getItem('idProdutor')?.toString());
   @ViewChild('frm')
-  private frm!: NgForm ;
+  private frm!: NgForm;
+  @ViewChild('buttonClose')
+  private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
+
+  private error: any;
 
   constructor(private animalService: AnimalService, private especieService: EspecieService,
-              private propriedadeService: PropriedadeService, private changeDetectorRef: ChangeDetectorRef) { }
+              private propriedadeService: PropriedadeService, private tipoDeEntradaService: TipoDeEntradasService) {
+  }
 
   ngOnInit(): void {
-    if(this.idProdutor)
+    if (this.idProdutor)
       this.propriedadeService.ListarPorProdutor(this.idProdutor).subscribe(
-        dados => {this.propriedades = dados, console.log(this.propriedades)},
+        dados => {
+          this.propriedades = dados, console.log(this.propriedades)
+        },
         error => console.log(error)
       )
     this.especieService.listarEspecies().subscribe(
-      dados => {this.especies = dados, console.log(this.especies)},
+      dados => {
+        this.especies = dados, console.log(this.especies)
+      },
+      error => console.log(error)
+    )
+    this.tipoDeEntradaService.listarTodos().subscribe(
+      dados => {
+        this.tipoDeEntradas = dados, console.log(this.tipoDeEntradas)
+      },
       error => console.log(error)
     )
   }
@@ -50,15 +69,27 @@ export class IncluirAnimalComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     document.getElementById('adicionarAnimal').addEventListener('hidden.bs.modal',
       (event) => {
-        this.frm.reset()
+        this.frm.form.reset({IdPropriedade: 0, idEspecie: 0})
       }, false)
   }
 
-  Incluir(frm: NgForm){
+  incluir(frm: NgForm) {
     console.log(this.animal);
     this.animalService.CadastrarAnimais(this.animal).subscribe(
-      dados => {alert("Animal cadastrado com sucesso!"), console.log(dados)},
-      error => {alert("Erro ao cadastrar Animal"),console.log(error)}
+      dados => {
+        this.buttonClose?.nativeElement.click(),
+        alert("Animal cadastrado com sucesso!"),
+          window.location.reload()
+      },
+      error => {
+        this.registrarErro(error);
+      }
     )
+  }
+
+  registrarErro(error: HttpErrorResponse) {
+    this.error = error.error
+    if (this.error.error != undefined)
+      alert(this.error.error);
   }
 }

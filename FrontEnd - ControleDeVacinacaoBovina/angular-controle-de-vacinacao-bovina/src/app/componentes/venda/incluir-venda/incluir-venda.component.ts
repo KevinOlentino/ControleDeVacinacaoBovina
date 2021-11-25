@@ -8,38 +8,50 @@ import {Propriedade} from "../../../entities/propriedade";
 import {PropriedadeService} from "../../../services/propriedade/propriedade.service";
 import {FinalidadeDeVendaService} from "../../../services/finalidadeDeVenda/finalidade-de-venda.service";
 import {EspecieService} from "../../../services/especie/especie.service";
+import {HttpErrorResponse} from "@angular/common/http";
+import {tipoDeEntradas} from "../../../entities/tipodeentradas";
+import {TipoDeEntradasService} from "../../../services/tipoDeEntradas/tipo-de-entradas.service";
+import {RebanhoService} from "../../../services/rebanho/rebanho.service";
+import {Rebanho} from "../../../entities/rebanho";
 
 @Component({
   selector: 'app-incluir-venda',
   templateUrl: './incluir-venda.component.html',
   styleUrls: ['./incluir-venda.component.css']
 })
-export class IncluirVendaComponent implements OnInit,AfterViewInit {
+export class IncluirVendaComponent implements OnInit, AfterViewInit {
 
   venda: Venda = new Venda();
-  especies: Especie[] = [];
-  finalidadesDeVenda: FinalidadeDeVenda[]=[];
+  rebanhos: Rebanho[] = [];
+  finalidadesDeVenda: FinalidadeDeVenda[] = [];
   propriedades: Propriedade[] = [];
+  inscricaoEstadual: string = '';
+  notFound: boolean = false;
+  propriedadeDestino: Propriedade = new Propriedade();
   idProdutor?: number = Number(localStorage.getItem('idProdutor')?.toString());
+
   @ViewChild('frm')
-  private frm!: NgForm ;
+  private frm!: NgForm;
+  @ViewChild('buttonClose')
+  private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
+
+  private error: any;
 
   constructor(private vendaService: VendaService, private propriedadeService: PropriedadeService,
-              private finalidadeDeVendaService: FinalidadeDeVendaService, private especieService: EspecieService) { }
+              private finalidadeDeVendaService: FinalidadeDeVendaService, private rebanhoService: RebanhoService) {
+  }
 
   ngOnInit(): void {
-    if(this.idProdutor)
-      this.propriedadeService.ListarPorProdutor(this.idProdutor).subscribe(
-        dados => {this.propriedades = dados, console.log(this.propriedades)},
-        error => console.log(error)
-      )
     this.finalidadeDeVendaService.listaFinalidadeDeVenda().subscribe(
-      dados => {this.finalidadesDeVenda = dados},
+      dados => {
+        this.finalidadesDeVenda = dados
+      },
       error => console.log(error)
     )
-    this.especieService.listarEspecies().subscribe(
-        dados => {this.especies = dados},
-        error => console.log(error)
+    if(this.idProdutor)
+    this.propriedadeService.ListarPorProdutor(this.idProdutor).subscribe(
+      dados => this.propriedades = dados,
+      error => console.log(error)
     )
   }
 
@@ -51,12 +63,42 @@ export class IncluirVendaComponent implements OnInit,AfterViewInit {
       }, false)
   }
 
-  incluirVenda(frm: NgForm){
+  incluirVenda(frm: NgForm) {
     console.log(this.venda);
     this.vendaService.CadastrarVenda(this.venda).subscribe(
-      dados => {alert("Venda cadastrada com sucesso!")},
-      error => {alert("Erro ao cadastrar venda")}
+      dados => {
+        this.buttonClose?.nativeElement.click(),
+          alert("Venda cadastrada com sucesso!"),
+          window.location.reload()
+      },
+      error => {
+        console.log(error);
+        this.registrarErro(error);
+      }
     )
   }
 
+  registrarErro(error: HttpErrorResponse) {
+    this.error = error.error
+    if (this.error.error != undefined)
+      alert(this.error.error);
+  }
+
+  verifyPropriedade(){
+      if(this.inscricaoEstadual.length < 9 || this.inscricaoEstadual.length > 10)
+          alert("Inscrição Estadual somente de 9 digitos")
+      else
+      this.propriedadeService.ObterPorInscricaoEstadual(this.inscricaoEstadual).subscribe(
+        dados => {this.propriedadeDestino = dados},
+        error => {this.propriedadeDestino= new Propriedade(), alert("Inscrição Estadual não encontrada!")}
+      )
+  }
+
+  atualizarRebanhos(){
+    if(this.venda.idOrigem)
+      this.rebanhoService.listarPorPropriedade(this.venda.idOrigem).subscribe(
+        dados => {this.rebanhos = dados},
+        error => this.rebanhos = []
+      )
+  }
 }

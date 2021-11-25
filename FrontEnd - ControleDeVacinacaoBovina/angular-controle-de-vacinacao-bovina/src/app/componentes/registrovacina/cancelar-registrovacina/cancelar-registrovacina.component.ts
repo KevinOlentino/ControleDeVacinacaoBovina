@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {RegistroVacina} from "../../../entities/registrovacinacao";
 import {RegistrovacinaService} from "../../../services/registrovacina/registrovacina.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-cancelar-registrovacina',
@@ -10,6 +11,10 @@ import {RegistrovacinaService} from "../../../services/registrovacina/registrova
 export class CancelarRegistrovacinaComponent implements OnInit {
 
   @Input("registroVacina") registroVacina: RegistroVacina = new RegistroVacina();
+  @ViewChild('buttonClose')
+  private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
+
+  private error: any;
 
   constructor(private registroVacinaService: RegistrovacinaService) { }
 
@@ -18,9 +23,19 @@ export class CancelarRegistrovacinaComponent implements OnInit {
 
   cancelarRegistroVacina(id: number){
     this.registroVacinaService.CancelarRegistroVacina(id).subscribe(
-      dados => alert("Registro de Vacina cancelado com sucesso!"),
-      error => alert("Erro ao cancelar registro de vacina!")
+      dados => {
+        this.buttonClose?.nativeElement.click(),
+          alert("Registro de Vacina cancelada com sucesso!"),
+          window.location.reload()
+      },
+      error => {
+        this.registrarErro(error);
+      }
     )
   }
-
+  registrarErro(error: HttpErrorResponse) {
+    this.error = error.error
+    if (this.error.error != undefined)
+      alert(this.error.error);
+  }
 }

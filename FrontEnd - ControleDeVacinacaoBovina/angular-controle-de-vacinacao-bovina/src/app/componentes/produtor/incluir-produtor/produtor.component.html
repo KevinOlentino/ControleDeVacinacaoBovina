@@ -4,9 +4,9 @@
     <div class="modal-content container">
       <div class="container">
         <div class="modal-header">
-          <button class="btn btn-close" data-bs-dismiss="modal"></button>
+          <button class="btn btn-close" data-bs-dismiss="modal" #buttonClose></button>
         </div>
-        <form class="row p-3" #formProdutor id="formProdutor" method="POST" #frm="ngForm" (ngSubmit)="Incluir(frm)">
+        <form class="row p-3" #formProdutor id="formProdutor" method="POST" #frm="ngForm" (ngSubmit)="incluir(frm)">
           <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
             <input type="text" name="nome" class="form-control" id="inputNome" [(ngModel)]="produtor.nome">
@@ -34,7 +34,7 @@
             </select>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Cadastrar</button>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
             <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>

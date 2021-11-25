@@ -4,9 +4,9 @@
     <div class="modal-content container">
       <div class="container">
         <div class="modal-header">
-          <button class="btn btn-close" data-bs-dismiss="modal"></button>
+          <button class="btn btn-close" data-bs-dismiss="modal" #buttonClose></button>
         </div>
-        <form class="row p-3" method="POST" #frm="ngForm" (ngSubmit)="IncluirRegistroVacina(frm)">
+        <form class="row p-3" method="POST" #frm="ngForm" (ngSubmit)="incluirRegistroVacina(frm)">
           <div class="col-md-2">
             <label for="inputQuantidade" class="form-label">Quantidade</label>
             <input type="text" pattern="[0-9]+" name="cpf" class="form-control" id="inputQuantidade"
@@ -17,22 +17,24 @@
             <input type="date" name="dataDaVacina" class="form-control" id="inputDataDaVacina"
                    [(ngModel)]="registroVacina.dataDaVacina">
           </div>
-          <div class="col-md-5">
+          <div class="col-md-8">
             <label for="inputAnimal" class="form-label">Animal e Propriedade</label>
-            <select name="idAnimal" id="inputAnimal" class="form-select" [(ngModel)]="registroVacina.idAnimal">
-              <option *ngFor="let animal of animais" value="{{animal.idAnimal}}">
-                {{animal.especie.nome}} - {{animal.propriedade.idPropriedade}} - {{animal.propriedade.nome}}</option>
+            <select name="idAnimal" id="inputAnimal" class="form-select" [(ngModel)]="registroVacina.idRebanho">
+              <option value="0">Selecione uma Especie e Propriedade</option>
+              <option *ngFor="let rebanho of rebanhos" value="{{rebanho.idRebanho}}">
+                {{rebanho.especie.nome}}: {{rebanho.propriedade.nome}} - Restantes a Vacinar: {{rebanho.quantidadeTotal - rebanho.quantidadeVacinada}}</option>
             </select>
           </div>
-          <div class="col-md-5">
+          <div class="col-md-4">
             <label for="inputVacina" class="form-label">Vacina</label>
             <select name="idVacina" id="inputVacina" class="form-select" [(ngModel)]="registroVacina.idVacina">
-              <option *ngFor="let vacina of vacinas" value="{{vacina.idVacina}}">{{vacina.tipo}}
+              <option value="0">Selecione uma Vacina</option>
+              <option *ngFor="let vacina of vacinas" value="{{vacina.idVacina}}">{{vacina.doenca}}
                 - {{vacina.marca}}</option>
             </select>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Cadastrar</button>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
             <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>

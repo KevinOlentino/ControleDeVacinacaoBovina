@@ -6,12 +6,12 @@
           <button class="btn btn-close" data-bs-dismiss="modal"></button>
         </div>
         <form class="row p-3" method="POST" #frm="ngForm" (ngSubmit)="incluirVenda(frm)">
-          <div class="col-md-2">
+          <div class="col-md-3">
             <label for="inputQuantidade" class="form-label">Quantidade</label>
             <input type="text" name="nome" pattern="[0-9]+" class="form-control" id="inputQuantidade"
                    [(ngModel)]="venda.quantidade">
           </div>
-          <div class="col-md-5">
+          <div class="col-md-9">
             <label for="inputFinalidadeDeVenda" class="form-label">Finalidade de Venda</label>
             <select name="idFinalidadeDeVenda" id="inputFinalidadeDeVenda" class="form-select"
                     [(ngModel)]="venda.idFinalidadeDeVenda">
@@ -19,29 +19,36 @@
                       value="{{finalidadeDeVenda.idFinalidadeDeVenda}}">{{finalidadeDeVenda.nome}}</option>
             </select>
           </div>
-          <div class="col-md-5">
-            <label for="inputEspecie" class="form-label">Especie</label>
-            <select name="idFinalidadeDeVenda" id="inputEspecie" class="form-select" [(ngModel)]="venda.idEspecie">
-              <option *ngFor="let especie of especies" value="{{especie.idEspecie}}">{{especie.nome}}</option>
-            </select>
-          </div>
-          <div class="col-md-6">
+          <div class="col-md-8">
             <label for="inputOrigem" class="form-label">Origem</label>
-            <select name="idOrigem" id="inputOrigem" class="form-select" [(ngModel)]="venda.idOrigem">
+            <select name="idOrigem" id="inputOrigem" class="form-select"
+                    (change)="atualizarRebanhos()" [(ngModel)]="venda.idOrigem">
               <option *ngFor="let propriedade of propriedades"
                       value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
             </select>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
+            <label for="inputEspecie" class="form-label">Especie</label>
+            <select name="idFinalidadeDeVenda" id="inputEspecie" class="form-select" [(ngModel)]="venda.idRebanho">
+              <option *ngFor="let rebanho of rebanhos" value="{{rebanho.idRebanho}}">{{rebanho.especie.nome}}</option>
+            </select>
+          </div>
+          <div class="col-md-5">
             <label for="inputDestino" class="form-label">Destino</label>
-            <select name="idDestino" id="inputDestino" class="form-select" [(ngModel)]="venda.idDestino">
-              <option *ngFor="let propriedade of propriedades"
-                      value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
-            </select>
+            <input type="text" name="Destino" placeholder="Inscrição Estadual do Destino" pattern="[0-9]+" class="form-control" id="inputDestino"
+                   [(ngModel)]="inscricaoEstadual">
           </div>
+          <div class="col-md-5 p-md-4 mt-2">
+            <button type="button" class="btn btn-primary" (click)="verifyPropriedade()">Verificar Destino</button>
+          </div>
+          <ng-container>
+            <div *ngIf="propriedadeDestino.idPropriedade > 0" class="alert alert-primary mt-sm-2" role="alert">
+              {{propriedadeDestino.inscricaoEstadual}} - {{propriedadeDestino.nome}} - {{propriedadeDestino.produtor.nome}}
+            </div>
+          </ng-container>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Cadastrar</button>
-            <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>
       </div>

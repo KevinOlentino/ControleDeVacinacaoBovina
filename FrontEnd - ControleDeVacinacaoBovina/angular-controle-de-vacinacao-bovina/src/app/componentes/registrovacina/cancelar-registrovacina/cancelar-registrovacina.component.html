@@ -5,13 +5,13 @@
       <div class="row p-3">
         <h5 class="card-title">Data: {{registroVacina.dataDaVacina | date: 'dd/MM/yyyy'}}</h5>
         <p class="card-text">Quantidade Vacinada: {{registroVacina.quantidade}}</p>
-        <p class="card-text">Nome da Propriedade: {{registroVacina.animal.propriedade.nome}}</p>
-        <p class="card-text">Inscricao Estadual: {{registroVacina.animal.propriedade.inscricaoEstadual}}</p>
-        <p class="card-text">Especie: {{registroVacina.animal.especie.nome}}</p>
+        <p class="card-text">Nome da Propriedade: {{registroVacina.rebanho.propriedade.nome}}</p>
+        <p class="card-text">Inscricao Estadual: {{registroVacina.rebanho.propriedade.inscricaoEstadual}}</p>
+        <p class="card-text">Especie: {{registroVacina.rebanho.especie.nome}}</p>
         <div>
           <div class="modal-footer">
             <p>Deseja realmente excluir este registro:</p>
-            <button class="btn btn-danger" (click)="cancelarRegistroVacina(registroVacina.idRegistroVacinacao)">Sim
+            <button class="btn btn-danger" data-bs-dismiss="modal" (click)="cancelarRegistroVacina(registroVacina.idRegistroVacinacao)">Sim
             </button>
             <button type="" class="btn btn-primary" data-bs-dismiss="modal">Não</button>
           </div>

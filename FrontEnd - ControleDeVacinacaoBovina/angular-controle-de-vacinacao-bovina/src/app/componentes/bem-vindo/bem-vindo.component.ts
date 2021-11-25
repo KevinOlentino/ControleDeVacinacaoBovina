@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Produtor} from "../../entities/produtor";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-bem-vindo',
@@ -9,11 +10,15 @@ import {Produtor} from "../../entities/produtor";
 export class BemVindoComponent implements OnInit {
   nomeProdutor: String | null;
 
-  constructor() {
+  constructor(private router: Router) {
     this.nomeProdutor = localStorage.getItem('nomeProdutor')
   }
 
   ngOnInit(): void {
+  }
+
+  goToPage(pageName: String){
+    this.router.navigate([pageName])
   }
 
 }

@@ -7,11 +7,12 @@
         <p class="card-text">Quantidade Vacinada: {{animal.quantidadeVacinada}}</p>
         <p class="card-text">Especie: {{animal.especie.nome}}</p>
         <p class="card-text">Inscricao Estadual: {{animal.propriedade.inscricaoEstadual}}</p>
+        <p class="card-text">Tipo De Entrada: {{animal.tipoDeEntrada.nome}}</p>
         <div>
           <div class="modal-footer">
             <p>Deseja realmente excluir este registro:</p>
             <button class="btn btn-danger" (click)="cancelarAnimal(animal.idAnimal)">Sim</button>
-            <button type="" class="btn btn-primary" data-bs-dismiss="modal">Não</button>
+            <button type="" class="btn btn-primary" #buttonClose data-bs-dismiss="modal">Não</button>
           </div>
         </div>
       </div>

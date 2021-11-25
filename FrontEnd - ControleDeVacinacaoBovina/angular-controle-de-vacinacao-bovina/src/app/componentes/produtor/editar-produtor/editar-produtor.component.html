@@ -5,7 +5,7 @@
         <div class="modal-header">
           <button class="btn btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <form class="row" method="POST" #frm="ngForm" (ngSubmit)="EditarProdutor(frm)">
+        <form class="row" method="POST" #frm="ngForm" (ngSubmit)="editarProdutor(frm)">
           <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
             <input type="email" name="nome" class="form-control" id="inputNome" [(ngModel)]="produtor.nome">
@@ -31,7 +31,7 @@
             </select>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Atualizar</button>
+            <button type="submit" class="btn btn-success">Atualizar</button>
             <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>

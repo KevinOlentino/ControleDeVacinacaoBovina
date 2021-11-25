@@ -2,7 +2,7 @@
   <div class="modal-dialog">
     <div class="modal-content container">
       <div class="row p-3">
-        <h5 class="card-title">Especie: {{venda.especie.nome}}</h5>
+        <h5 class="card-title">Especie: {{venda.rebanho.especie.nome}}</h5>
         <p class="card-text">Origem: {{venda.origem.nome}}</p>
         <p class="card-text">Destino: {{venda.destino.nome}}</p>
         <p class="card-text">Quantidade: {{venda.quantidade}}</p>
@@ -11,7 +11,7 @@
           <div class="modal-footer">
             <p>Deseja realmente excluir este registro:</p>
             <button class="btn btn-danger" (click)="cancelarVenda(venda.idVenda)">Sim</button>
-            <button type="" class="btn btn-primary" data-bs-dismiss="modal">Não</button>
+            <button type="" class="btn btn-primary" #buttonClose data-bs-dismiss="modal">Não</button>
           </div>
         </div>
       </div>

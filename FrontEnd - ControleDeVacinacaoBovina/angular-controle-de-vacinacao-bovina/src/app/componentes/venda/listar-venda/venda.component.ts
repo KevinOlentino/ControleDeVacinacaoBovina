@@ -27,14 +27,6 @@ export class VendaComponent implements OnInit {
     )
   }
 
-  listarVendasPorDestino(){
-    if(this.idProdutor)
-    this.vendaService.listarPorDestino(this.idProdutor).subscribe(
-      dados => {this.vendas = dados, console.log(this.vendas)},
-      error => console.log(error)
-    )
-  }
-
   cancelarVenda(venda: Venda){
     this.venda = venda;
   }

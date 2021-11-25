@@ -5,7 +5,7 @@
         <div class="modal-header">
           <button class="btn btn-close" data-bs-dismiss="modal"></button>
         </div>
-        <form name="adicionarAnimal" class="row p-3"  method="POST" #frm="ngForm" (ngSubmit)="Incluir(frm)">
+        <form name="adicionarAnimal" class="row p-3"  method="POST" #frm="ngForm" (ngSubmit)="incluir(frm)">
           <div class="col-6" >
             <label for="inputQuantidadeTotal" class="form-label">Quantidade Total</label>
             <input type="text" name="nome" class="form-control" id="inputQuantidadeTotal"
@@ -16,7 +16,7 @@
             <input type="text" pattern="[0-9]+" name="cpf" class="form-control" id="inputQuantidadeVacinada"
                    [(ngModel)]="animal.quantidadeVacinada">
           </div>
-          <div class="col-6">
+          <div class="col-12">
             <label for="inputIdPropriedade" class="form-label">Propriedade</label>
             <select name="IdPropriedade" id="inputIdPropriedade" class="form-select" [(ngModel)]="animal.idPropriedade">
               <option value="0">Selecione uma Propriedade</option>
@@ -31,8 +31,15 @@
               <option *ngFor="let especie of especies" [ngValue]="especie.idEspecie">{{especie.nome}}</option>
             </select>
           </div>
+          <div class="col-6">
+            <label for="inputIdEspecie" class="form-label">Especie</label>
+            <select name="idEspecie" id="inputIdTipoDeEntrada" class="form-select" [(ngModel)]="animal.idTipoDeEntrada">
+              <option value="0">Selecione um Tipo de Entrada</option>
+              <option *ngFor="let tipoDeEntrada of tipoDeEntradas" [ngValue]="tipoDeEntrada.idTipoDeEntrada">{{tipoDeEntrada.nome}}</option>
+            </select>
+          </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Cadastrar</button>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>

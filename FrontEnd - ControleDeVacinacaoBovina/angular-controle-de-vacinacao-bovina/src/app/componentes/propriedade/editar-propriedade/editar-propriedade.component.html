@@ -4,9 +4,9 @@
     <div class="modal-content container">
       <div class="container">
         <div class="modal-header">
-          <button class="btn btn-close" data-bs-dismiss="modal"></button>
+          <button class="btn btn-close" data-bs-dismiss="modal" #buttonClose></button>
         </div>
-        <form class="row" method="POST" #frm="ngForm" (ngSubmit)="EditarPropriedade(frm)">
+        <form class="row" method="POST" #frm="ngForm" (ngSubmit)="editarPropriedade(frm)">
           <div class="col-md-12">
             <label for="inputNome" class="form-label">Nome</label>
             <input type="email" name="nome" class="form-control" id="inputNome" [(ngModel)]="propriedade.nome">
@@ -29,8 +29,8 @@
             </select>
           </div>
           <div class="modal-footer">
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Atualizar</button>
-            <button type="button" class="btn btn-danger"  data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-success">Atualizar</button>
+            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>
 

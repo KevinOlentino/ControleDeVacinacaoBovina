@@ -4,7 +4,7 @@
     <div class="modal-content container">
       <div class="container">
         <div class="modal-header">
-          <button class="btn btn-close" data-bs-dismiss="modal"></button>
+          <button class="btn btn-close" data-bs-dismiss="modal" #buttonClose></button>
         </div>
         <form class="row p-3" method="POST" #frm="ngForm" (ngSubmit)="IncluirPropriedade(frm)">
           <div class="col-md-12">
@@ -24,13 +24,13 @@
             <label for="inputState" class="form-label">Municipio</label>
             <select name="idMunicipio" id="inputState" class="form-select"
                     [(ngModel)]="propriedade.endereco.idMunicipio">
-              <option value="0">Selecione um Municipio</option>
-              <option *ngFor="let municipio of municipios" value="{{municipio.idMunicipio}}">{{municipio.nome}}
+              <option [value]="0">Selecione um Municipio</option>
+              <option *ngFor="let municipio of municipios" [value]="municipio.idMunicipio">{{municipio.nome}}
                 - {{municipio.estado}}</option>
             </select>
           </div>
           <div class="modal-footer mt-1">
-            <button type="submit" class="btn btn-success" data-bs-dismiss="modal">Cadastrar</button>
+            <button type="submit" class="btn btn-success">Cadastrar</button>
             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
           </div>
         </form>

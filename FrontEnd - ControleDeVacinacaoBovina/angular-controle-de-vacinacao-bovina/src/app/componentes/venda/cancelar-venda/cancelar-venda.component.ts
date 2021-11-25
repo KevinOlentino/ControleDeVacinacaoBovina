@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Venda} from "../../../entities/venda";
 import {VendaService} from "../../../services/venda/venda.service";
+import {HttpErrorResponse} from "@angular/common/http";
 
 @Component({
   selector: 'app-cancelar-venda',
@@ -10,6 +11,10 @@ import {VendaService} from "../../../services/venda/venda.service";
 export class CancelarVendaComponent implements OnInit {
 
   @Input(`venda`) venda:Venda = new Venda();
+  @ViewChild('buttonClose')
+  private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
+
+  private error: any;
 
   constructor(private vendaService: VendaService) { }
 
@@ -18,9 +23,20 @@ export class CancelarVendaComponent implements OnInit {
 
   cancelarVenda(id: number){
     this.vendaService.CancelarRegistroAnimal(id).subscribe(
-      dados => alert("Venda cancelado com sucesso!"),
-      error => alert("Erro ao cancelar Venda")
+      dados => {
+        this.buttonClose?.nativeElement.click(),
+          alert("Venda cancelada com sucesso!"),
+          window.location.reload()
+      },
+      error => {
+        this.registrarErro(error);
+      }
     )
+  }
+  registrarErro(error: HttpErrorResponse) {
+    this.error = error.error
+    if (this.error.error != undefined)
+      alert(this.error.error);
   }
 
 }

@@ -6,12 +6,6 @@
     <button type="button" data-bs-toggle="modal" href="#adicionarVenda" role="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
   </div>
   <div class="row">
-    <input type="radio" class="btn-check" name="options" id="Vendas" checked/>
-    <label class="btn btn-primary col-md-2 mt-2" (click)="listarVendasPorOrigem()" for="Vendas">Vendas</label>
-    <input type="radio" class="btn-check" name="options" id="Compras">
-    <label class="btn btn-primary col-md-2 mt-2"  (click)="listarVendasPorDestino()" for="Compras">Compras</label>
-  </div>
-  <div class="row">
     <ng-container *ngIf="vendas.length == 0">
       <div class="alert alert-danger mt-2" role="alert">
         Nenhum registro encontrado!
@@ -23,7 +17,7 @@
           <div class="d-flex flex-row-reverse">
             <a href="#cancelarVenda" (click)="cancelarVenda(venda)" data-bs-toggle="modal" class="btn btn-danger ms-1 fa fa-trash"></a>
           </div>
-          <h5 class="card-title">Especie: {{venda.especie.nome}}</h5>
+          <h5 class="card-title">Especie: {{venda.rebanho.especie.nome}}</h5>
           <p class="card-text">Origem: {{venda.origem.nome}}</p>
           <p class="card-text">Destino: {{venda.destino.nome}}</p>
           <p class="card-text">Quantidade: {{venda.quantidade}}</p>
