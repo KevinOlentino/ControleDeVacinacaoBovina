@@ -19,7 +19,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
 
         [Required(ErrorMessage = "Especie não pode ser nula")]
         [Range (1, int.MaxValue,ErrorMessage = "Especie não pode ser 0")]
-        public int IdEspecie { get; set; }
+        public int IdRebanho { get; set; }
 
         [Required(ErrorMessage = "Finalidade de venda não pode ser nula")]
         [Range(1, int.MaxValue, ErrorMessage = "Finalidade de Venda não pode ser 0")]
@@ -32,7 +32,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
                 Quantidade = finalidadeDeVenda.Quantidade,
                 IdOrigem = finalidadeDeVenda.IdOrigem,
                 IdDestino = finalidadeDeVenda.IdDestino,
-                IdEspecie = finalidadeDeVenda.IdEspecie,
+                IdRebanho = finalidadeDeVenda.IdRebanho,
                 IdFinalidadeDeVenda = finalidadeDeVenda.IdFinalidadeDeVenda
             };
         }

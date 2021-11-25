@@ -9,7 +9,7 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         Task Incluir(RegistroVacinacao registroVacina);
         void Cancelar(RegistroVacinacao registroVacina);
         IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade);
-        IEnumerable<RegistroVacinacao> GetByAnimal(int id);
+        IEnumerable<RegistroVacinacao> GetByRebanho(int id);
         RegistroVacinacao GetById(int id);
     }
 }

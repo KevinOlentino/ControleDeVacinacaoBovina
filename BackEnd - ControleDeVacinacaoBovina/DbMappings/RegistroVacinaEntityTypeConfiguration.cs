@@ -18,9 +18,9 @@ namespace ControleDeVacinacaoBovina.DbMappings
             builder.Property(rvacinacao => rvacinacao.DataDaVacina);
             builder.Property(rvacinacao => rvacinacao.Ativo);
 
-            builder.HasOne(rvacinacao => rvacinacao.Animal)
-                .WithMany(animal => animal.RegistroVacinas)
-                .HasForeignKey(nameof(Animal.IdAnimal));
+            builder.HasOne(rvacinacao => rvacinacao.Rebanho)
+                .WithMany(rebanho => rebanho.RegistroVacinacoes)
+                .HasForeignKey(x => x.IdRebanho);
 
             builder.HasOne(rvacinacao => rvacinacao.Vacina)
                 .WithMany(vacina => vacina.RegistroVacinas)

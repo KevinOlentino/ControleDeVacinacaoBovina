@@ -22,16 +22,16 @@ namespace ControleDeVacinacaoBovina.Controllers
             this.vendaService = vendaService;
         }
 
-        [HttpGet("Destino/{idPropriedade}")]
-        public async Task<ActionResult> GetByDestino(int idPropriedade)
+        [HttpGet("Destino/{idProdutor}")]
+        public async Task<ActionResult> GetByDestino(int idProdutor)
         {
-            return await vendaService.GetByDestino(idPropriedade);
+            return await vendaService.GetByDestino(idProdutor);
         }
 
-        [HttpGet("Origem/{idPropriedade}")]
-        public async Task<ActionResult> GetByOrigem(int idPropriedade)
+        [HttpGet("Origem/{idProdutor}")]
+        public async Task<ActionResult> GetByOrigem(int idProdutor)
         {
-            return await vendaService.GetByOrigem(idPropriedade);
+            return await vendaService.GetByOrigem(idProdutor);
         }
 
         [HttpPost]

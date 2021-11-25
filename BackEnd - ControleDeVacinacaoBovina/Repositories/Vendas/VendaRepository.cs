@@ -18,8 +18,10 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
 
         public IEnumerable<Venda> GetByDestino(int idProdutor)
         {
-            return _contexto.Vendas.Include(x => x.Destino).Include(x => x.Origem)
-                .Include(x => x.Especie)
+            return _contexto.Vendas.Include(x => x.Destino)
+                .Include(x => x.Origem)
+                .Include(x => x.Rebanho)
+                .ThenInclude(x => x.Especie)
                 .Include(x => x.FinalidadeDeVenda)
                 .Where(x => x.Ativo == true)
                 .Where(x => x.Destino.IdProdutor == idProdutor);
@@ -29,7 +31,9 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
         {
             return _contexto.Vendas.Include(x => x.Destino)
                 .Include(x => x.Origem)
-                .Include(x => x.Especie).Include(x => x.FinalidadeDeVenda)
+                .Include(x => x.Rebanho)
+                .ThenInclude(x => x.Especie)
+                .Include(x => x.FinalidadeDeVenda)
                 .Where(x => x.Ativo == true)
                 .Where(x => x.Origem.IdProdutor == idProdutor);
         }
@@ -37,6 +41,7 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
         public Venda GetById(int id)
         {
             return _contexto.Vendas.Where(x => x.Ativo == true)
+                                   .Include(x => x.Rebanho)
                                     .FirstOrDefault(x => x.IdVenda == id);
         }
 

@@ -14,9 +14,9 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         [Required(ErrorMessage = "Data da vacina não pode ser nula")]
         public DateTime DataDaVacina { get; set; }
 
-        [Required(ErrorMessage = "Id Animal não pode ser nulo")]
-        [Range(1, int.MaxValue, ErrorMessage = "Id Animal não pode ser menor que 1")]
-        public int IdAnimal { get; set; }
+        [Required(ErrorMessage = "Id Rebanho não pode ser nulo")]
+        [Range(1, int.MaxValue, ErrorMessage = "Id Rebanho não pode ser menor que 1")]
+        public int IdRebanho { get; set; }
 
         [Required(ErrorMessage = ("Id Vacina não poder ser nulo"))]
         [Range(1, int.MaxValue, ErrorMessage = "Id Vacina não pode ser menor que 1")]
@@ -29,7 +29,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
                 IdRegistroVacinacao = registroVacinacao.IdRegistroVacinacao,
                 Quantidade = registroVacinacao.Quantidade,
                 DataDaVacina = registroVacinacao.DataDaVacina,
-                IdAnimal = registroVacinacao.IdAnimal,
+                IdRebanho = registroVacinacao.IdRebanho,
                 IdVacina = registroVacinacao.IdVacina
             };
         }

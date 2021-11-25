@@ -10,7 +10,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
         void Cancelar(Animal animal);
         Task Editar(Animal animal);
         IEnumerable<Animal> GetByProdutor(int idProdutor);
-        IEnumerable<Animal> GetByPropriedade(int idProdutor);
+        IEnumerable<Animal> GetByPropriedade(int idPropriedade);
         Animal GetById(int id);
     }
 }

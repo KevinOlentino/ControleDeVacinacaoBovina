@@ -1,6 +1,7 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repositories.Animais;
+using ControleDeVacinacaoBovina.Services.Rebanhos;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,12 @@ namespace ControleDeVacinacaoBovina.Services.Animais
     public class AnimalService : IAnimalService
     {
         private readonly IAnimalRepository animalRepository;
+        private readonly IRebanhoService rebanhoService;
 
-        public AnimalService(IAnimalRepository animalRepository)
+        public AnimalService(IAnimalRepository animalRepository, IRebanhoService rebanhoService)
         {
             this.animalRepository = animalRepository;
+            this.rebanhoService = rebanhoService;
         }
 
         public Task<ObjectResult> Cancelar(int id)
@@ -23,7 +26,7 @@ namespace ControleDeVacinacaoBovina.Services.Animais
             var response = new ResponseDto<Animal>(EStatusCode.NO_CONTENT, null);
             Animal animal = animalRepository.GetById(id);
 
-            if(animal == null)
+            if(animal == null || animal.Ativo == false)
             {
                 response.StatusCode = EStatusCode.NOT_FOUND;
                 return response.ResultAsync();
@@ -31,6 +34,13 @@ namespace ControleDeVacinacaoBovina.Services.Animais
             try
             {
                 animalRepository.Cancelar(animal);
+                rebanhoService.SubtrairRebanho(new Rebanho()
+                {
+                    IdPropriedade = animal.IdPropriedade,
+                    IdEspecie = animal.IdEspecie,
+                    QuantidadeTotal = animal.QuantidadeTotal,
+                    QuantidadeVacinada = animal.QuantidadeVacinada
+                });
             }
             catch(Exception ex)
             {
@@ -38,11 +48,6 @@ namespace ControleDeVacinacaoBovina.Services.Animais
             }
 
             return response.ResultAsync();
-        }
-
-        public void Editar(Animal animal)
-        {
-            animalRepository.Editar(animal);
         }
 
         public Task<ObjectResult> GetByProdutor(int idProdutor)
@@ -98,14 +103,15 @@ namespace ControleDeVacinacaoBovina.Services.Animais
 
             if (animal.QuantidadeVacinada > animal.QuantidadeTotal)
             {
-                response.Errors.Add("QuantidadeAnimal","A quantidade de animal vacinada não pode ser maior que o total de animais.");
+                response.AddError("QuantidadeVacinada","A quantidade de animal vacinada não pode ser maior que o total de animais.");
                 response.StatusCode = EStatusCode.BAD_REQUEST;
             }
-
             try
             {
                if (!response.Errors.Any())
-               animalRepository.Incluir(animal);
+                {
+                    AdicionarRebanhoAnimal(animal);
+                }               
             }
             catch (Exception ex)
             {
@@ -114,6 +120,19 @@ namespace ControleDeVacinacaoBovina.Services.Animais
 
             return response.ResultAsync();
 
+        }
+
+        public void AdicionarRebanhoAnimal(Animal animal)
+        {
+            animalRepository.Incluir(animal);
+
+            rebanhoService.Incluir(new Rebanho()
+            {
+                IdPropriedade = animal.IdPropriedade,
+                IdEspecie = animal.IdEspecie,
+                QuantidadeTotal = animal.QuantidadeTotal,
+                QuantidadeVacinada = animal.QuantidadeVacinada
+            });
         }
     }
 }

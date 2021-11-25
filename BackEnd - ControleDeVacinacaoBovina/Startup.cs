@@ -7,7 +7,9 @@ using ControleDeVacinacaoBovina.Repositories.FinalidadeDeVendas;
 using ControleDeVacinacaoBovina.Repositories.Municipios;
 using ControleDeVacinacaoBovina.Repositories.Produtores;
 using ControleDeVacinacaoBovina.Repositories.Propriedades;
+using ControleDeVacinacaoBovina.Repositories.Rebanhos;
 using ControleDeVacinacaoBovina.Repositories.RegistrosVacinas;
+using ControleDeVacinacaoBovina.Repositories.TipoDeEntradas;
 using ControleDeVacinacaoBovina.Repositories.Vacinas;
 using ControleDeVacinacaoBovina.Repository.Vendas;
 using ControleDeVacinacaoBovina.Services.Animais;
@@ -17,7 +19,9 @@ using ControleDeVacinacaoBovina.Services.FinalidadeDeVendas;
 using ControleDeVacinacaoBovina.Services.Municipios;
 using ControleDeVacinacaoBovina.Services.Produtores;
 using ControleDeVacinacaoBovina.Services.Propriedades;
+using ControleDeVacinacaoBovina.Services.Rebanhos;
 using ControleDeVacinacaoBovina.Services.RegistrosVacinas;
+using ControleDeVacinacaoBovina.Services.TipoDeEntradas;
 using ControleDeVacinacaoBovina.Services.Vacinas;
 using ControleDeVacinacaoBovina.Services.Vendas;
 using Microsoft.AspNetCore.Builder;
@@ -75,6 +79,11 @@ namespace ControleDeVacinacaoBovina
             services.AddScoped<IEnderecoService, EnderecoService>();
             services.AddScoped<IEnderecoRepository, EnderecoRepository>();
 
+            services.AddScoped<IRebanhoService, RebanhoService>();
+            services.AddScoped<IRebanhoRepository, RebanhoRepository>();
+
+            services.AddScoped<ITipoDeEntradaService, TipoDeEntradaService>();
+            services.AddScoped<ITipoDeEntradaRepository, TipoDeEntradaRepository>();
 
             services.AddControllers().AddJsonOptions(options => { options.JsonSerializerOptions.IgnoreNullValues = true; });
 

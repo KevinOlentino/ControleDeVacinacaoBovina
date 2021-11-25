@@ -13,9 +13,11 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         [Required(ErrorMessage = "Id Especie não pode ser nula")]
         [Range(1, int.MaxValue, ErrorMessage = ("Íd Especie não pode ser menor que 1"))]
         public int IdEspecie { private get; set; }
-        [Required(ErrorMessage = "Id Propriedade não pode ser nula")]
-        [Range(1, int.MaxValue, ErrorMessage = ("Íd Propriedade não pode ser menor que 1"))]
+        [Required(ErrorMessage = "Id Rebanho não pode ser nula")]
+        [Range(1, int.MaxValue, ErrorMessage = ("Íd Rebanho não pode ser menor que 1"))]
         public int IdPropriedade { private get; set; }
+
+        public int IdTipoDeEntrada { get; set; }
 
         public Animal DtoToAnimal(AnimalDto animal)
         {
@@ -25,7 +27,8 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
                 QuantidadeTotal = animal.QuantidadeTotal,
                 QuantidadeVacinada = animal.QuantidadeVacinada,
                 IdEspecie = animal.IdEspecie,
-                IdPropriedade = animal.IdPropriedade
+                IdPropriedade = animal.IdPropriedade,
+                IdTipoDeEntrada = animal.IdTipoDeEntrada
             };
         }
 

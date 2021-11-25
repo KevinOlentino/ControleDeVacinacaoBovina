@@ -20,8 +20,8 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
         public Task<ObjectResult> Incluir(PropriedadeDto propriedadeDto)
         {
             propriedadeDto.Endereco.IdEndereco = null;
-            Propriedade propriedade = propriedadeDto.DtoToPropriedade(propriedadeDto);
             propriedadeDto.SetInscricaoEstadual();
+            Propriedade propriedade = propriedadeDto.DtoToPropriedade(propriedadeDto);           
             var response = new ResponseDto<Propriedade>(EStatusCode.OK, null);
             try
             {

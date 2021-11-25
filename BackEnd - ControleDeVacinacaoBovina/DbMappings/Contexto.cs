@@ -15,6 +15,8 @@ namespace ControleDeVacinacaoBovina.DbMappings
         public DbSet<Venda> Vendas { get; set; }
         public DbSet<FinalidadeDeVenda> FinalidadeDeVendas { get; set; }
         public DbSet<Vacina> Vacinas { get; set; }
+        public DbSet<Rebanho> Rebanhos { get; set; }
+        public DbSet<TipoDeEntrada> TipoDeEntradas { get; set; }
 
         public Contexto(DbContextOptions options) : base(options)
         {
@@ -32,7 +34,8 @@ namespace ControleDeVacinacaoBovina.DbMappings
             new EspecieEntityTypeConfiguration().Configure(builder.Entity<Especie>());
             new FinalidadeDeVendaEntityTypeConfiguration().Configure(builder.Entity<FinalidadeDeVenda>());
             new VacinaEntityTypeConfiguration().Configure(builder.Entity<Vacina>());
-
+            new RebanhoEntityTypeConfiguration().Configure(builder.Entity<Rebanho>());
+            new TipoDeEntradaEntityTypeConfiguration().Configure(builder.Entity<TipoDeEntrada>());
         }
     }
 }

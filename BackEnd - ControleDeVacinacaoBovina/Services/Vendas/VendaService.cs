@@ -1,9 +1,11 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repositories.Animais;
+using ControleDeVacinacaoBovina.Repositories.Rebanhos;
 using ControleDeVacinacaoBovina.Repositories.RegistrosVacinas;
 using ControleDeVacinacaoBovina.Repository.Vendas;
 using ControleDeVacinacaoBovina.Services.Animais;
+using ControleDeVacinacaoBovina.Services.Rebanhos;
 using ControleDeVacinacaoBovina.Services.RegistrosVacinas;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -16,12 +18,20 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
     public class VendaService : IVendaService
     {
         private readonly IVendaRepository vendaRepository;
-        private readonly IAnimalRepository animalRepository;        
+        private readonly IRebanhoRepository rebanhoRepository;
+        private readonly IAnimalService animalService;
+        private readonly IRebanhoService rebanhoService;
 
-        public VendaService(IVendaRepository vendaRepository, IAnimalRepository animalRepository)
+        public VendaService(IVendaRepository vendaRepository, 
+                            IRebanhoRepository rebanhoRepository, 
+                            IAnimalService animalService,
+                            IRebanhoService rebanhoService
+                            )
         {
             this.vendaRepository = vendaRepository;
-            this.animalRepository = animalRepository;           
+            this.rebanhoRepository = rebanhoRepository;
+            this.animalService = animalService;
+            this.rebanhoService = rebanhoService;
         }
         public Task<ObjectResult> Cancelar(int id)
         {
@@ -29,12 +39,18 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
             try
             {
                 Venda venda = vendaRepository.GetById(id);
-                if (venda == null)
+
+                if (venda == null || venda.Ativo == false)
                 {
                     response.StatusCode = EStatusCode.NOT_FOUND;
                     return response.ResultAsync();
                 }
 
+                Rebanho rebanhoDestino = rebanhoRepository.GetByPropriedade(venda.IdDestino).FirstOrDefault(x => x.IdEspecie == venda.Rebanho.IdEspecie);
+        
+
+                rebanhoService.Incluir(venda.Rebanho);
+                rebanhoService.SubtrairRebanho(rebanhoDestino);
                 vendaRepository.Cancelar(venda);
             }
             catch (Exception ex)
@@ -111,18 +127,20 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
 
         private bool ValidarVenda(Venda venda, ResponseDto<Venda> response)
         {
-            Animal animalOrigem = animalRepository.GetByPropriedade(venda.IdOrigem).FirstOrDefault(x => x.IdEspecie == venda.IdEspecie);
-            Animal animalDestino = animalRepository.GetByPropriedade(venda.IdDestino).FirstOrDefault(x => x.IdEspecie == venda.IdEspecie);            
+            Rebanho rebanhoOrigem = rebanhoRepository.GetById(venda.IdRebanho);            
 
-            if (animalOrigem == null)
+            if (rebanhoOrigem == null)
             {
                 response.StatusCode = EStatusCode.NOT_FOUND;
-                response.Errors.Add("Origem:","A origem não foi encontrada e o animal não pode ser vendido");
+                response.AddError("origem:","A origem não foi encontrada e o animal não pode ser vendido");
                 return false;
-            }    
-            if (animalOrigem.QuantidadeVacinada <= 0 || animalOrigem.QuantidadeVacinada > venda.Quantidade)
+            }
+
+            Rebanho rebanhoDestino = rebanhoRepository.GetByPropriedade(venda.IdDestino).FirstOrDefault(x => x.IdEspecie == rebanhoOrigem.IdEspecie);
+
+            if (rebanhoOrigem.QuantidadeVacinada <= 0 || rebanhoOrigem.QuantidadeVacinada < venda.Quantidade)
             {
-                response.Errors.Add("QuantidadeVacinada",$"Não há {venda.Quantidade} animais vacinados para venda");
+                response.AddError("quantidade",$"Não há {venda.Quantidade} animais vacinados para venda, verificar registro de vacina!");
             }
             if (response.Errors.Any())
             {
@@ -130,23 +148,24 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
                 return false;
             }
 
-            EditarEntidadesDeAnimais(animalOrigem, animalDestino, venda);
+            EditarEntidadesDeAnimais(rebanhoOrigem, venda);
 
             return true;
         }
 
-        private void EditarEntidadesDeAnimais(Animal animalOrigem, Animal animalDestino, Venda venda)
+        private void EditarEntidadesDeAnimais(Rebanho rebanhoOrigem, Venda venda)
         {
-            animalOrigem.QuantidadeVacinada -= venda.Quantidade;
-            animalOrigem.QuantidadeTotal -= venda.Quantidade;
-            animalRepository.Editar(animalOrigem);
+            rebanhoOrigem.QuantidadeVacinada -= venda.Quantidade;
+            rebanhoOrigem.QuantidadeTotal -= venda.Quantidade;
+            rebanhoRepository.Editar(rebanhoOrigem);
 
-            animalRepository.Incluir(new Animal()
+            animalService.AdicionarRebanhoAnimal(new Animal()
             {
                 IdPropriedade = venda.IdDestino,
                 QuantidadeTotal = venda.Quantidade,
                 QuantidadeVacinada = venda.Quantidade,
-                IdEspecie = venda.IdEspecie
+                IdEspecie = rebanhoOrigem.IdEspecie,
+                IdTipoDeEntrada = 1
             });
             
         }

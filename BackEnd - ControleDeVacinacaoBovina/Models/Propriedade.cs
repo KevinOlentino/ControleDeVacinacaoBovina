@@ -15,8 +15,8 @@ namespace ControleDeVacinacaoBovina.Models
         public Endereco Endereco { get; set; }
         public Produtor Produtor { get; set; }
 
+        public List<Rebanho> Rebanhos;
         public List<Animal> Animals;
-
         public List<Venda> Origem;
         public List<Venda> Destino;
 

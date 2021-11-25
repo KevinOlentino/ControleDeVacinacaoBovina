@@ -23,26 +23,25 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 
         public IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade)
         {
-            return _contexto.RegistroVacinacoes.Include(x => x.Animal)
-                .ThenInclude(x => x.Propriedade)
-                .Include(x => x.Animal.Especie)                                                
-                .Where(x => x.Animal.IdPropriedade == idPropriedade)
+            return _contexto.RegistroVacinacoes.Include(registro => registro.Rebanho)
+                .ThenInclude(rebanho => rebanho.Propriedade)
+                .Include(rebanho => rebanho.Rebanho.Especie)                                                
+                .Where(rebanho => rebanho.Rebanho.Propriedade.IdPropriedade == idPropriedade)
                 .Where(x => x.Ativo == true);
         }
 
         public async Task Incluir(RegistroVacinacao registroVacina)
         {
             await _contexto.RegistroVacinacoes.AddAsync(registroVacina);
-            await _contexto.SaveChangesAsync();                        
-                        
+            await _contexto.SaveChangesAsync();                                                
         }
 
-        public IEnumerable<RegistroVacinacao> GetByAnimal(int id)
+        public IEnumerable<RegistroVacinacao> GetByRebanho(int id)
         {
-            return _contexto.RegistroVacinacoes.AsNoTracking().Include(x => x.Animal)
-                .ThenInclude(x => x.Especie)
-                .OrderBy(x => x.IdRegistroVacinacao)
-                .Where(x => x.IdAnimal == id)
+            return _contexto.RegistroVacinacoes.AsNoTracking().Include(registro => registro.Rebanho)
+                .ThenInclude(rebanho => rebanho.Especie)
+                .OrderBy(registro => registro.IdRegistroVacinacao)
+                .Where(registro => registro.IdRebanho == id)
                 .Where(x => x.Ativo == true);                     
         }
 

@@ -17,7 +17,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         public T Data { get; set; }
         public EStatusCode StatusCode { get; set; }
 
-        public Dictionary<string, string> Errors = new();   
+        public Dictionary<string, List<string>> Errors = new();   
 
         public Task<ObjectResult> ResultAsync()
         {
@@ -37,12 +37,26 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
 
         public void AddException(Exception ex, EStatusCode statusCode)
         {
+            List<string> exception = new();
             StatusCode = statusCode;
 
-            if (ex.InnerException.Message != null)
-                Errors.Add("error", ex.InnerException.Message);
-            else
-                Errors.Add("error", ex.Message);
+            if (ex.InnerException != null)
+                exception.Add(ex.InnerException.Message);
+            else           
+                exception.Add(ex.Message);            
+            
+            Errors.Add("Exception", exception);
+        }
+
+        public void AddError(string Key, string Message)
+        {            
+            if (!Errors.ContainsKey(Key))
+            {
+                Errors.Add(Key, new List<string>());
+            }
+
+            Errors[Key].Add(Message);
+
         }
         
     }

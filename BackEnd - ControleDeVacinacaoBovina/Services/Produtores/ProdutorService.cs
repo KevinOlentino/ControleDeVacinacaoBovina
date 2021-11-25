@@ -26,15 +26,23 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
 
             if (produtorOld == null)
             {
-                response.Errors.Add("produtor", $"O produtor com id:{id} e CPF:{produtorOld.CPF} não foi encontrado!");
+                response.AddError("Produtor", $"O produtor com id:{id} e CPF:{produtorOld.CPF} não foi encontrado!");
                 response.StatusCode = EStatusCode.NOT_FOUND;
                 return response.ResultAsync();
             }
-            produtorAtualizado.Endereco.IdEndereco = produtorOld.IdEndereco;
-            produtorAtualizado.IdEndereco = produtorOld.IdEndereco;
+            if (!ValidarCPF(produtorAtualizado.CPF))
+            {
+                response.StatusCode = EStatusCode.BAD_REQUEST;
+                response.AddError("CPF", "CPF INVALIDO!");
+            }
             try
             {
-                produtorRepository.Editar(produtorAtualizado);
+                if (!response.Errors.Any())
+                {
+                    produtorAtualizado.Endereco.IdEndereco = produtorOld.IdEndereco;
+                    produtorAtualizado.IdEndereco = produtorOld.IdEndereco;
+                    produtorRepository.Editar(produtorAtualizado);
+                }                
             }
             catch(Exception ex)
             {
@@ -90,12 +98,12 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
             if (produtorRepository.ExistByCPF(produtor.CPF))
             {
                 response.StatusCode = EStatusCode.BAD_REQUEST;
-                response.Errors.Add("CPF", "Este CPF já foi cadastrado!");
+                response.AddError("CPF", "Este CPF já foi cadastrado!");
             }
             if (!ValidarCPF(produtor.CPF))
             {
                 response.StatusCode = EStatusCode.BAD_REQUEST;
-                response.Errors.Add("CPF", "CPF INVALIDO!");
+                response.AddError("CPF", "CPF INVALIDO!");
             }
             try
             {
