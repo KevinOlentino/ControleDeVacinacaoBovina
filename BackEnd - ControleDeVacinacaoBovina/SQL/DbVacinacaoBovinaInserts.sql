@@ -45,7 +45,7 @@ insert into FinalidadeDeVenda(Nome) values ('Engorda')
 insert into FinalidadeDeVenda(Nome) values ('Trabalho')
 
 insert into Especie(Nome) values('Bovino')
-insert into Especie(Nome) values('Babulino')
+insert into Especie(Nome) values('Bubalino')
 
 insert into TipoDeEntrada(Nome) values('Compra')
 insert into TipoDeEntrada(Nome) values('Doação')
