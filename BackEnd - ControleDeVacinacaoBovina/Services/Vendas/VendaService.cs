@@ -1,12 +1,9 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Models.Dtos;
-using ControleDeVacinacaoBovina.Repositories.Animais;
 using ControleDeVacinacaoBovina.Repositories.Rebanhos;
-using ControleDeVacinacaoBovina.Repositories.RegistrosVacinas;
 using ControleDeVacinacaoBovina.Repository.Vendas;
 using ControleDeVacinacaoBovina.Services.Animais;
 using ControleDeVacinacaoBovina.Services.Rebanhos;
-using ControleDeVacinacaoBovina.Services.RegistrosVacinas;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -47,10 +44,16 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
                 }
 
                 Rebanho rebanhoDestino = rebanhoRepository.GetByPropriedade(venda.IdDestino).FirstOrDefault(x => x.IdEspecie == venda.Rebanho.IdEspecie);
-        
 
-                rebanhoService.Incluir(venda.Rebanho);
-                rebanhoService.SubtrairRebanho(rebanhoDestino);
+                venda.Rebanho.QuantidadeTotal += venda.Quantidade;
+                venda.Rebanho.QuantidadeVacinada += venda.Quantidade;
+
+                rebanhoDestino.QuantidadeTotal -= venda.Quantidade;
+                rebanhoDestino.QuantidadeVacinada -= venda.Quantidade;
+
+                rebanhoService.Editar(venda.Rebanho);
+                rebanhoService.Editar(rebanhoDestino);
+          
                 vendaRepository.Cancelar(venda);
             }
             catch (Exception ex)
@@ -138,9 +141,12 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
 
             Rebanho rebanhoDestino = rebanhoRepository.GetByPropriedade(venda.IdDestino).FirstOrDefault(x => x.IdEspecie == rebanhoOrigem.IdEspecie);
 
-            if (rebanhoOrigem.QuantidadeVacinada <= 0 || rebanhoOrigem.QuantidadeVacinada < venda.Quantidade)
+            if (rebanhoOrigem.QuantidadeVacinada < venda.Quantidade)
             {
-                response.AddError("quantidade",$"Não há {venda.Quantidade} animais vacinados para venda, verificar registro de vacina!");
+                response.AddError("error",$"Não há {venda.Quantidade} animais vacinados para venda, verificar registro de vacina!");
+            }if(rebanhoOrigem.QuantidadeTotal == 0)
+            {
+                response.AddError("error", $"Não há {venda.Quantidade} animais para venda! ");
             }
             if (response.Errors.Any())
             {
@@ -165,7 +171,8 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
                 QuantidadeTotal = venda.Quantidade,
                 QuantidadeVacinada = venda.Quantidade,
                 IdEspecie = rebanhoOrigem.IdEspecie,
-                IdTipoDeEntrada = 1
+                IdTipoDeEntrada = 1,
+                DataDeEntrada = DateTime.Now
             });
             
         }

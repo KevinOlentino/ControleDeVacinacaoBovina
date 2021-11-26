@@ -13,6 +13,7 @@ namespace ControleDeVacinacaoBovina.Models
         public int IdDestino { get; set; }
         public int IdRebanho { get; set; }
         public int IdFinalidadeDeVenda { get; set; }
+        public DateTime DataDeVenda { get; set; }
         public bool Ativo { get; private set; } = true;
         public Propriedade Origem { get; set; }
         public Propriedade Destino { get; set; }

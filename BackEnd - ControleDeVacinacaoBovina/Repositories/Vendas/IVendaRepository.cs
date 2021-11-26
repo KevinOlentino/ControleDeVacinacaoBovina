@@ -11,5 +11,6 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
         Venda GetById(int id);
         IEnumerable<Venda> GetByOrigem(int idPropriedade);
         IEnumerable<Venda> GetByDestino(int idPropriedade);
+        IEnumerable<Venda> GetByRebanho(int idRebanho);
     }
 }

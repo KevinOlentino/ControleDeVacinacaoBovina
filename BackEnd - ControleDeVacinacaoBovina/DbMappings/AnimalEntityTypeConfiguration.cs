@@ -17,6 +17,7 @@ namespace ControleDeVacinacaoBovina.DbMappings
             builder.Property(animal => animal.QuantidadeTotal);
             builder.Property(animal => animal.QuantidadeVacinada);
             builder.Property(animal => animal.Ativo);
+            builder.Property(animal => animal.DataDeEntrada);
 
             builder.HasOne(animal => animal.Especie)
                 .WithMany(especie => especie.Animals)

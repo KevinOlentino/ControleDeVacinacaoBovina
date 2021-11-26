@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeVacinacaoBovina.Models.Dtos
 {
@@ -24,6 +25,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         [Required(ErrorMessage = "Finalidade de venda não pode ser nula")]
         [Range(1, int.MaxValue, ErrorMessage = "Finalidade de Venda não pode ser 0")]
         public int IdFinalidadeDeVenda { get; set; }
+        public DateTime DataDeVenda { get; private set; } = DateTime.Now;
 
         public Venda DtoToVenda(VendaDto finalidadeDeVenda) {
             return new Venda
@@ -33,7 +35,8 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
                 IdOrigem = finalidadeDeVenda.IdOrigem,
                 IdDestino = finalidadeDeVenda.IdDestino,
                 IdRebanho = finalidadeDeVenda.IdRebanho,
-                IdFinalidadeDeVenda = finalidadeDeVenda.IdFinalidadeDeVenda
+                IdFinalidadeDeVenda = finalidadeDeVenda.IdFinalidadeDeVenda,
+                DataDeVenda = finalidadeDeVenda.DataDeVenda
             };
         }
     }

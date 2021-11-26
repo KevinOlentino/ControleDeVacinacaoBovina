@@ -1,7 +1,9 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Repositories.Animais;
+using ControleDeVacinacaoBovina.Repositories.RegistrosVacinas;
 using ControleDeVacinacaoBovina.Services.Rebanhos;
+using ControleDeVacinacaoBovina.Services.RegistrosVacinas;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -14,23 +16,40 @@ namespace ControleDeVacinacaoBovina.Services.Animais
     {
         private readonly IAnimalRepository animalRepository;
         private readonly IRebanhoService rebanhoService;
+        private readonly IRegistroVacinaRepository registroVacinaRepository;
 
-        public AnimalService(IAnimalRepository animalRepository, IRebanhoService rebanhoService)
+        public AnimalService(IAnimalRepository animalRepository, IRebanhoService rebanhoService, IRegistroVacinaRepository registroVacinaRepository)
         {
             this.animalRepository = animalRepository;
             this.rebanhoService = rebanhoService;
+            this.registroVacinaRepository = registroVacinaRepository;
         }
 
         public Task<ObjectResult> Cancelar(int id)
         {
             var response = new ResponseDto<Animal>(EStatusCode.NO_CONTENT, null);
-            Animal animal = animalRepository.GetById(id);
+            Animal animal = animalRepository.GetById(id);        
 
             if(animal == null || animal.Ativo == false)
             {
                 response.StatusCode = EStatusCode.NOT_FOUND;
                 return response.ResultAsync();
-            }            
+            }
+
+            IEnumerable<RegistroVacinacao> registroVacina = registroVacinaRepository.GetByPropriedade(animal.IdPropriedade);
+            RegistroVacinacao registroVacinacao;
+
+            if (registroVacina.Any())
+            {
+                registroVacinacao = registroVacina.Last();
+                if (registroVacinacao.DataDeCadastro.CompareTo(animal.DataDeEntrada) > 0)
+                {
+                    response.AddError("error","Não pode cancelar este registro pois já foi vacinado!");
+                    response.StatusCode = EStatusCode.BAD_REQUEST;
+
+                    return response.ResultAsync();
+                }
+            }
             try
             {
                 animalRepository.Cancelar(animal);

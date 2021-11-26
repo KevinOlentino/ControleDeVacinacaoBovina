@@ -37,15 +37,16 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
 
         public async Task<ObjectResult> Editar(int id, PropriedadeDto propriedadeDto)
         {            
-            Propriedade propriedadeAtualizada = propriedadeDto.DtoToPropriedade(propriedadeDto);
-            Propriedade propriedadeOld = propriedadeRepository.GetById(id);
-            propriedadeAtualizada.Endereco.IdEndereco = propriedadeOld.IdEndereco;
-            propriedadeAtualizada.IdEndereco = propriedadeOld.IdEndereco;
-            propriedadeAtualizada.InscricaoEstadual = propriedadeOld.InscricaoEstadual;
             var response = new ResponseDto<Produtor>(EStatusCode.OK, null);
 
             try
             {
+                Propriedade propriedadeAtualizada = propriedadeDto.DtoToPropriedade(propriedadeDto);
+                Propriedade propriedadeOld = propriedadeRepository.GetById(propriedadeDto.IdPropriedade);
+                propriedadeAtualizada.Endereco.IdEndereco = propriedadeOld.IdEndereco;
+                propriedadeAtualizada.IdEndereco = propriedadeOld.IdEndereco;
+                propriedadeAtualizada.InscricaoEstadual = propriedadeOld.InscricaoEstadual;
+
                 propriedadeRepository.Editar(propriedadeAtualizada);
             }
             catch(Exception ex)

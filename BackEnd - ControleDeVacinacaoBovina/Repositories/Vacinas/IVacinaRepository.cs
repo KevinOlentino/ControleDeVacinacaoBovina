@@ -8,7 +8,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Vacinas
 {
     public interface IVacinaRepository
     {
-        Task<Vacina> GetById(int id);
+        Vacina GetById(int id);
         Task<IEnumerable<Vacina>> GetAll();
     }
 }

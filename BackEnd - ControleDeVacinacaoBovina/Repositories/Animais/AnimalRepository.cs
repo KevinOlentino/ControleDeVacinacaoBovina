@@ -31,6 +31,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
                 .Include(animal => animal.Propriedade)
                 .ThenInclude(propriedade => propriedade.Endereco)
                 .ThenInclude(endereco => endereco.Municipio)
+                .Include(animal => animal.TipoDeEntrada)
                 .Where(animal => animal.Propriedade.IdProdutor == idProdutor)
                 .Where(animal => animal.Ativo == true);
         }
@@ -40,7 +41,8 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
             return _contexto.Animals.Include(animal => animal.Especie)
                 .Include(animal => animal.Propriedade)
                 .ThenInclude(propriedade => propriedade.Endereco)
-                .ThenInclude(endereco => endereco.Municipio)            
+                .ThenInclude(endereco => endereco.Municipio) 
+                .Include(animal => animal.TipoDeEntrada)
                 .Where(animal => animal.IdPropriedade == idPropriedade)
                 .Where(animal => animal.Ativo == true); 
         }

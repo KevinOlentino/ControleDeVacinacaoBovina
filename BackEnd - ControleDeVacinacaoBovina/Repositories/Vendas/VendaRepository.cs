@@ -45,6 +45,10 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
                                     .FirstOrDefault(x => x.IdVenda == id);
         }
 
+        public IEnumerable<Venda> GetByRebanho(int idRebanho) {
+            return _contexto.Vendas.AsNoTracking().Where(x => x.IdRebanho == idRebanho);
+        }
+
         public void Incluir(Venda venda)
         {
             _contexto.Vendas.Add(venda);

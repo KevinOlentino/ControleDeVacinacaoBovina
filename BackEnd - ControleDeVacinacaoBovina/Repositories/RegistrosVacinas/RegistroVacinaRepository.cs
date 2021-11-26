@@ -25,7 +25,8 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         {
             return _contexto.RegistroVacinacoes.Include(registro => registro.Rebanho)
                 .ThenInclude(rebanho => rebanho.Propriedade)
-                .Include(rebanho => rebanho.Rebanho.Especie)                                                
+                .Include(rebanho => rebanho.Rebanho.Especie)
+                .Include(rebanho => rebanho.Vacina)
                 .Where(rebanho => rebanho.Rebanho.Propriedade.IdPropriedade == idPropriedade)
                 .Where(x => x.Ativo == true);
         }
@@ -40,14 +41,24 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         {
             return _contexto.RegistroVacinacoes.AsNoTracking().Include(registro => registro.Rebanho)
                 .ThenInclude(rebanho => rebanho.Especie)
+                .Include(rebanho => rebanho.Vacina)
                 .OrderBy(registro => registro.IdRegistroVacinacao)
                 .Where(registro => registro.IdRebanho == id)
                 .Where(x => x.Ativo == true);                     
         }
 
+        public int ObterVacinasDesseAnoContagem(int idRebanho, int idVacina)
+        {
+            return _contexto.RegistroVacinacoes.AsNoTracking()
+                .Where(x => x.IdRebanho == idRebanho)
+                .Where(x => x.IdVacina == idVacina)
+                .Where(x => x.Ativo == true)
+                .Sum(x => x.Quantidade);
+        }        
+
         public RegistroVacinacao GetById(int id)
         {
-            return _contexto.RegistroVacinacoes.Find(id);
+            return _contexto.RegistroVacinacoes.Include(x => x.Rebanho).FirstOrDefault(x => x.IdRegistroVacinacao == id);
         }
      
     }

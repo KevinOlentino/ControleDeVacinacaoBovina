@@ -4,6 +4,7 @@ using ControleDeVacinacaoBovina.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace ControleDeVacinacaoBovina.Repositories.Vacinas
 {
@@ -17,9 +18,9 @@ namespace ControleDeVacinacaoBovina.Repositories.Vacinas
             return await _contexto.Vacinas.ToListAsync();
         }
 
-        public async Task<Vacina> GetById(int id)
+        public Vacina GetById(int id)
         {
-            return await _contexto.Vacinas.FirstOrDefaultAsync(x => x.IdVacina == id);
+            return _contexto.Vacinas.FirstOrDefault(x => x.IdVacina == id);
         }
     }
 }

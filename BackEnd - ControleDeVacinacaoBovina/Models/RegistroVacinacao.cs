@@ -14,6 +14,7 @@ namespace ControleDeVacinacaoBovina.Models
         public int IdVacina { get; set; }
         public Rebanho Rebanho { get; set; }
         public Vacina Vacina { get; set; }
+        public DateTime DataDeCadastro { get; set; } = DateTime.Now;
         public bool Ativo { get; private set; } = true;
         public void SetAtivo(bool ativo)
         {

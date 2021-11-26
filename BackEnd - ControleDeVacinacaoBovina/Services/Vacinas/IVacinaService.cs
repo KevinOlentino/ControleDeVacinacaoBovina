@@ -9,7 +9,7 @@ namespace ControleDeVacinacaoBovina.Services.Vacinas
 {
     public interface IVacinaService
     {
-        Task<Vacina> GetById(int id);
+        Vacina GetById(int id);
         Task<ObjectResult> GetAll();
     }
 }

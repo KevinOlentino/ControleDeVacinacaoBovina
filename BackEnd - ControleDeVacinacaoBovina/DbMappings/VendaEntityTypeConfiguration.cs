@@ -16,6 +16,7 @@ namespace ControleDeVacinacaoBovina.DbMappings
             builder.HasKey(venda => venda.IdVenda);
             builder.Property(venda => venda.Quantidade);
             builder.Property(venda => venda.Ativo);
+            builder.Property(venda => venda.DataDeVenda);
 
             builder.HasOne(venda => venda.Rebanho)
                 .WithMany(rebanho => rebanho.Vendas)

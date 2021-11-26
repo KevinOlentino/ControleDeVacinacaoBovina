@@ -11,5 +11,6 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         IEnumerable<RegistroVacinacao> GetByPropriedade(int idPropriedade);
         IEnumerable<RegistroVacinacao> GetByRebanho(int id);
         RegistroVacinacao GetById(int id);
+        int ObterVacinasDesseAnoContagem(int idRebanho, int idVacina);
     }
 }

@@ -17,6 +17,7 @@ namespace ControleDeVacinacaoBovina.DbMappings
             builder.Property(rvacinacao => rvacinacao.Quantidade);
             builder.Property(rvacinacao => rvacinacao.DataDaVacina);
             builder.Property(rvacinacao => rvacinacao.Ativo);
+            builder.Property(rvacinacao => rvacinacao.DataDeCadastro);
 
             builder.HasOne(rvacinacao => rvacinacao.Rebanho)
                 .WithMany(rebanho => rebanho.RegistroVacinacoes)

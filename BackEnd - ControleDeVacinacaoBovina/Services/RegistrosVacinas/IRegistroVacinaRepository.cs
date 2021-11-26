@@ -13,6 +13,6 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
         Task<ObjectResult> Incluir(RegistroVacinacaoDto registroVacinaDto);
         Task<ObjectResult> Cancelar(int id);
         Task<ObjectResult> GetByPropriedade(int idPropriedade);
-        RegistroVacinacao ObterUltimaVacinaPorEspecie(int idAnimal);
+        //RegistroVacinacao ObterUltimaVacinaPorEspecie(int idAnimal);
     }
 }

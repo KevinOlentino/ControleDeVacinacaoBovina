@@ -95,9 +95,13 @@ namespace ControleDeVacinacaoBovina.Services.Rebanhos
         public void SubtrairRebanho(Rebanho rebanho)
         {
             Rebanho rebanhoOld = rebanhoRepository.GetByPropriedade(rebanho.IdPropriedade).FirstOrDefault( x => x.IdEspecie == rebanho.IdEspecie);
+          
 
             rebanhoOld.QuantidadeTotal -= rebanho.QuantidadeTotal;
             rebanhoOld.QuantidadeVacinada -= rebanho.QuantidadeVacinada;
+
+            if (rebanho.QuantidadeVacinada == 0 && rebanhoOld.QuantidadeVacinada > rebanho.QuantidadeTotal)
+                rebanhoOld.QuantidadeVacinada = rebanhoOld.QuantidadeTotal;
 
             Editar(rebanhoOld);
         }

@@ -1,5 +1,4 @@
 ﻿using ControleDeVacinacaoBovina.Services.FinalidadeDeVendas;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

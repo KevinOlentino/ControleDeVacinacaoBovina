@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ControleDeVacinacaoBovina.Models.Dtos
 {
@@ -16,7 +17,8 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         [Required(ErrorMessage = "Id Rebanho não pode ser nula")]
         [Range(1, int.MaxValue, ErrorMessage = ("Íd Rebanho não pode ser menor que 1"))]
         public int IdPropriedade { private get; set; }
-
+        public DateTime DataDeEntrada { get; private set; } = DateTime.Now;
+        [Required(ErrorMessage = "IdTipo De Entrada não pode ser nula")]
         public int IdTipoDeEntrada { get; set; }
 
         public Animal DtoToAnimal(AnimalDto animal)
@@ -28,7 +30,8 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
                 QuantidadeVacinada = animal.QuantidadeVacinada,
                 IdEspecie = animal.IdEspecie,
                 IdPropriedade = animal.IdPropriedade,
-                IdTipoDeEntrada = animal.IdTipoDeEntrada
+                IdTipoDeEntrada = animal.IdTipoDeEntrada,
+                DataDeEntrada = animal.DataDeEntrada
             };
         }
 

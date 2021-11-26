@@ -17,7 +17,7 @@ namespace ControleDeVacinacaoBovina.Services.Vacinas
         {
             this.vacinaRepository = vacinaRepository;
         }
-        public Task<Vacina> GetById(int id)
+        public Vacina GetById(int id)
         {
             return vacinaRepository.GetById(id);
         }
