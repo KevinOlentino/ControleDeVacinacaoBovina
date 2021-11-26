@@ -8,6 +8,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 export class AppComponent {
   title = 'angular-controle-de-vacinacao-bovina';
   nomeProdutor: String | null;
+  search: String = '';
 
   constructor(private cd: ChangeDetectorRef){
     this.nomeProdutor = localStorage.getItem('nomeProdutor')
@@ -18,6 +19,10 @@ export class AppComponent {
     localStorage.setItem('idProdutor', id.toString());
     this.nomeProdutor = nome.split(" ")[0];
     this.cd.detectChanges();
+  }
+
+  atualizar(){
+    console.log(this.search);
   }
 }
 

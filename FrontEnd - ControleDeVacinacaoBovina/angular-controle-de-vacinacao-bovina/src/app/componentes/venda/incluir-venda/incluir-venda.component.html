@@ -15,6 +15,7 @@
             <label for="inputFinalidadeDeVenda" class="form-label">Finalidade de Venda</label>
             <select name="idFinalidadeDeVenda" id="inputFinalidadeDeVenda" class="form-select"
                     [(ngModel)]="venda.idFinalidadeDeVenda">
+              <option value="0">Selecione uma Propriedade</option>
               <option *ngFor="let finalidadeDeVenda of finalidadesDeVenda"
                       value="{{finalidadeDeVenda.idFinalidadeDeVenda}}">{{finalidadeDeVenda.nome}}</option>
             </select>
@@ -23,13 +24,15 @@
             <label for="inputOrigem" class="form-label">Origem</label>
             <select name="idOrigem" id="inputOrigem" class="form-select"
                     (change)="atualizarRebanhos()" [(ngModel)]="venda.idOrigem">
+              <option value="0" >Selecione uma Propriedade</option>
               <option *ngFor="let propriedade of propriedades"
                       value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
             </select>
           </div>
           <div class="col-md-4">
             <label for="inputEspecie" class="form-label">Especie</label>
-            <select name="idFinalidadeDeVenda" id="inputEspecie" class="form-select" [(ngModel)]="venda.idRebanho">
+            <select name="idRebanho" id="inputEspecie" class="form-select" [(ngModel)]="venda.idRebanho">
+              <option value="0" selected>Selecione uma Especie</option>
               <option *ngFor="let rebanho of rebanhos" value="{{rebanho.idRebanho}}">{{rebanho.especie.nome}}</option>
             </select>
           </div>

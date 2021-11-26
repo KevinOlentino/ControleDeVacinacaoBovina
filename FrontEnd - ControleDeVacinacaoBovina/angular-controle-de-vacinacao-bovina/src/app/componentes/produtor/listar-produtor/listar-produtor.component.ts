@@ -2,6 +2,7 @@ import { AppComponent } from '../../../app.component';
 import { ProdutorService } from '../../../services/produtor/produtor.service';
 import {Component, OnInit, Output} from '@angular/core';
 import { Produtor } from 'src/app/entities/produtor';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-listar-produtor',
@@ -11,9 +12,12 @@ import { Produtor } from 'src/app/entities/produtor';
 export class ListarProdutorComponent implements OnInit {
 
   produtores: Produtor[] = [];
+  CPF: string = '';
   @Output("produtor") produtor: Produtor = new Produtor();
 
-  constructor(private produtorService: ProdutorService, private app: AppComponent) { }
+  constructor(private produtorService: ProdutorService,
+              private router: Router,
+              private app: AppComponent) { }
 
   ngOnInit() {
     this.produtorService.ListarTodosProdutores().subscribe(
@@ -22,8 +26,13 @@ export class ListarProdutorComponent implements OnInit {
     )
   }
 
-  selecionarProdutor(id: Number, nome: string){
+  selecionarProdutor(id: Number, nome: string, cpf:string){
     this.app.setProdutor(id,nome);
+    this.router.navigate([`/Produtor/${cpf}`])
+  }
+
+  pesquisarPorCPF(){
+    this.router.navigate([`/Produtor/${this.CPF}`])
   }
 
   getProdutor(produtor: Produtor){

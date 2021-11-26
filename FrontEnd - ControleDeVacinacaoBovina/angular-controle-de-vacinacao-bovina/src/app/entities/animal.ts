@@ -9,6 +9,7 @@ export class Animal {
 	idEspecie: number = 0;
 	idPropriedade: number = 0;
   idTipoDeEntrada: number = 0;
+  dataDeEntrada: Date = new Date();
 	ativo: boolean = true;
 	propriedade: Propriedade = new Propriedade();
   especie: Especie = new Especie();

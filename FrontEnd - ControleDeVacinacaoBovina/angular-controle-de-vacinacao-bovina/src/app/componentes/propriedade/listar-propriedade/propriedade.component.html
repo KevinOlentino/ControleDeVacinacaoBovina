@@ -2,12 +2,13 @@
 <app-editar-propriedade [propriedade]="propriedade"></app-editar-propriedade>
 
 <div class="container col-xxl-8 px-4 py-4">
+  <h1 class="display-5 text-center">Lista de Propriedades</h1>
   <div class="row d-flex justify-content-between">
     <button type="button" data-bs-toggle="modal" href="#adicionarPropriedade" role="button" class="btn btn-success col-md-3 mt-2">Adicionar</button>
-    <form class="d-flex col-md-4 mt-2">
-      <input class="form-control me-2" type="search" placeholder="Pesquisar por Inscrição " aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Procurar</button>
-    </form>
+    <div class="d-flex col-md-4 mt-2">
+      <input class="form-control me-2" type="search" placeholder="Pesquisar por Inscrição" [(ngModel)]="inscricaoEstadual" aria-label="Search">
+      <button class="btn btn-outline-success" type="submit" (click)="redirecionarPesquisa()">Procurar</button>
+    </div>
   </div>
   <div class="row">
     <ng-container *ngIf="propriedades.length == 0">
@@ -25,6 +26,7 @@
           <p class="card-text">Produtor: {{propriedade.produtor.nome}}</p>
           <p class="card-text">CPF: {{propriedade.produtor.cpf}}</p>
           <a href="#editarPropriedade" data-bs-toggle="modal" class="btn btn-warning fas fa-edit" (click)="getPropriedade(propriedade)"></a>
+          <a type="button" class="btn btn-primary ms-1" (click)="redirecionarParaPropriedade(propriedade.inscricaoEstadual)">Detalhes</a>
         </div>
       </div>
     </div>

@@ -2,6 +2,7 @@
 <app-cancelar-registrovacina [registroVacina]="registroVacina"></app-cancelar-registrovacina>
 
 <div class="container col-xxl-8 px-4 py-4">
+  <h1 class="display-5 text-center">Registro de Vacinas</h1>
   <div class="row d-flex justify-content-between">
     <button type="button" data-bs-toggle="modal" href="#adicionarRegistroVacina" role="button"
             class="btn btn-success col-md-3 mt-2">Adicionar
@@ -38,6 +39,7 @@
           <p class="card-text">Nome da Propriedade: {{registroVacina.rebanho.propriedade.nome}}</p>
           <p class="card-text">Inscricao Estadual: {{registroVacina.rebanho.propriedade.inscricaoEstadual}}</p>
           <p class="card-text">Especie: {{registroVacina.rebanho.especie.nome}}</p>
+          <p clas="card-text">Vacina Aplicada: {{registroVacina.vacina.doenca}}</p>
         </div>
       </div>
     </div>

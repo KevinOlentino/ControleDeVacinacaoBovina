@@ -1,0 +1,75 @@
+<app-editar-produtor [produtor]="produtor"></app-editar-produtor>
+<ng-container>
+  <div class="container" *ngIf="produtor.idProdutor > 0">
+    <div class="row">
+      <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">{{produtor.nome}}</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-2">Rua: {{produtor.endereco.rua}}, {{produtor.endereco.numero}}</p>
+          <p class="lead mb-4">CPF: {{produtor.cpf}}</p>
+        </div>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="button" class="btn btn-warning btn-lg px-4 gap-3" data-bs-toggle="modal"
+                  href="#editarProdutor">Editar Produtor
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="display-6 text-center">Rebanhos</h1>
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr *ngIf="rebanhos.length > 0">
+            <th scope="col">Nome Propriedade</th>
+            <th scope="col">Quantidade Total</th>
+            <th scope="col">Quantidade Vacinada</th>
+            <th scope="col">Especie</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let rebanho of rebanhos">
+            <td>{{rebanho.propriedade.nome}}</td>
+            <td>{{rebanho.quantidadeTotal}}</td>
+            <td>{{rebanho.quantidadeVacinada}}</td>
+            <td>{{rebanho.especie.nome}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="rebanhos.length == 0">
+          <div class="alert alert-danger mt-2" role="alert">
+            Nenhum registro encontrado!
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h1 class="display-6 text-center">Propriedades</h1>
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr *ngIf="propriedades.length > 0">
+            <th scope="col">Nome</th>
+            <th scope="col">Rua</th>
+            <th scope="col">Numero</th>
+            <th scope="col">Inscrição Estadual</th>
+            <th scope="col">Detalhes</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let propriedade of propriedades">
+            <td>{{propriedade.nome}}</td>
+            <td>{{propriedade.endereco.rua}}</td>
+            <td>{{propriedade.endereco.numero}}</td>
+            <td>{{propriedade.inscricaoEstadual}}</td>
+            <td><a type="button" class="btn btn-primary ms-1" (click)="redirecionarParaPropriedade(propriedade.inscricaoEstadual)">Detalhes</a></td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="propriedades.length == 0">
+          <div class="alert alert-danger mt-2" role="alert">
+            Nenhum registro encontrado!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>

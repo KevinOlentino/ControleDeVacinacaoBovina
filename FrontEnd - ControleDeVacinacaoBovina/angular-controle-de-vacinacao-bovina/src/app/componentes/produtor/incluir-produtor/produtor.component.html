@@ -6,7 +6,7 @@
         <div class="modal-header">
           <button class="btn btn-close" data-bs-dismiss="modal" #buttonClose></button>
         </div>
-        <form class="row p-3" #formProdutor id="formProdutor" method="POST" #frm="ngForm" (ngSubmit)="incluir(frm)">
+        <form class="row p-3" id="formProdutor" method="POST" #frm="ngForm" (ngSubmit)="incluir(frm)">
           <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
             <input type="text" name="nome" class="form-control" id="inputNome" [(ngModel)]="produtor.nome">

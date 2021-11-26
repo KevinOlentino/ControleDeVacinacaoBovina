@@ -1,0 +1,128 @@
+<app-editar-propriedade [propriedade]="propriedade"></app-editar-propriedade>
+
+<ng-container>
+  <div class="container" *ngIf="propriedade.idPropriedade > 0">
+    <div class="row">
+      <div class="px-4 py-5 my-5 text-center">
+        <h1 class="display-5 fw-bold">{{propriedade.nome}}</h1>
+        <div class="col-lg-6 mx-auto">
+          <p class="lead mb-2">Rua: {{propriedade.endereco.rua}}, {{propriedade.endereco.numero}}</p>
+          <p class="lead mb-4">Produtor: {{propriedade.produtor.nome}}</p>
+          <p class="lead mb-4">Inscrição Estadual: {{propriedade.inscricaoEstadual}}</p>
+        </div>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <button type="button" class="btn btn-warning btn-lg px-4 gap-3" data-bs-toggle="modal" href="#editarPropriedade">Editar Propriedade</button>
+          <button type="button" class="btn btn-primary btn-lg px-4" (click)="redirecionarParaProdutor()">Produtor</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h1 class="display-6 text-center">Rebanhos</h1>
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr *ngIf="rebanhos.length > 0">
+            <th scope="col">Quantidade Total</th>
+            <th scope="col">Quantidade Vacinada</th>
+            <th scope="col">Especie</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let rebanho of rebanhos">
+            <th scope="row">{{rebanho.quantidadeTotal}}</th>
+            <td>{{rebanho.quantidadeVacinada}}</td>
+            <td>{{rebanho.especie.nome}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="rebanhos.length == 0">
+          <div class="alert alert-danger mt-2" role="alert">
+            Nenhum registro encontrado!
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h1 class="display-6 text-center">Animal</h1>
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr *ngIf="animals.length > 0">
+            <th scope="col">Quantidade Total</th>
+            <th scope="col">Quantidade Vacinada</th>
+            <th scope="col">Especie</th>
+            <th scope="col">Finalidade De Venda</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let animal of animals">
+            <td>{{animal.quantidadeTotal}}</td>
+            <td>{{animal.quantidadeVacinada}}</td>
+            <td>{{animal.especie.nome}}</td>
+            <td>{{animal.tipoDeEntrada.nome}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="animals.length == 0">
+          <div class="alert alert-danger mt-2" role="alert">
+            Nenhum registro encontrado!
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h1 class="display-6 text-center">Vendas</h1>
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr *ngIf="vendas.length > 0">
+            <th scope="col">Quantidade</th>
+            <th scope="col">Destino</th>
+            <th scope="col">Especie</th>
+            <th scope="col">Finalidade De Venda</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let venda of vendas">
+            <th scope="row">{{venda.quantidade}}</th>
+            <td>{{venda.destino.nome}}</td>
+            <td>{{venda.rebanho.especie}}</td>
+            <td>{{venda.finalidadeDeVenda.nome}}</td>
+            <td>Abate</td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="vendas.length == 0">
+          <div class="alert alert-danger mt-2" role="alert">
+            Nenhum registro encontrado!
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h1 class="display-6 text-center">Registros de Vacinas</h1>
+        <table class="table table-striped table-hover">
+          <thead>
+          <tr *ngIf="registroVacinas.length > 0">
+            <th scope="col">Data da Vacina</th>
+            <th scope="col">Quantidade</th>
+            <th scope="col">Especie</th>
+            <th scope="col">Vacina</th>
+            <th scope="col">Marca</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let registroVacina of registroVacinas">
+            <th scope="row">{{registroVacina.dataDaVacina | date: 'dd/MM/yyyy'}}</th>
+            <td>{{registroVacina.quantidade}}</td>
+            <td>{{registroVacina.rebanho.especie.nome}}</td>
+            <td>{{registroVacina.vacina.doenca}}</td>
+            <td>{{registroVacina.vacina.marca}}</td>
+          </tr>
+          </tbody>
+        </table>
+        <div *ngIf="registroVacinas.length == 0">
+          <div class="alert alert-danger mt-2" role="alert">
+            Nenhum registro encontrado!
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-container>
+

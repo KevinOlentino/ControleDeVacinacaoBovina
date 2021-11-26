@@ -26,7 +26,7 @@ export class IncluirVendaComponent implements OnInit, AfterViewInit {
   finalidadesDeVenda: FinalidadeDeVenda[] = [];
   propriedades: Propriedade[] = [];
   inscricaoEstadual: string = '';
-  notFound: boolean = false;
+  date: Date = new Date();
   propriedadeDestino: Propriedade = new Propriedade();
   idProdutor?: number = Number(localStorage.getItem('idProdutor')?.toString());
 
@@ -36,6 +36,8 @@ export class IncluirVendaComponent implements OnInit, AfterViewInit {
   private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
 
   private error: any;
+
+  private today: Date = new Date();
 
   constructor(private vendaService: VendaService, private propriedadeService: PropriedadeService,
               private finalidadeDeVendaService: FinalidadeDeVendaService, private rebanhoService: RebanhoService) {
@@ -59,12 +61,14 @@ export class IncluirVendaComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     document.getElementById('adicionarVenda').addEventListener('hidden.bs.modal',
       (event) => {
-        this.frm.reset()
+      this.propriedadeDestino = new Propriedade();
+        this.frm.reset({idFinalidadeDeVenda:0,idOrigem:0,idRebanho:0})
       }, false)
   }
 
   incluirVenda(frm: NgForm) {
-    console.log(this.venda);
+    this.verifyPropriedade();
+    this.venda.idDestino = this.propriedadeDestino.idPropriedade;
     this.vendaService.CadastrarVenda(this.venda).subscribe(
       dados => {
         this.buttonClose?.nativeElement.click(),

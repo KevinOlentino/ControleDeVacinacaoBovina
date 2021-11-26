@@ -2,6 +2,7 @@
 <app-cancelar-animal [animal]="animal"></app-cancelar-animal>
 
 <div class="container col-xxl-8 px-4 py-4">
+  <h1 class="display-5 text-center">Entrada de Animais</h1>
   <div class="row d-flex justify-content-between">
     <button type="button" data-bs-toggle="modal" href="#adicionarAnimal" role="button"
             class="btn btn-success col-md-3 mt-2">Adicionar
@@ -21,7 +22,7 @@
     </ng-container>
   </div>
   <div class="row">
-    <div class="col-sm-4 mt-3" *ngFor="let animal of animais">
+    <div class="col-lg-4 col-md-6 mt-3" *ngFor="let animal of animais">
       <div class="card">
         <div class="card-body">
           <div class="d-flex flex-row-reverse">
@@ -33,6 +34,7 @@
           <p class="card-text">Quantidade Vacinada: {{animal.quantidadeVacinada}}</p>
           <p class="card-text">Especie: {{animal.especie.nome}}</p>
           <p class="card-text">Inscricao Estadual: {{animal.propriedade.inscricaoEstadual}}</p>
+          <p class="card-text">Tipo De Entrada: {{animal.tipoDeEntrada.nome}}</p>
         </div>
       </div>
     </div>
