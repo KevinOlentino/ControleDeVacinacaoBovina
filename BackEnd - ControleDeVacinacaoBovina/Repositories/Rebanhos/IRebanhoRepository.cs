@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using ControleDeVacinacaoBovina.Models;
+﻿using ControleDeVacinacaoBovina.Models;
+using System.Collections.Generic;
 
 namespace ControleDeVacinacaoBovina.Repositories.Rebanhos
 {

@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +8,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
 {
     public class ResponseDto<T>
     {
-        public ResponseDto(EStatusCode statusCode,T data)
+        public ResponseDto(EStatusCode statusCode, T data)
         {
             StatusCode = statusCode;
             Data = data;
@@ -17,7 +16,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         public T Data { get; set; }
         public EStatusCode StatusCode { get; set; }
 
-        public Dictionary<string, List<string>> Errors = new();   
+        public Dictionary<string, List<string>> Errors = new();
 
         public Task<ObjectResult> ResultAsync()
         {
@@ -32,7 +31,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
                 return Task.FromResult(response);
             }
 
-            return Task.FromResult(response);            
+            return Task.FromResult(response);
         }
 
         public void AddException(Exception ex, EStatusCode statusCode)
@@ -42,14 +41,14 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
 
             if (ex.InnerException != null)
                 exception.Add(ex.InnerException.Message);
-            else           
-                exception.Add(ex.Message);            
-            
+            else
+                exception.Add(ex.Message);
+
             Errors.Add("Exception", exception);
         }
 
         public void AddError(string Key, string Message)
-        {            
+        {
             if (!Errors.ContainsKey(Key))
             {
                 Errors.Add(Key, new List<string>());
@@ -58,6 +57,6 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
             Errors[Key].Add(Message);
 
         }
-        
+
     }
 }

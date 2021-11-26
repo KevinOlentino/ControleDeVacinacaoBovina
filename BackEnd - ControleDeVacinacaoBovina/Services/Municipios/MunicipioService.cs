@@ -4,12 +4,11 @@ using ControleDeVacinacaoBovina.Repositories.Municipios;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.Municipios
 {
-    public class MunicipioService:IMunicipioService
+    public class MunicipioService : IMunicipioService
     {
         private readonly IMunicipioRepository municipioRepository;
 

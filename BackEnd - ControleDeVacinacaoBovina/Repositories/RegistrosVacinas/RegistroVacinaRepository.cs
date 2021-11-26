@@ -1,10 +1,10 @@
-﻿using ControleDeVacinacaoBovina.Repository;
+﻿using ControleDeVacinacaoBovina.DbMappings;
 using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Repository;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
-using ControleDeVacinacaoBovina.DbMappings;
 
 namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
 {
@@ -34,7 +34,7 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
         public async Task Incluir(RegistroVacinacao registroVacina)
         {
             await _contexto.RegistroVacinacoes.AddAsync(registroVacina);
-            await _contexto.SaveChangesAsync();                                                
+            await _contexto.SaveChangesAsync();
         }
 
         public IEnumerable<RegistroVacinacao> GetByRebanho(int id)
@@ -44,7 +44,7 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
                 .Include(rebanho => rebanho.Vacina)
                 .OrderBy(registro => registro.IdRegistroVacinacao)
                 .Where(registro => registro.IdRebanho == id)
-                .Where(x => x.Ativo == true);                     
+                .Where(x => x.Ativo == true);
         }
 
         public int ObterVacinasDesseAnoContagem(int idRebanho, int idVacina)
@@ -54,12 +54,12 @@ namespace ControleDeVacinacaoBovina.Repositories.RegistrosVacinas
                 .Where(x => x.IdVacina == idVacina)
                 .Where(x => x.Ativo == true)
                 .Sum(x => x.Quantidade);
-        }        
+        }
 
         public RegistroVacinacao GetById(int id)
         {
             return _contexto.RegistroVacinacoes.Include(x => x.Rebanho).FirstOrDefault(x => x.IdRegistroVacinacao == id);
         }
-     
+
     }
 }

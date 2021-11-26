@@ -1,10 +1,6 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.DbMappings
 {
@@ -32,7 +28,7 @@ namespace ControleDeVacinacaoBovina.DbMappings
 
             builder.HasOne(venda => venda.FinalidadeDeVenda)
                 .WithMany(finalidadeDeVenda => finalidadeDeVenda.Vendas)
-                .HasForeignKey(nameof(FinalidadeDeVenda.IdFinalidadeDeVenda));            
+                .HasForeignKey(nameof(FinalidadeDeVenda.IdFinalidadeDeVenda));
         }
     }
 }

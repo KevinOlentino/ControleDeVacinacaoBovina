@@ -19,8 +19,8 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
         private readonly IAnimalService animalService;
         private readonly IRebanhoService rebanhoService;
 
-        public VendaService(IVendaRepository vendaRepository, 
-                            IRebanhoRepository rebanhoRepository, 
+        public VendaService(IVendaRepository vendaRepository,
+                            IRebanhoRepository rebanhoRepository,
                             IAnimalService animalService,
                             IRebanhoService rebanhoService
                             )
@@ -32,7 +32,7 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
         }
         public Task<ObjectResult> Cancelar(int id)
         {
-            var response = new ResponseDto<Venda>(EStatusCode.NO_CONTENT, null);  
+            var response = new ResponseDto<Venda>(EStatusCode.NO_CONTENT, null);
             try
             {
                 Venda venda = vendaRepository.GetById(id);
@@ -53,7 +53,7 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
 
                 rebanhoService.Editar(venda.Rebanho);
                 rebanhoService.Editar(rebanhoDestino);
-          
+
                 vendaRepository.Cancelar(venda);
             }
             catch (Exception ex)
@@ -113,8 +113,8 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
         public async Task<ObjectResult> Incluir(VendaDto vendaDto)
         {
             Venda venda = vendaDto.DtoToVenda(vendaDto);
-            var response = new ResponseDto<Venda>(EStatusCode.OK, null);          
-                        
+            var response = new ResponseDto<Venda>(EStatusCode.OK, null);
+
             try
             {
                 if (ValidarVenda(venda, response))
@@ -125,17 +125,17 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
                 response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
 
-            return await response.ResultAsync();          
+            return await response.ResultAsync();
         }
 
         private bool ValidarVenda(Venda venda, ResponseDto<Venda> response)
         {
-            Rebanho rebanhoOrigem = rebanhoRepository.GetById(venda.IdRebanho);            
+            Rebanho rebanhoOrigem = rebanhoRepository.GetById(venda.IdRebanho);
 
             if (rebanhoOrigem == null)
             {
                 response.StatusCode = EStatusCode.NOT_FOUND;
-                response.AddError("origem:","A origem não foi encontrada e o animal não pode ser vendido");
+                response.AddError("origem:", "A origem não foi encontrada e o animal não pode ser vendido");
                 return false;
             }
 
@@ -143,8 +143,9 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
 
             if (rebanhoOrigem.QuantidadeVacinada < venda.Quantidade)
             {
-                response.AddError("error",$"Não há {venda.Quantidade} animais vacinados para venda, verificar registro de vacina!");
-            }if(rebanhoOrigem.QuantidadeTotal == 0)
+                response.AddError("error", $"Não há {venda.Quantidade} animais vacinados para venda, verificar registro de vacina!");
+            }
+            if (rebanhoOrigem.QuantidadeTotal == 0)
             {
                 response.AddError("error", $"Não há {venda.Quantidade} animais para venda! ");
             }
@@ -174,7 +175,7 @@ namespace ControleDeVacinacaoBovina.Services.Vendas
                 IdTipoDeEntrada = 1,
                 DataDeEntrada = DateTime.Now
             });
-            
+
         }
     }
 }

@@ -1,11 +1,9 @@
 ﻿using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Models.Dtos;
-using ControleDeVacinacaoBovina.Repositories.Animais;
 using ControleDeVacinacaoBovina.Repositories.Rebanhos;
 using ControleDeVacinacaoBovina.Repositories.RegistrosVacinas;
 using ControleDeVacinacaoBovina.Repository.Vendas;
 using ControleDeVacinacaoBovina.Services.Vacinas;
-using ControleDeVacinacaoBovina.Services.Vendas;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -22,7 +20,7 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
 
         public IVendaRepository vendaRepository { get; }
 
-        public RegistroVacinaService(IRegistroVacinaRepository registroVacinaRepository, 
+        public RegistroVacinaService(IRegistroVacinaRepository registroVacinaRepository,
             IRebanhoRepository rebanhoRepository,
             IVacinaService vacinaService,
             IVendaRepository vendaRepository
@@ -55,14 +53,14 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
                 if (venda.Any())
                 {
                     Venda lastVenda = venda.Last();
-                    if(lastVenda.DataDeVenda.CompareTo(registroVacinacao.DataDeCadastro) > 0)
+                    if (lastVenda.DataDeVenda.CompareTo(registroVacinacao.DataDeCadastro) > 0)
                     {
                         response.AddError("error", "Cancelamento invalido pois há uma venda depois deste registro!");
                         response.StatusCode = EStatusCode.BAD_REQUEST;
                         return response.ResultAsync();
                     }
                 }
-                if(quantidade > registroVacinacao.Quantidade)
+                if (quantidade > registroVacinacao.Quantidade)
                 {
                     registroVacinaRepository.Cancelar(registroVacinacao);
                     registroVacinacao.Rebanho.QuantidadeVacinada -= registroVacinacao.Quantidade;
@@ -71,8 +69,8 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
                 {
                     registroVacinaRepository.Cancelar(registroVacinacao);
                     registroVacinacao.Rebanho.QuantidadeVacinada -= quantidade;
-                }                
-                
+                }
+
                 rebanhoRepository.Editar(registroVacinacao.Rebanho);
             }
             catch (Exception ex)
@@ -80,7 +78,7 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
                 response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
 
-            return response.ResultAsync();            
+            return response.ResultAsync();
         }
 
         public async Task<ObjectResult> GetByPropriedade(int idPropriedade)
@@ -102,7 +100,7 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
                 response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
             }
 
-            return await response.ResultAsync();            
+            return await response.ResultAsync();
         }
 
         public async Task<ObjectResult> Incluir(RegistroVacinacaoDto registroVacinacaoDto)
@@ -115,13 +113,13 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
 
                 if (ValidarRegistroDeVacinas(registroVacinacaoNovo, rebanhoAVacinar, response))
                 {
-                    rebanhoAVacinar.QuantidadeVacinada += 
+                    rebanhoAVacinar.QuantidadeVacinada +=
                         ObterContagemDeAnimaisAVacinar(rebanhoAVacinar.IdRebanho, registroVacinacaoNovo.Quantidade, registroVacinacaoNovo.IdVacina);
                     await registroVacinaRepository.Incluir(registroVacinacaoNovo);
                     rebanhoRepository.Editar(rebanhoAVacinar);
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
@@ -130,13 +128,13 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
         }
 
         private bool ValidarRegistroDeVacinas(RegistroVacinacao registroVacinacao, Rebanho rebanhoAVacinar, ResponseDto<RegistroVacinacao> response)
-        {            
+        {
             int restanteAVacinarTotal = rebanhoAVacinar.QuantidadeTotal - rebanhoAVacinar.QuantidadeVacinada;
             Vacina vacina = vacinaService.GetById(registroVacinacao.IdVacina);
             int quantidadeRestante;
             int registroBrucelose = registroVacinaRepository.ObterVacinasDesseAnoContagem(registroVacinacao.IdRebanho, 1);
             int registroAftosa = registroVacinaRepository.ObterVacinasDesseAnoContagem(registroVacinacao.IdRebanho, 2);
-            int quantidadeVacinadaPorRegistro = registroAftosa < registroBrucelose ? registroAftosa:registroBrucelose;
+            int quantidadeVacinadaPorRegistro = registroAftosa < registroBrucelose ? registroAftosa : registroBrucelose;
 
             if (registroVacinacao.IdVacina == 1)
                 quantidadeRestante = registroBrucelose - quantidadeVacinadaPorRegistro - restanteAVacinarTotal;
@@ -145,7 +143,7 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
 
             if (restanteAVacinarTotal == 0)
             {
-                response.AddError("error","Todos os animais já foram vacinados esse ano");
+                response.AddError("error", "Todos os animais já foram vacinados esse ano");
             }
             else if (quantidadeRestante == 0)
             {
@@ -155,7 +153,7 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
             {
                 response.AddError("error",
                     $"Valor não pode ser maior que a quantidade total de animais Restante a Vacinar contra {vacina.Doenca} Restante: " +
-                    $"{System.Math.Abs(quantidadeRestante)}");                
+                    $"{System.Math.Abs(quantidadeRestante)}");
             }
 
             if (response.Errors.Any())
@@ -166,7 +164,7 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
             return true;
         }
 
-        public int ObterContagemDeAnimaisAVacinar(int idRebanho,int Quantidade, int idVacina)
+        public int ObterContagemDeAnimaisAVacinar(int idRebanho, int Quantidade, int idVacina)
         {
             int registroBrucelose = registroVacinaRepository.ObterVacinasDesseAnoContagem(idRebanho, 1);
             int registroAftosa = registroVacinaRepository.ObterVacinasDesseAnoContagem(idRebanho, 2);
@@ -180,7 +178,7 @@ namespace ControleDeVacinacaoBovina.Services.RegistrosVacinas
             else if (idVacina == 2 && registroAftosa > registroBrucelose)
                 return 0;
 
-                return quantidadeAVacinar < Quantidade ? quantidadeAVacinar : Quantidade;                                   
+            return quantidadeAVacinar < Quantidade ? quantidadeAVacinar : Quantidade;
         }
 
     }

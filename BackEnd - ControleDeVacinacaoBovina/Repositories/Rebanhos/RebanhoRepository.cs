@@ -2,14 +2,12 @@
 using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Repositories.Rebanhos
 {
-    public class RebanhoRepository : BaseRepository,IRebanhoRepository
+    public class RebanhoRepository : BaseRepository, IRebanhoRepository
     {
         public RebanhoRepository(Contexto novoContexto) : base(novoContexto)
         {
@@ -27,7 +25,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Rebanhos
                 .Include(rebanho => rebanho.Propriedade)
                 .ThenInclude(propriedade => propriedade.Endereco)
                 .ThenInclude(endereco => endereco.Municipio)
-                .Where(animal => animal.Propriedade.IdProdutor == idProdutor);        
+                .Where(animal => animal.Propriedade.IdProdutor == idProdutor);
         }
 
         public IEnumerable<Rebanho> GetByPropriedade(int idPropriedade)

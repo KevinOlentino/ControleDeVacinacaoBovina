@@ -4,19 +4,19 @@ using System.ComponentModel.DataAnnotations;
 namespace ControleDeVacinacaoBovina.Models.Dtos
 {
     public class PropriedadeDto
-    {    
+    {
 
-        public int IdPropriedade { get; set; }  
-        [Required(ErrorMessage =("O nome não pode ser nulo"))]
+        public int IdPropriedade { get; set; }
+        [Required(ErrorMessage = ("O nome não pode ser nulo"))]
         public string Nome { get; set; }
-        [Required(ErrorMessage =("O produtor não pode ser nulo"))]
+        [Required(ErrorMessage = ("O produtor não pode ser nulo"))]
         public int IdProdutor { get; set; }
-        [Required(ErrorMessage =("O Endereco não pode ser nulo"))]
+        [Required(ErrorMessage = ("O Endereco não pode ser nulo"))]
         public EnderecoDto Endereco { get; set; }
         private string InscricaoEstadual { get; set; }
-        
+
         public Propriedade DtoToPropriedade(PropriedadeDto propriedade)
-        {  
+        {
             return new Propriedade
             {
                 IdPropriedade = propriedade.IdPropriedade,

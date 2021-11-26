@@ -1,16 +1,16 @@
-﻿using ControleDeVacinacaoBovina.Repository;
+﻿using ControleDeVacinacaoBovina.DbMappings;
 using ControleDeVacinacaoBovina.Models;
-using System.Threading.Tasks;
-using System.Linq;
+using ControleDeVacinacaoBovina.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
-using ControleDeVacinacaoBovina.DbMappings;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Repositories.Animais
 {
     public class AnimalRepository : BaseRepository, IAnimalRepository
     {
-        public AnimalRepository(Contexto novoContexto) : base(novoContexto){}
+        public AnimalRepository(Contexto novoContexto) : base(novoContexto) { }
 
         public void Cancelar(Animal animal)
         {
@@ -27,7 +27,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
 
         public IEnumerable<Animal> GetByProdutor(int idProdutor)
         {
-            return _contexto.Animals.Include(animal => animal.Especie)                
+            return _contexto.Animals.Include(animal => animal.Especie)
                 .Include(animal => animal.Propriedade)
                 .ThenInclude(propriedade => propriedade.Endereco)
                 .ThenInclude(endereco => endereco.Municipio)
@@ -41,10 +41,10 @@ namespace ControleDeVacinacaoBovina.Repositories.Animais
             return _contexto.Animals.Include(animal => animal.Especie)
                 .Include(animal => animal.Propriedade)
                 .ThenInclude(propriedade => propriedade.Endereco)
-                .ThenInclude(endereco => endereco.Municipio) 
+                .ThenInclude(endereco => endereco.Municipio)
                 .Include(animal => animal.TipoDeEntrada)
                 .Where(animal => animal.IdPropriedade == idPropriedade)
-                .Where(animal => animal.Ativo == true); 
+                .Where(animal => animal.Ativo == true);
         }
 
         public void Incluir(Animal animal)

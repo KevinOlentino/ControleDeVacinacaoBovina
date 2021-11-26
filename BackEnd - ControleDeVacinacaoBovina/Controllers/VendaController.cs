@@ -1,12 +1,6 @@
-﻿using ControleDeVacinacaoBovina.Models;
-using ControleDeVacinacaoBovina.Models.Dtos;
-using ControleDeVacinacaoBovina.Repository.Vendas;
+﻿using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Services.Vendas;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
@@ -41,7 +35,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         }
 
         [HttpDelete("{id}")]
-        public  async Task<ActionResult> Cancelar(int id)
+        public async Task<ActionResult> Cancelar(int id)
         {
             return await vendaService.Cancelar(id);
         }

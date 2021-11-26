@@ -1,11 +1,11 @@
-﻿using ControleDeVacinacaoBovina.Repository;
+﻿using ControleDeVacinacaoBovina.DbMappings;
 using ControleDeVacinacaoBovina.Models;
+using ControleDeVacinacaoBovina.Repository;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data;
-using Microsoft.EntityFrameworkCore;
-using ControleDeVacinacaoBovina.DbMappings;
 
 namespace ControleDeVacinacaoBovina.Repositories.Propriedades
 {
@@ -18,11 +18,11 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
         {
             propriedade.IdEndereco = propriedade.Endereco.IdEndereco.Value;
             _contexto.Propriedades.Update(propriedade);
-            _contexto.SaveChanges();       
+            _contexto.SaveChanges();
         }
 
         public async Task<Propriedade> GetByIncricao(string inscricaoEstadual)
-        {            
+        {
             return await _contexto.Propriedades.Include(propriedade => propriedade.Endereco)
                 .ThenInclude(endereco => endereco.Municipio)
                 .Include(propriedade => propriedade.Produtor)
@@ -41,7 +41,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Propriedades
         {
             propriedade.Endereco.IdEndereco = null;
             _contexto.Propriedades.Add(propriedade);
-            _contexto.SaveChanges();            
+            _contexto.SaveChanges();
 
             return propriedade;
         }

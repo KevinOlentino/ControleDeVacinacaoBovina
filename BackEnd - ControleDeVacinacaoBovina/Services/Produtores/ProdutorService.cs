@@ -18,14 +18,14 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
             this.produtorRepository = produtorRepository;
         }
 
-        public Task<ObjectResult> Editar(int id,ProdutorDto produtorDto)
+        public Task<ObjectResult> Editar(int id, ProdutorDto produtorDto)
         {
             var response = new ResponseDto<IEnumerable<Produtor>>(EStatusCode.NO_CONTENT, null);
             Produtor produtorAtualizado = produtorDto.DtoToProdutor(produtorDto);
             Produtor produtorOld = produtorRepository.GetById(id);
 
             if (produtorOld == null)
-            {                
+            {
                 response.AddError("error", $"O produtor com id:{id} e CPF:{produtorOld.CPF} não foi encontrado!");
                 response.StatusCode = EStatusCode.NOT_FOUND;
                 return response.ResultAsync();
@@ -42,9 +42,9 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
                     produtorAtualizado.Endereco.IdEndereco = produtorOld.IdEndereco;
                     produtorAtualizado.IdEndereco = produtorOld.IdEndereco;
                     produtorRepository.Editar(produtorAtualizado);
-                }                
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
@@ -58,9 +58,9 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
             var response = new ResponseDto<IEnumerable<Produtor>>(EStatusCode.OK, null);
             try
             {
-                response.Data = await produtorRepository.GetAll();                              
+                response.Data = await produtorRepository.GetAll();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
             }
@@ -71,7 +71,7 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
         {
             var response = new ResponseDto<Produtor>(EStatusCode.OK, null);
             try
-            {                
+            {
                 Produtor produtor = await produtorRepository.GetByCPF(CPF);
                 response.Data = produtor;
 
@@ -79,9 +79,9 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
                 {
                     response.StatusCode = EStatusCode.NOT_FOUND;
                     return await response.ResultAsync();
-                }                
+                }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
             }
@@ -100,7 +100,7 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
                 response.StatusCode = EStatusCode.BAD_REQUEST;
                 response.AddError("error", "Este CPF já foi cadastrado!");
             }
-            if (produtor.CPF.Length < 11|| !ValidarCPF(produtor.CPF))
+            if (produtor.CPF.Length < 11 || !ValidarCPF(produtor.CPF))
             {
                 response.StatusCode = EStatusCode.BAD_REQUEST;
                 response.AddError("error", "CPF INVALIDO!");
@@ -108,23 +108,23 @@ namespace ControleDeVacinacaoBovina.Services.Produtores
             try
             {
                 if (!response.Errors.Any())
-                    produtorRepository.Incluir(produtor);                       
+                    produtorRepository.Incluir(produtor);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                response.AddException(ex, EStatusCode.BAD_REQUEST);            
+                response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
             return response.ResultAsync();
         }
 
         public bool ValidarCPF(string CPF)
-        {            
-            int[] multiplicador1 = new int[9]{ 10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            int[] multiplicador2 = new int[10] { 11,10, 9, 8, 7, 6, 5, 4, 3, 2 };
-            
-            string tempCPF = CPF.Substring(0,9);            
-            int soma = 0;            
-     
+        {
+            int[] multiplicador1 = new int[9] { 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+            int[] multiplicador2 = new int[10] { 11, 10, 9, 8, 7, 6, 5, 4, 3, 2 };
+
+            string tempCPF = CPF.Substring(0, 9);
+            int soma = 0;
+
             if (CPF[0] == CPF[1] && CPF[1] == CPF[2] && CPF[2] == CPF[3] && CPF[3] == CPF[4]
                 && CPF[4] == CPF[5] && CPF[5] == CPF[6] && CPF[6] == CPF[7] && CPF[7] == CPF[8]
                 && CPF[8] == CPF[9] && CPF[9] == CPF[10])

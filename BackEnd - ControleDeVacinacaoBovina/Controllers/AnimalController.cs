@@ -18,7 +18,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpGet("Produtor/{idProdutor}")]
         public async Task<ActionResult> GetByProdutor(int idProdutor)
         {
-            return await animalService.GetByProdutor(idProdutor);    
+            return await animalService.GetByProdutor(idProdutor);
         }
 
         [HttpGet("Propriedade/{idPropriedade}")]
@@ -31,7 +31,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         public async Task<ActionResult> Incluir(AnimalDto animal)
         {
             return await animalService.Incluir(animal);
-        }     
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult> Cancelar(int id)

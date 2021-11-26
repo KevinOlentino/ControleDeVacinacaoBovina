@@ -8,7 +8,7 @@ namespace ControleDeVacinacaoBovina.Models
         public int QuantidadeTotal { get; set; }
         public int QuantidadeVacinada { get; set; }
         public int IdEspecie { get; set; }
-        public int IdPropriedade { get; set; }      
+        public int IdPropriedade { get; set; }
         public Especie Especie { get; set; }
         public Propriedade Propriedade { get; set; }
 

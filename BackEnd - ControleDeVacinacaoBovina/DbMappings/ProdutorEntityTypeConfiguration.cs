@@ -10,7 +10,7 @@ namespace ControleDeVacinacaoBovina.DbMappings
         {
             builder.ToTable("Produtor");
             builder.HasKey(produtor => produtor.IdProdutor);
-            builder.Property(produtor => produtor.IdProdutor).UseIdentityColumn();            
+            builder.Property(produtor => produtor.IdProdutor).UseIdentityColumn();
             builder.Property(produtor => produtor.Nome).HasMaxLength(50).IsRequired();
             builder.Property(produtor => produtor.CPF).HasMaxLength(11).IsRequired();
 

@@ -1,11 +1,6 @@
-﻿using ControleDeVacinacaoBovina.Models;
-using ControleDeVacinacaoBovina.Models.Dtos;
+﻿using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Services.RegistrosVacinas;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
@@ -30,7 +25,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         [HttpPost]
         public async Task<ActionResult> Incluir(RegistroVacinacaoDto registroVacina)
         {
-            return await registroVacinaService.Incluir(registroVacina);                                               
+            return await registroVacinaService.Incluir(registroVacina);
         }
 
         [HttpDelete("{id}")]

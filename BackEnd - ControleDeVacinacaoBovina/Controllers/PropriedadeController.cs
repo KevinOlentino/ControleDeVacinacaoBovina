@@ -1,11 +1,6 @@
-﻿    using ControleDeVacinacaoBovina.Models;
-using ControleDeVacinacaoBovina.Models.Dtos;
+﻿using ControleDeVacinacaoBovina.Models.Dtos;
 using ControleDeVacinacaoBovina.Services.Propriedades;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
@@ -32,7 +27,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         {
             return await propriedadeService.GetByProdutor(idProdutor);
         }
-        
+
         [HttpPost]
         public async Task<ActionResult> Incluir(PropriedadeDto propriedade)
         {
@@ -40,7 +35,7 @@ namespace ControleDeVacinacaoBovina.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult> Editar(int id,PropriedadeDto propriedade)
+        public async Task<ActionResult> Editar(int id, PropriedadeDto propriedade)
         {
             return await propriedadeService.Editar(id, propriedade);
         }

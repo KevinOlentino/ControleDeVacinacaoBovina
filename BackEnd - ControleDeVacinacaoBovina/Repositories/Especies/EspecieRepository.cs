@@ -1,5 +1,5 @@
-﻿using ControleDeVacinacaoBovina.Models;
-using ControleDeVacinacaoBovina.DbMappings;
+﻿using ControleDeVacinacaoBovina.DbMappings;
+using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Repository;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Repositories.Especies
 {
-    public class EspecieRepository : BaseRepository,IEspecieRepository
+    public class EspecieRepository : BaseRepository, IEspecieRepository
     {
         public EspecieRepository(Contexto novoContexto) : base(novoContexto)
         {

@@ -1,5 +1,5 @@
-﻿using ControleDeVacinacaoBovina.Models;
-using ControleDeVacinacaoBovina.DbMappings;
+﻿using ControleDeVacinacaoBovina.DbMappings;
+using ControleDeVacinacaoBovina.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
 {
     public class VendaRepository : BaseRepository, IVendaRepository
     {
-        public VendaRepository(Contexto novoContexto) : base(novoContexto){ }
+        public VendaRepository(Contexto novoContexto) : base(novoContexto) { }
         public void Cancelar(Venda venda)
         {
             venda.SetAtivo(false);
@@ -45,7 +45,8 @@ namespace ControleDeVacinacaoBovina.Repository.Vendas
                                     .FirstOrDefault(x => x.IdVenda == id);
         }
 
-        public IEnumerable<Venda> GetByRebanho(int idRebanho) {
+        public IEnumerable<Venda> GetByRebanho(int idRebanho)
+        {
             return _contexto.Vendas.AsNoTracking().Where(x => x.IdRebanho == idRebanho);
         }
 

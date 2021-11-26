@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace ControleDeVacinacaoBovina.Repositories.TipoDeEntradas
 {
-    public class TipoDeEntradaRepository: BaseRepository,ITipoDeEntradaRepository
+    public class TipoDeEntradaRepository : BaseRepository, ITipoDeEntradaRepository
     {
         public TipoDeEntradaRepository(Contexto novoContexto) : base(novoContexto)
         {

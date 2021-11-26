@@ -1,5 +1,4 @@
 using ControleDeVacinacaoBovina.DbMappings;
-using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Repositories.Animais;
 using ControleDeVacinacaoBovina.Repositories.Enderecos;
 using ControleDeVacinacaoBovina.Repositories.Especies;
@@ -46,9 +45,9 @@ namespace ControleDeVacinacaoBovina
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-                   
+
             services.AddDbContext<Contexto>(option => option.UseSqlServer(Configuration.GetConnectionString("DbContext")));
-            
+
             services.AddScoped<IPropriedadeService, PropriedadeService>();
             services.AddScoped<IPropriedadeRepository, PropriedadeRepository>();
 
@@ -90,13 +89,13 @@ namespace ControleDeVacinacaoBovina
             services.AddCors(options => options.AddDefaultPolicy(
                         builder => builder.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
                         ));
-            
+
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ControleDeVacinacaoBovina", Version = "v1" });
             });
-            
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

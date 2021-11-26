@@ -71,31 +71,31 @@ namespace ControleDeVacinacaoBovina.Services.Rebanhos
 
         public void Incluir(Rebanho rebanho)
         {
-                Rebanho rebanhoOld = rebanhoRepository.GetByPropriedade(rebanho.IdPropriedade)
-                                                      .FirstOrDefault(x => x.IdEspecie == rebanho.IdEspecie);
+            Rebanho rebanhoOld = rebanhoRepository.GetByPropriedade(rebanho.IdPropriedade)
+                                                  .FirstOrDefault(x => x.IdEspecie == rebanho.IdEspecie);
 
-                if(rebanhoOld == null)
+            if (rebanhoOld == null)
+            {
+                rebanhoRepository.Incluir(new Rebanho()
                 {
-                    rebanhoRepository.Incluir(new Rebanho()
-                    {
-                        QuantidadeTotal = rebanho.QuantidadeTotal,
-                        QuantidadeVacinada = rebanho.QuantidadeVacinada,
-                        IdEspecie = rebanho.IdEspecie,
-                        IdPropriedade = rebanho.IdPropriedade
-                    });
-                }                
-                else
-                {
-                    rebanhoOld.QuantidadeTotal += rebanho.QuantidadeTotal;
-                    rebanhoOld.QuantidadeVacinada += rebanho.QuantidadeVacinada;
-                    Editar(rebanhoOld);
-                }
-        }                
+                    QuantidadeTotal = rebanho.QuantidadeTotal,
+                    QuantidadeVacinada = rebanho.QuantidadeVacinada,
+                    IdEspecie = rebanho.IdEspecie,
+                    IdPropriedade = rebanho.IdPropriedade
+                });
+            }
+            else
+            {
+                rebanhoOld.QuantidadeTotal += rebanho.QuantidadeTotal;
+                rebanhoOld.QuantidadeVacinada += rebanho.QuantidadeVacinada;
+                Editar(rebanhoOld);
+            }
+        }
 
         public void SubtrairRebanho(Rebanho rebanho)
         {
-            Rebanho rebanhoOld = rebanhoRepository.GetByPropriedade(rebanho.IdPropriedade).FirstOrDefault( x => x.IdEspecie == rebanho.IdEspecie);
-          
+            Rebanho rebanhoOld = rebanhoRepository.GetByPropriedade(rebanho.IdPropriedade).FirstOrDefault(x => x.IdEspecie == rebanho.IdEspecie);
+
 
             rebanhoOld.QuantidadeTotal -= rebanho.QuantidadeTotal;
             rebanhoOld.QuantidadeVacinada -= rebanho.QuantidadeVacinada;

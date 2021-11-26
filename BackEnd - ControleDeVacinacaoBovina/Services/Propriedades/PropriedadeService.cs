@@ -21,7 +21,7 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
         {
             propriedadeDto.Endereco.IdEndereco = null;
             propriedadeDto.SetInscricaoEstadual();
-            Propriedade propriedade = propriedadeDto.DtoToPropriedade(propriedadeDto);           
+            Propriedade propriedade = propriedadeDto.DtoToPropriedade(propriedadeDto);
             var response = new ResponseDto<Propriedade>(EStatusCode.OK, null);
             try
             {
@@ -32,11 +32,11 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
                 response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
             return response.ResultAsync();
-            
+
         }
 
         public async Task<ObjectResult> Editar(int id, PropriedadeDto propriedadeDto)
-        {            
+        {
             var response = new ResponseDto<Produtor>(EStatusCode.OK, null);
 
             try
@@ -49,13 +49,13 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
 
                 propriedadeRepository.Editar(propriedadeAtualizada);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 response.AddException(ex, EStatusCode.BAD_REQUEST);
             }
 
             return await response.ResultAsync();
-                                 
+
         }
 
         public async Task<ObjectResult> GetByInscricao(string InscricaoEstadual)
@@ -77,7 +77,7 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
                 response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
             }
 
-            return await response.ResultAsync();               
+            return await response.ResultAsync();
         }
 
         public async Task<ObjectResult> GetByProdutor(int idProdutor)
@@ -100,6 +100,6 @@ namespace ControleDeVacinacaoBovina.Services.Propriedades
                 response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
             }
             return await response.ResultAsync();
-        }                    
+        }
     }
 }

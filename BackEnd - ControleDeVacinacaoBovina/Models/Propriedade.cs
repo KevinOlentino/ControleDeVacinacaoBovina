@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ControleDeVacinacaoBovina.Models
 {
@@ -20,13 +17,13 @@ namespace ControleDeVacinacaoBovina.Models
         public List<Venda> Origem;
         public List<Venda> Destino;
 
-        public int GetEndereco()    
+        public int GetEndereco()
         {
             return IdEndereco;
         }
         public int GetProdutor()
         {
             return IdProdutor;
-        }        
+        }
     }
 }

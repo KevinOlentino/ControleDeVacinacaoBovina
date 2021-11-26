@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ControleDeVacinacaoBovina.Models.Dtos
+﻿namespace ControleDeVacinacaoBovina.Models.Dtos
 {
     public enum EStatusCode
     {

@@ -1,10 +1,10 @@
-﻿using ControleDeVacinacaoBovina.Repository;
+﻿using ControleDeVacinacaoBovina.DbMappings;
 using ControleDeVacinacaoBovina.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+using ControleDeVacinacaoBovina.Repository;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
-using ControleDeVacinacaoBovina.DbMappings;
+using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Repositories.Produtores
 {

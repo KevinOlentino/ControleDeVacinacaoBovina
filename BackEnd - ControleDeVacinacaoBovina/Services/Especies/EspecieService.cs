@@ -4,12 +4,11 @@ using ControleDeVacinacaoBovina.Repositories.Especies;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Services.Especies
 {
-    public class EspecieService: IEspecieService
+    public class EspecieService : IEspecieService
     {
         private readonly IEspecieRepository especieRepository;
 
@@ -30,7 +29,7 @@ namespace ControleDeVacinacaoBovina.Services.Especies
                 response.AddException(ex, EStatusCode.INTERNAL_SERVER_ERROR);
             }
             return await response.ResultAsync();
-  
+
         }
 
         public Task<Especie> GetById(int id)

@@ -1,5 +1,5 @@
-﻿using ControleDeVacinacaoBovina.Models;
-using ControleDeVacinacaoBovina.DbMappings;
+﻿using ControleDeVacinacaoBovina.DbMappings;
+using ControleDeVacinacaoBovina.Models;
 using ControleDeVacinacaoBovina.Repository;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +14,7 @@ namespace ControleDeVacinacaoBovina.Repositories.Municipios
 
         public IEnumerable<Municipio> GetAll()
         {
-           return _contexto.Municipios.ToList();
+            return _contexto.Municipios.ToList();
         }
 
         public Municipio GetId(int id)

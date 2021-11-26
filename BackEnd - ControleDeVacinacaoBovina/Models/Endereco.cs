@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace ControleDeVacinacaoBovina.Models
 {
@@ -9,7 +6,7 @@ namespace ControleDeVacinacaoBovina.Models
     {
         public int? IdEndereco { get; set; }
         public string Rua { get; set; }
-        public string Numero { get;set; }
+        public string Numero { get; set; }
         public int IdMunicipio { get; set; }
         public Municipio Municipio { get; }
 

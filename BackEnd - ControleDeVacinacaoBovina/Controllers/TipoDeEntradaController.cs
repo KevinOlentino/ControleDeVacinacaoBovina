@@ -1,10 +1,5 @@
-﻿using ControleDeVacinacaoBovina.Models;
-using ControleDeVacinacaoBovina.Services.TipoDeEntradas;
-using Microsoft.AspNetCore.Http;
+﻿using ControleDeVacinacaoBovina.Services.TipoDeEntradas;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ControleDeVacinacaoBovina.Controllers
@@ -23,6 +18,6 @@ namespace ControleDeVacinacaoBovina.Controllers
         public async Task<ActionResult> GetAll()
         {
             return await tipoDeEntradaService.GetAll();
-        }        
+        }
     }
 }

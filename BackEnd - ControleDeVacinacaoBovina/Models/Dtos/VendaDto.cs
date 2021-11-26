@@ -7,7 +7,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
     {
         public int IdVenda { get; set; }
         [Required(ErrorMessage = ("Quantidade não pode ser nula"))]
-        [Range(1,int.MaxValue, ErrorMessage = "Quantidade não pode ser menor que 1")]
+        [Range(1, int.MaxValue, ErrorMessage = "Quantidade não pode ser menor que 1")]
         public int Quantidade { get; set; }
 
         [Required(ErrorMessage = "Propriedade de Origem não pode ser nula")]
@@ -19,7 +19,7 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         public int IdDestino { get; set; }
 
         [Required(ErrorMessage = "Especie não pode ser nula")]
-        [Range (1, int.MaxValue,ErrorMessage = "Especie não pode ser 0")]
+        [Range(1, int.MaxValue, ErrorMessage = "Especie não pode ser 0")]
         public int IdRebanho { get; set; }
 
         [Required(ErrorMessage = "Finalidade de venda não pode ser nula")]
@@ -27,7 +27,8 @@ namespace ControleDeVacinacaoBovina.Models.Dtos
         public int IdFinalidadeDeVenda { get; set; }
         public DateTime DataDeVenda { get; private set; } = DateTime.Now;
 
-        public Venda DtoToVenda(VendaDto finalidadeDeVenda) {
+        public Venda DtoToVenda(VendaDto finalidadeDeVenda)
+        {
             return new Venda
             {
                 IdVenda = finalidadeDeVenda.IdVenda,
