@@ -20,11 +20,11 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{propriedade.nome}}</h5>
-          <p class="card-text">Inscrição Estadual: {{propriedade.inscricaoEstadual}}</p>
+          <p class="card-text">Inscrição Estadual: {{propriedade.inscricaoEstadual.slice(0,2)}}.{{propriedade.inscricaoEstadual.slice(2,5)}}.{{propriedade.inscricaoEstadual.slice(5,8)}}-{{propriedade.inscricaoEstadual[8]}}</p>
           <p class="card-text">Rua: {{propriedade.endereco.rua}}, {{propriedade.endereco.numero}}</p>
           <p class="card-text">Municipio: {{propriedade.endereco.municipio.nome}}</p>
           <p class="card-text">Produtor: {{propriedade.produtor.nome}}</p>
-          <p class="card-text">CPF: {{propriedade.produtor.cpf}}</p>
+          <p class="card-text">CPF: {{propriedade.produtor.cpf.slice(0,3)}}.{{propriedade.produtor.cpf.slice(3,6)}}.{{propriedade.produtor.cpf.slice(6,9)}}-{{propriedade.produtor.cpf.slice(9,11)}}</p>
           <a href="#editarPropriedade" data-bs-toggle="modal" class="btn btn-warning fas fa-edit" (click)="getPropriedade(propriedade)"></a>
           <a type="button" class="btn btn-primary ms-1" (click)="redirecionarParaPropriedade(propriedade.inscricaoEstadual)">Detalhes</a>
         </div>

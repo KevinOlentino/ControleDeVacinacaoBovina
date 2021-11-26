@@ -12,7 +12,7 @@
               [(ngModel)]="idPropriedade">
         <option selected value="0">Todos os Registros</option>
         <option *ngFor="let propriedade of propriedades"
-                value="{{propriedade.idPropriedade}}">{{propriedade.inscricaoEstadual}} - {{propriedade.nome}}</option>
+                value="{{propriedade.idPropriedade}}">{{propriedade.inscricaoEstadual.slice(0, 2)}}.{{propriedade.inscricaoEstadual.slice(2, 5)}}.{{propriedade.inscricaoEstadual.slice(5, 8)}}-{{propriedade.inscricaoEstadual[8]}} - {{propriedade.nome}}</option>
       </select>
     </div>
     <ng-container *ngIf="animais.length == 0">
@@ -33,7 +33,7 @@
           <p class="card-text">Quantidade Total: {{animal.quantidadeTotal}}</p>
           <p class="card-text">Quantidade Vacinada: {{animal.quantidadeVacinada}}</p>
           <p class="card-text">Especie: {{animal.especie.nome}}</p>
-          <p class="card-text">Inscricao Estadual: {{animal.propriedade.inscricaoEstadual}}</p>
+          <p class="card-text">Inscricao Estadual: {{animal.propriedade.inscricaoEstadual.slice(0, 2)}}.{{animal.propriedade.inscricaoEstadual.slice(2, 5)}}.{{animal.propriedade.inscricaoEstadual.slice(5, 8)}}-{{animal.propriedade.inscricaoEstadual[8]}}</p>
           <p class="card-text">Tipo De Entrada: {{animal.tipoDeEntrada.nome}}</p>
         </div>
       </div>

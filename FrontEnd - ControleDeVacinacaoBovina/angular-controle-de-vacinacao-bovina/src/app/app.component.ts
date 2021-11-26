@@ -17,7 +17,7 @@ export class AppComponent {
   setProdutor(id: Number,nome: string){
     localStorage.setItem('nomeProdutor', `${nome.split(" ")[0]} ${nome.split(" ")[1]} `)
     localStorage.setItem('idProdutor', id.toString());
-    this.nomeProdutor = nome.split(" ")[0];
+    this.nomeProdutor = `${nome.split(" ")[0]} ${nome.split(" ")[1]} `;
     this.cd.detectChanges();
   }
 

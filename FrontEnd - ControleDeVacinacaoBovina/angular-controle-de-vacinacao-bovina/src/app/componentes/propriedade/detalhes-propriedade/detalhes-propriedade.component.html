@@ -8,7 +8,7 @@
         <div class="col-lg-6 mx-auto">
           <p class="lead mb-2">Rua: {{propriedade.endereco.rua}}, {{propriedade.endereco.numero}}</p>
           <p class="lead mb-4">Produtor: {{propriedade.produtor.nome}}</p>
-          <p class="lead mb-4">Inscrição Estadual: {{propriedade.inscricaoEstadual}}</p>
+          <p class="lead mb-4">Inscrição Estadual: {{propriedade.inscricaoEstadual.slice(0,2)}}.{{propriedade.inscricaoEstadual.slice(2,5)}}.{{propriedade.inscricaoEstadual.slice(5,8)}}-{{propriedade.inscricaoEstadual[8]}}</p>
         </div>
         <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
           <button type="button" class="btn btn-warning btn-lg px-4 gap-3" data-bs-toggle="modal" href="#editarPropriedade">Editar Propriedade</button>
@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <h1 class="display-6 text-center">Rebanhos</h1>
         <table class="table table-striped table-hover">
           <thead>
@@ -41,8 +41,8 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
-        <h1 class="display-6 text-center">Animal</h1>
+      <div class="col-lg-6">
+        <h1 class="display-6 text-center">Entrada de Animais</h1>
         <table class="table table-striped table-hover">
           <thead>
           <tr *ngIf="animals.length > 0">
@@ -67,7 +67,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <h1 class="display-6 text-center">Vendas</h1>
         <table class="table table-striped table-hover">
           <thead>
@@ -94,7 +94,7 @@
           </div>
         </div>
       </div>
-      <div class="col-md-6">
+      <div class="col-lg-6">
         <h1 class="display-6 text-center">Registros de Vacinas</h1>
         <table class="table table-striped table-hover">
           <thead>

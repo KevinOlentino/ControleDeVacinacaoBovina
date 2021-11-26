@@ -26,8 +26,12 @@ export class ListarProdutorComponent implements OnInit {
     )
   }
 
-  selecionarProdutor(id: Number, nome: string, cpf:string){
+  selecionarProdutor(id: Number, nome: string){
     this.app.setProdutor(id,nome);
+    this.router.navigate([``])
+  }
+
+  detalhesProdutor(cpf:string){
     this.router.navigate([`/Produtor/${cpf}`])
   }
 
