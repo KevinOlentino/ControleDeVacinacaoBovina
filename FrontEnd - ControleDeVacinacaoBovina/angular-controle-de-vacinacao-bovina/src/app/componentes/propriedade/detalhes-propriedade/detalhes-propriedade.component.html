@@ -82,9 +82,8 @@
           <tr *ngFor="let venda of vendas">
             <th scope="row">{{venda.quantidade}}</th>
             <td>{{venda.destino.nome}}</td>
-            <td>{{venda.rebanho.especie}}</td>
+            <td>{{venda.rebanho.especie.nome}}</td>
             <td>{{venda.finalidadeDeVenda.nome}}</td>
-            <td>Abate</td>
           </tr>
           </tbody>
         </table>
