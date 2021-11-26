@@ -1,4 +1,4 @@
-import {Component, Input, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, Input, OnInit, ViewChild} from '@angular/core';
 import {Produtor} from "../../../entities/produtor";
 import {Municipio} from "../../../entities/municipio";
 import {Propriedade} from "../../../entities/propriedade";
@@ -12,14 +12,16 @@ import {HttpErrorResponse} from "@angular/common/http";
   templateUrl: './editar-propriedade.component.html',
   styleUrls: ['./editar-propriedade.component.css']
 })
-export class EditarPropriedadeComponent implements OnInit {
+export class EditarPropriedadeComponent implements OnInit,AfterViewInit {
 
   @Input("propriedade") propriedade: Propriedade = new Propriedade();
   municipios: Municipio[] = [];
   @ViewChild('buttonClose')
   private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
+  @ViewChild('frm')
+  private frm!: NgForm;
 
-  private error: any;
+  error: any;
 
   constructor(private propriedadeService: PropriedadeService, private municipioService: MunicipioService) { }
 
@@ -28,6 +30,15 @@ export class EditarPropriedadeComponent implements OnInit {
       dados => this.municipios = dados,
       error => console.log(error)
     )
+  }
+
+  ngAfterViewInit() {
+    // @ts-ignore
+    document.getElementById('editarPropriedade').addEventListener('hidden.bs.modal',
+      (event) => {
+        this.error = ''
+        this.frm.form.reset();
+      }, false)
   }
 
   editarPropriedade(frm: NgForm){
@@ -47,7 +58,15 @@ export class EditarPropriedadeComponent implements OnInit {
     this.error = error.error
     if (this.error.error != undefined)
       alert(this.error.error);
-    if(this.error.exception)
-      alert("Ops! Ocorreu um Erro, tente novamente ou mais tarde, se esse erro persistir contate a empresa!")
+    if(this.error.errors != undefined){
+      let error: string[] = [];
+      this.error = this.error.errors;
+      if(this.error["Endereco.Rua"][0] != undefined)
+        this.error.Rua = this.error["Endereco.Rua"][0]
+      if(this.error["Endereco.Numero"][0] != undefined)
+        this.error.Numero = this.error["Endereco.Numero"][0]
+      if(this.error["Endereco.IdMunicipio"][0] != undefined)
+        this.error.Municipio = this.error["Endereco.IdMunicipio"][0]
+    }
   }
 }

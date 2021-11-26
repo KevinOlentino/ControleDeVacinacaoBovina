@@ -9,19 +9,31 @@
           <div class="col-md-6">
             <label for="inputNome" class="form-label">Nome</label>
             <input type="email" name="nome" class="form-control" id="inputNome" [(ngModel)]="produtor.nome">
+            <div *ngIf="error != undefined && error.Nome != undefined" class="col-12 text-danger">
+              {{error.Nome[0]}}
+            </div>
           </div>
           <div class="col-md-6">
             <label for="inputCPF" class="form-label">CPF</label>
             <input disabled type="text" name="cpf" class="form-control" id="inputCPF" [(ngModel)]="produtor.cpf">
+            <div *ngIf="error != undefined && error.CPF != undefined" class="col-12 text-danger">
+              {{error.CPF[0]}}
+            </div>
           </div>
           <div class="col-md-10">
             <label for="inputRua" class="form-label">Rua</label>
             <input type="text" name="rua" class="form-control" id="inputRua" [(ngModel)]="produtor.endereco.rua">
+            <div *ngIf="error != undefined && error.Rua != undefined" class="col-12 text-danger">
+              {{error.Rua}}
+            </div>
           </div>
           <div class="col-md-2">
             <label for="inputNumero" class="form-label">Numero</label>
             <input type="text" name="numero" class="form-control" id="inputNumero"
                    [(ngModel)]="produtor.endereco.numero">
+            <div *ngIf="error != undefined && error.Numero != undefined" class="col-12 text-danger">
+              {{error.Numero}}
+            </div>
           </div>
           <div class="col-md-4">
             <label for="inputState" class="form-label">Estado</label>
@@ -29,6 +41,9 @@
               <option *ngFor="let municipio of municipios" [ngValue]="municipio.idMunicipio">{{municipio.nome}}
                 - {{municipio.estado}}</option>
             </select>
+            <div *ngIf="error != undefined && error.Municipio != undefined" class="col-12 text-danger">
+              Selecione um municipio!
+            </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-success">Atualizar</button>

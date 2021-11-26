@@ -27,7 +27,7 @@ export class IncluirRegistrovacinaComponent implements OnInit, AfterViewInit {
   @ViewChild('buttonClose')
   private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
 
-  private error: any;
+  error: any;
 
   constructor(private registroVacinaService: RegistrovacinaService, private rebanhoService: RebanhoService,
               private vacinaService: VacinaService) {
@@ -59,6 +59,8 @@ export class IncluirRegistrovacinaComponent implements OnInit, AfterViewInit {
     document.getElementById('adicionarRegistroVacina').addEventListener('hidden.bs.modal',
       (event) => {
         this.frm.form.reset({"idAnimal": 0, "idVacina": 0})
+        this.registroVacina = new RegistroVacina();
+        this.error = undefined;
       }, false)
   }
 
@@ -78,5 +80,9 @@ export class IncluirRegistrovacinaComponent implements OnInit, AfterViewInit {
     this.error = error.error
     if (this.error.error != undefined)
       alert(this.error.error);
+    if(this.error.errors != undefined) {
+      let error: string[] = [];
+      this.error = this.error.errors;
+    }
   }
 }

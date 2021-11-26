@@ -124,6 +124,11 @@ namespace ControleDeVacinacaoBovina.Services.Animais
                 response.AddError("QuantidadeVacinada", "A quantidade de animal vacinada não pode ser maior que o total de animais.");
                 response.StatusCode = EStatusCode.BAD_REQUEST;
             }
+            if(animal.IdEspecie == 0 || animal.IdPropriedade == 0 || animal.IdTipoDeEntrada == 0)
+            {
+                response.AddError("Id", "IdPropriedade ou IdEspecie ou IdTipoDeEntrada não pode ser 0!");
+                response.StatusCode = EStatusCode.BAD_REQUEST;
+            }
             try
             {
                 if (!response.Errors.Any())

@@ -10,6 +10,9 @@
             <label for="inputQuantidade" class="form-label">Quantidade</label>
             <input type="text" name="nome" pattern="[0-9]+" class="form-control" id="inputQuantidade"
                    [(ngModel)]="venda.quantidade">
+            <div *ngIf="error != undefined && error.Quantidade != undefined && frm.submitted" class="col-12 text-danger">
+              Insira um valor valido!
+            </div>
           </div>
           <div class="col-md-9">
             <label for="inputFinalidadeDeVenda" class="form-label">Finalidade de Venda</label>
@@ -19,6 +22,9 @@
               <option *ngFor="let finalidadeDeVenda of finalidadesDeVenda"
                       value="{{finalidadeDeVenda.idFinalidadeDeVenda}}">{{finalidadeDeVenda.nome}}</option>
             </select>
+            <div *ngIf="error != undefined && venda.idFinalidadeDeVenda == 0 && frm.submitted" class="col-12 text-danger">
+              Selecione uma Finalidade!
+            </div>
           </div>
           <div class="col-md-8">
             <label for="inputOrigem" class="form-label">Origem</label>
@@ -28,6 +34,9 @@
               <option *ngFor="let propriedade of propriedades"
                       value="{{propriedade.idPropriedade}}">{{propriedade.nome}}</option>
             </select>
+            <div *ngIf="error != undefined && error.IdOrigem != undefined" class="col-12 text-danger">
+              Selecione uma Origem!
+            </div>
           </div>
           <div class="col-md-4">
             <label for="inputEspecie" class="form-label">Especie</label>
@@ -35,11 +44,17 @@
               <option value="0" selected>Selecione uma Especie</option>
               <option *ngFor="let rebanho of rebanhos" value="{{rebanho.idRebanho}}">{{rebanho.especie.nome}}</option>
             </select>
+            <div *ngIf="error != undefined && venda.idRebanho == 0 && frm.submitted" class="col-12 text-danger">
+              Selecione uma Especie!
+            </div>
           </div>
           <div class="col-md-5">
-            <label for="inputDestino" class="form-label">Destino</label>
+            <label for="inputDestino" class="form-label">Destino (Somente Numero)</label>
             <input type="text" name="Destino" placeholder="Inscrição Estadual do Destino" pattern="[0-9]+" class="form-control" id="inputDestino"
                    [(ngModel)]="inscricaoEstadual">
+            <div *ngIf="error != undefined && error.IdDestino != undefined" class="col-12 text-danger">
+              Insira uma Inscrição Estadual Valida!
+            </div>
           </div>
           <div class="col-md-5 p-md-4 mt-2">
             <button type="button" class="btn btn-primary" (click)="verifyPropriedade()">Verificar Destino</button>

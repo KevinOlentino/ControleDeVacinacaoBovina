@@ -35,7 +35,7 @@ export class IncluirVendaComponent implements OnInit, AfterViewInit {
   @ViewChild('buttonClose')
   private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
 
-  private error: any;
+  error: any;
 
   private today: Date = new Date();
 
@@ -63,6 +63,8 @@ export class IncluirVendaComponent implements OnInit, AfterViewInit {
       (event) => {
       this.propriedadeDestino = new Propriedade();
         this.frm.reset({idFinalidadeDeVenda:0,idOrigem:0,idRebanho:0})
+        this.error = undefined;
+        this.venda = new Venda();
       }, false)
   }
 
@@ -86,10 +88,15 @@ export class IncluirVendaComponent implements OnInit, AfterViewInit {
     this.error = error.error
     if (this.error.error != undefined)
       alert(this.error.error);
+    if(this.error.errors != undefined) {
+      let error: string[] = [];
+      this.error = this.error.errors;
+      console.log(this.error)
+    }
   }
 
   verifyPropriedade(){
-      if(this.inscricaoEstadual.length < 9 || this.inscricaoEstadual.length > 10)
+      if(this.inscricaoEstadual == null|| this.inscricaoEstadual.length < 9 || this.inscricaoEstadual.length > 10)
           alert("Inscrição Estadual somente de 9 digitos")
       else
       this.propriedadeService.ObterPorInscricaoEstadual(this.inscricaoEstadual).subscribe(

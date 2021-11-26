@@ -21,7 +21,7 @@ export class IncluirPropriedadeComponent implements OnInit, AfterViewInit {
   @ViewChild('buttonClose')
   private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
 
-  private error: any;
+  error: any;
 
   constructor(private propriedadeService: PropriedadeService, private municipioService: MunicipioService) {
   }
@@ -38,6 +38,7 @@ export class IncluirPropriedadeComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     document.getElementById('adicionarPropriedade').addEventListener('hidden.bs.modal',
       (event) => {
+        this.error = ''
         this.frm.form.reset({idMunicipio: 0});
       }, false)
   }
@@ -60,5 +61,14 @@ export class IncluirPropriedadeComponent implements OnInit, AfterViewInit {
     this.error = error.error
     if (this.error.error != undefined)
       alert(this.error.error);
+    if(this.error.errors != undefined){
+      this.error = this.error.errors;
+      if(this.error["Endereco.Rua"][0] != undefined)
+        this.error.Rua = this.error["Endereco.Rua"][0]
+      if(this.error["Endereco.Numero"][0] != undefined)
+        this.error.Numero = this.error["Endereco.Numero"][0]
+      if(this.error["Endereco.IdMunicipio"][0] != undefined)
+        this.error.Municipio = this.error["Endereco.IdMunicipio"][0]
+    }
   }
 }

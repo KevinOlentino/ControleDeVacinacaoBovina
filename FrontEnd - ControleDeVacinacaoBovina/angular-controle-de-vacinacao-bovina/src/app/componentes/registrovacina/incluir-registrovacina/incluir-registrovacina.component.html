@@ -11,6 +11,9 @@
             <label for="inputQuantidade" class="form-label">Quantidade</label>
             <input type="text" pattern="[0-9]+" name="cpf" class="form-control" id="inputQuantidade"
                    [(ngModel)]="registroVacina.quantidade">
+            <div *ngIf="error != undefined && error.Quantidade != undefined" class="col-12 text-danger">
+              Especifique uma quantidade
+            </div>
           </div>
           <div class="col-md-10">
             <label for="inputDataDaVacina" class="form-label">Data da vacina</label>
@@ -24,6 +27,9 @@
               <option *ngFor="let rebanho of rebanhos" value="{{rebanho.idRebanho}}">
                 {{rebanho.especie.nome}}: {{rebanho.propriedade.nome}} - Restantes a Vacinar: {{rebanho.quantidadeTotal - rebanho.quantidadeVacinada}}</option>
             </select>
+            <div *ngIf="error != undefined && error.IdRebanho != undefined" class="col-12 text-danger">
+              Selecione um Rebanho!
+            </div>
           </div>
           <div class="col-md-4">
             <label for="inputVacina" class="form-label">Vacina</label>
@@ -32,6 +38,9 @@
               <option *ngFor="let vacina of vacinas" value="{{vacina.idVacina}}">{{vacina.doenca}}
                 - {{vacina.marca}}</option>
             </select>
+            <div *ngIf="error != undefined && error.IdVacina != undefined" class="col-12 text-danger">
+              Selecione uma Vacina!
+            </div>
           </div>
           <div class="modal-footer">
             <button type="submit" class="btn btn-success">Cadastrar</button>

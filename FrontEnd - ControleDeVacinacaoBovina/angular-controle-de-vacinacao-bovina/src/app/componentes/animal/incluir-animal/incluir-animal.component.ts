@@ -27,7 +27,7 @@ import {TipoDeEntradasService} from "../../../services/tipoDeEntradas/tipo-de-en
 })
 export class IncluirAnimalComponent implements OnInit, AfterViewInit {
 
-  @Input('animal') animal: Animal = new Animal();
+  animal: Animal = new Animal();
   propriedades: Propriedade[] = [];
   especies: Especie [] = []
   tipoDeEntradas: tipoDeEntradas [] = []
@@ -37,7 +37,7 @@ export class IncluirAnimalComponent implements OnInit, AfterViewInit {
   @ViewChild('buttonClose')
   private buttonClose: { nativeElement: { click: () => any; }; } | undefined;
 
-  private error: any;
+  error: any;
 
   constructor(private animalService: AnimalService, private especieService: EspecieService,
               private propriedadeService: PropriedadeService, private tipoDeEntradaService: TipoDeEntradasService) {
@@ -69,7 +69,9 @@ export class IncluirAnimalComponent implements OnInit, AfterViewInit {
     // @ts-ignore
     document.getElementById('adicionarAnimal').addEventListener('hidden.bs.modal',
       (event) => {
+        this.error = undefined;
         this.frm.form.reset({IdPropriedade: 0, idEspecie: 0})
+        this.animal = new Animal();
       }, false)
   }
 
@@ -91,5 +93,9 @@ export class IncluirAnimalComponent implements OnInit, AfterViewInit {
     this.error = error.error
     if (this.error.error != undefined)
       alert(this.error.error);
+    if(this.error.errors != undefined) {
+      let error: string[] = [];
+      this.error = this.error.errors;
+    }
   }
 }
